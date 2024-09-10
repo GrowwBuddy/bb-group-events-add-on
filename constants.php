@@ -1,0 +1,42 @@
+<?php
+/**
+ * The plugin constants.
+ *
+ * @package    Book_Manager
+ * @subpackage Constants
+ */
+
+/**
+ * Internal constants, not to be overridden
+ */
+if ( ! defined( 'GROUP_EVENTS_FOR_BUDDYBOSS_VERSION' ) ) {
+	define( 'GROUP_EVENTS_FOR_BUDDYBOSS_VERSION', '1.0.0' );
+}
+
+if ( ! defined( 'GROUP_EVENTS_FOR_BUDDYBOSS_PLUGIN_DIR_PATH' ) ) {
+	define( 'GROUP_EVENTS_FOR_BUDDYBOSS_PLUGIN_DIR_PATH', plugin_dir_path( __FILE__ ) );
+}
+
+if ( ! defined( 'GROUP_EVENTS_FOR_BUDDYBOSS_PLUGIN_URL_PATH' ) ) {
+	define( 'GROUP_EVENTS_FOR_BUDDYBOSS_PLUGIN_URL_PATH', plugin_dir_url( __FILE__ ) );
+}
+
+if ( ! defined( 'GROUP_EVENTS_FOR_BUDDYBOSS_INCLUDES_DIR_PATH' ) ) {
+	define( 'GROUP_EVENTS_FOR_BUDDYBOSS_INCLUDES_DIR_PATH', GROUP_EVENTS_FOR_BUDDYBOSS_PLUGIN_DIR_PATH . 'includes/' );
+}
+
+if ( ! defined( 'GROUP_EVENTS_FOR_BUDDYBOSS_ROOT_VIEW_DIR_PATH' ) ) {
+	define( 'GROUP_EVENTS_FOR_BUDDYBOSS_ROOT_VIEW_DIR_PATH', GROUP_EVENTS_FOR_BUDDYBOSS_PLUGIN_DIR_PATH . 'views/' );
+}
+
+if ( ! defined( 'GROUP_EVENTS_FOR_BUDDYBOSS_ROOT_ASSETS_DIR_PATH' ) ) {
+	define( 'GROUP_EVENTS_FOR_BUDDYBOSS_ROOT_ASSETS_DIR_PATH', GROUP_EVENTS_FOR_BUDDYBOSS_PLUGIN_DIR_PATH . 'assets/' );
+}
+
+if ( ! defined( 'GROUP_EVENTS_FOR_BUDDYBOSS_ROOT_ASSETS_URL_PATH' ) ) {
+	define( 'GROUP_EVENTS_FOR_BUDDYBOSS_ROOT_ASSETS_URL_PATH', GROUP_EVENTS_FOR_BUDDYBOSS_PLUGIN_URL_PATH . 'assets/' );
+}
+
+if ( ! defined( 'GROUP_EVENTS_FOR_BUDDYBOSS_LANGUAGES_DIR_PATH' ) ) {
+	define( 'GROUP_EVENTS_FOR_BUDDYBOSS_LANGUAGES_DIR_PATH', GROUP_EVENTS_FOR_BUDDYBOSS_PLUGIN_DIR_PATH . 'languages/' );
+}
