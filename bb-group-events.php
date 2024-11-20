@@ -120,7 +120,7 @@ if ( ! class_exists( 'BB_Group_Events' ) ) {
 		/**
 		 * Fires on database update.
 		 *
-		 * @param bool $network_wide If plugin is network active.
+		 * @since 1.0.0
 		 */
 		public function on_database_update() {
 			$this->create_tables();

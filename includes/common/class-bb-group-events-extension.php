@@ -22,6 +22,12 @@ if ( ! class_exists( 'BB_Group_Events_Extension' ) && class_exists( 'BP_Group_Ex
 	 *
 	 */
 	class BB_Group_Events_Extension extends BP_Group_Extension {
+
+		/**
+		 * BB_Group_Events_Extension constructor.
+		 *
+		 * @since 1.0.0
+		 */
 		public function __construct() {
 			$args = array(
 				'slug'              => 'group-events',
