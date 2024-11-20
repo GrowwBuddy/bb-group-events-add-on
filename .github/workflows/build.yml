@@ -38,7 +38,7 @@ jobs:
       - name: Upload Plugin ZIP
         uses: actions/upload-artifact@v3
         with:
-          name: bb-group-events-add-on
+          name: GrowwBuddyPlugin
           path: build/bb-group-events-add-on.zip
 
         env:
