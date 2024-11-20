@@ -1,0 +1,48 @@
+name: Build Plugin ZIP
+
+on:
+  push:
+    branches:
+      - main # Adjust to the branch you want to trigger this workflow on
+      - master
+      - dev
+      - action
+      - release
+
+jobs:
+  build-zip:
+    name: Build Plugin ZIP
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Set up PHP (if necessary)
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2' # Adjust to your required PHP version
+        tools: composer # Install composer if required
+
+    # Install dependencies (if any)
+    - name: Install Dependencies
+      run: |
+        if [ -f composer.json ]; then
+          composer install --no-dev
+        fi
+
+    # Generate the ZIP file
+    - name: Create Plugin ZIP
+      run: |
+        mkdir -p build
+        zip -r build/bb-group-event-addon.zip . \
+        -x "*.git*" "*.github*" "build/*" "node_modules/*" "tests/*"
+
+    # Upload the ZIP as an artifact (optional)
+    - name: Upload Plugin ZIP
+      uses: actions/upload-artifact@v3
+      with:
+        name: bb-group-event-addon
+        path: build/bb-group-event-addon.zip
