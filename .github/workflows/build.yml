@@ -41,5 +41,5 @@ jobs:
           name: bb-group-events-add-on
           path: build/bb-group-events-add-on.zip
 
-      env:
-        CI: true
+        env:
+          CI: true
