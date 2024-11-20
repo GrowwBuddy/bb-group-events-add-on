@@ -1,6 +1,6 @@
-=== Group Events for BuddyBoss ===
+=== BuddyBoss Group Events ===
 Contributors: growwbuddy
-Donate link: https://growwbuilder.com/
+Donate link: https://growwbuddy.com/
 Tags: buddyboss, buddyboss platform, buddyboss theme, buddyboss events, buddyboss groups, buddyboss community, buddyboss social network, buddyboss plugin, buddyboss customization, buddyboss development, buddyboss extensions, buddyboss features, buddyboss addons
 Requires at least: 5.0
 Tested up to: 6.3

@@ -1,4 +1,4 @@
-# Group Event for BuddyBoss
+# BuddyBoss Group Events
 
 Group Event for BuddyBoss is a plugin that allows you to create events for groups on BuddyBoss platform. This plugin is an extension of the BuddyBoss platform and requires BuddyBoss Platform installed and activated on your website.
 
