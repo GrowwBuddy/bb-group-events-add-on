@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: BuddyBoss Group Events Add-on
- * Plugin URI: https://growwbuddy.com
+ * Plugin URI: https://growwbuddy.com/product/bb-group-events-add-on/
  * Description: This plugin is used to manage the events for BuddyBoss groups.
  * Version: 1.0.0
  * Author: GrowwBuddy
