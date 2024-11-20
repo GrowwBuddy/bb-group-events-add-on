@@ -21,7 +21,7 @@ jQuery( document ).ready( function () {
             data: function(params) {
                 return {
                     q: params.term,
-                    action: 'get_bb_groups',
+                    action: 'bbgea_get_groups',
                     nonce: BBGroupEvents.nonce,
                 };
             },

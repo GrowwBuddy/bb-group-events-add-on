@@ -50,10 +50,10 @@ class BB_Group_Events_Admin {
 	 */
 	public function init() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-		add_filter( 'bp_admin_setting_groups_register_fields', array( $this, 'bb_admin_setting_groups_register_fields' ) );
+		add_filter( 'bp_admin_setting_groups_register_fields', array( $this, 'bbgea_admin_setting_groups_register_fields' ) );
 		add_filter( 'bb_admin_icons', array( $this, 'admin_setting_icons' ), 10, 2 );
-		add_filter( 'manage_' . bb_groups_event_get_post_type() . '_posts_columns', array( $this, 'bb_group_events_columns_head' ) );
-		add_action( 'manage_' . bb_groups_event_get_post_type() . '_posts_custom_column', array( $this, 'bb_group_events_columns_content' ), 10, 2 );
+		add_filter( 'manage_' . bbgea_groups_event_get_post_type() . '_posts_columns', array( $this, 'bbgea_group_events_columns_head' ) );
+		add_action( 'manage_' . bbgea_groups_event_get_post_type() . '_posts_custom_column', array( $this, 'bbgea_group_events_columns_content' ), 10, 2 );
 	}
 
 	/**
@@ -64,10 +64,10 @@ class BB_Group_Events_Admin {
 		wp_enqueue_script( 'select2-js', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js', array( 'jquery' ), null, true );
 		wp_enqueue_style( 'select2-css', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css', array(), null );
 
-		wp_enqueue_style( 'bb-group-events-admin', bb_group_events_dir_url( 'assets/css/admin.css' ), array(), BB_GROUP_EVENTS_VERSION );
+		wp_enqueue_style( 'bb-group-events-admin', bbgea_dir_url( 'assets/css/admin.css' ), array(), BB_GROUP_EVENTS_VERSION );
 		wp_enqueue_script(
 			'bb-group-events-admin',
-			bb_group_events_dir_url( 'assets/js/admin.js' ),
+			bbgea_dir_url( 'assets/js/admin.js' ),
 			array( 'jquery', 'select2-js' ),
 			BB_GROUP_EVENTS_VERSION,
 			true
@@ -79,7 +79,7 @@ class BB_Group_Events_Admin {
 			'BBGroupEvents',
 			array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
-				'nonce'    => wp_create_nonce( 'bb_group_events_admin_nonce' ),
+				'nonce'    => wp_create_nonce( 'bbgea_admin_nonce' ),
 			)
 		);
 		//wp_add_inline_script( 'select2-js', 'jQuery(document).ready(function($) { $(".select2-dropdown").select2(); });' );
@@ -89,29 +89,29 @@ class BB_Group_Events_Admin {
 	 * Register the settings fields.
 	 * @since 1.0.0
 	 */
-	public function bb_admin_setting_groups_register_fields( $admin_setting_groups ) {
-		$admin_setting_groups->add_section( 'bb_group_events_settings', __( 'Group Events', 'bb-group-events' ) );
+	public function bbgea_admin_setting_groups_register_fields( $admin_setting_groups ) {
+		$admin_setting_groups->add_section( 'bbgea_bb_settings', __( 'Group Events', 'bb-group-events' ) );
 
 		// enable or disable group events.
-		$admin_setting_groups->add_field( 'bb-disable-group-events', __( 'Enable Group Events', 'bb-group-events' ), array( $this, 'bb_enable_group_events' ), 'intval' );
+		$admin_setting_groups->add_field( 'bbgea-disable', __( 'Enable Group Events', 'bb-group-events' ), array( $this, 'bbgea_enable_group_events' ), 'intval' );
 	}
 
 	/**
 	 * Enable or disable group events.
 	 * @since 1.0.0
 	 */
-	public function bb_enable_group_events() {
+	public function bbgea_enable_group_events() {
 		?>
-		<input id="bb-disable-group-events" name="bb-disable-group-events" type="checkbox" value="1" <?php checked( bb_disable_group_event() ); ?> />
+		<input id="bbgea-disable" name="bbgea-disable" type="checkbox" value="1" <?php checked( bbgea_disable_group_event() ); ?> />
 		<?php
-		if ( true === bb_disable_group_event() ) {
+		if ( true === bbgea_disable_group_event() ) {
 			printf(
-				'<label for="bb-disable-group-events">%s</label>',
+				'<label for="bbgea-disable">%s</label>',
 				sprintf(
 					__( 'Enable <a href="%s">group events</a> to better organize groups events', 'bb-group-events' ),
 					add_query_arg(
 						array(
-							'post_type' => bb_groups_event_get_post_type(),
+							'post_type' => bbgea_groups_event_get_post_type(),
 						),
 						admin_url( 'edit.php' )
 					)
@@ -119,7 +119,7 @@ class BB_Group_Events_Admin {
 			);
 		} else {
 			?>
-			<label for="bb-disable-group-events"><?php esc_html_e( 'Enable group event to better organize groups events', 'bb-group-events' ); ?></label>
+			<label for="bbgea-disable"><?php esc_html_e( 'Enable group event to better organize groups events', 'bb-group-events' ); ?></label>
 			<?php
 		}
 	}
@@ -135,7 +135,7 @@ class BB_Group_Events_Admin {
 	 * @return string
 	 */
 	public function admin_setting_icons( $meta_icon, $id = '' ) {
-		if ( ! empty( $id ) && 'bb_group_events_settings' === $id ) {
+		if ( ! empty( $id ) && 'bbgea_bb_settings' === $id ) {
 			$meta_icon = 'bb-icon-bf bb-icon-calendar';
 		}
 
@@ -151,7 +151,7 @@ class BB_Group_Events_Admin {
 	 *
 	 * @return array
 	 */
-	public function bb_group_events_columns_head( $columns ) {
+	public function bbgea_group_events_columns_head( $columns ) {
 		$columns['group']      = __( 'Group', 'bb-group-events' );
 		$columns['event_date'] = __( 'Event Date', 'bb-group-events' );
 		$columns['total_rsvp'] = __( 'Total RSVP', 'bb-group-events' );
@@ -167,7 +167,7 @@ class BB_Group_Events_Admin {
 	 *
 	 * @since 1.0.0
 	 */
-	public function bb_group_events_columns_content( $column, $post_id ) {
+	public function bbgea_group_events_columns_content( $column, $post_id ) {
 		switch ( $column ) {
 			case 'group':
 				$event = BB_Group_Event_Manager::get_instance()->get_event( $post_id );

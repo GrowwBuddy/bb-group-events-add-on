@@ -240,7 +240,7 @@ class BB_Group_Event_Manager {
 	 */
 	public function get_events( $args = array() ) {
 		$default_args = array(
-			'post_type'      => bb_groups_event_get_post_type(),
+			'post_type'      => bbgea_groups_event_get_post_type(),
 			'posts_per_page' => 2,
 			'paged'          => 1,
 			'order'          => 'ASC',
@@ -328,8 +328,8 @@ class BB_Group_Event_Manager {
 			'location'    => get_post_meta( $event->ID, '_event_location', true ),
 			'type'        => get_post_meta( $event->ID, '_event_type', true ),
 			'group_id'    => $group_id,
-			'attendees'   => bb_get_event_attendees( $event->ID ),
-			'is_rsvp'     => is_user_logged_in() ? bb_get_group_event_rsvp( $event->ID, get_current_user_id() ) : false,
+			'attendees'   => bbgea_get_event_attendees( $event->ID ),
+			'is_rsvp'     => is_user_logged_in() ? bbgea_get_group_event_rsvp( $event->ID, get_current_user_id() ) : false,
 		);
 
 		return $event_item;

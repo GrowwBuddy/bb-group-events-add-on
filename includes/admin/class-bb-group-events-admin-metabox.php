@@ -55,7 +55,7 @@ class BB_Group_Events_Admin_MetaBox {
 		// Save metabox data
 		add_action( 'save_post', array( $this, 'save_metabox_data' ) );
 
-		add_action( 'wp_ajax_get_bb_groups', array( $this, 'get_bb_groups' ) );
+		add_action( 'wp_ajax_bbgea_get_groups', array( $this, 'bbgea_get_groups' ) );
 	}
 
 	/**
@@ -64,28 +64,28 @@ class BB_Group_Events_Admin_MetaBox {
 	 */
 	public function register_metaboxes() {
 		add_meta_box(
-			'bb_event_details_metabox',
+			'bbgea_event_details_metabox',
 			__( 'Event Details', 'bb-group-events' ),
 			array( $this, 'render_event_details_metabox' ),
-			bb_groups_event_get_post_type(),
+			bbgea_groups_event_get_post_type(),
 			'normal',
 			'high'
 		);
 
 		add_meta_box(
-			'bb_selected_group_metabox',
+			'bbgea_selected_group_metabox',
 			__( 'Selected Group', 'bb-group-events' ),
 			array( $this, 'render_selected_group_metabox' ),
-			bb_groups_event_get_post_type(),
+			bbgea_groups_event_get_post_type(),
 			'side',
 			'high'
 		);
 
 		add_meta_box(
-			'bb_group_members_metabox',
+			'bbgea_group_members_metabox',
 			__( 'Manage Event Members', 'bb-group-events' ),
 			array( $this, 'render_group_members_metabox' ),
-			bb_groups_event_get_post_type(),
+			bbgea_groups_event_get_post_type(),
 			'normal',
 			'high'
 		);
@@ -96,14 +96,14 @@ class BB_Group_Events_Admin_MetaBox {
 	 * @since 1.0.0
 	 */
 	public function render_event_details_metabox( $post ) {
-		wp_nonce_field( 'bb_group_event_details_nonce', 'bb_group_event_nonce' );
+		wp_nonce_field( 'bbgea_details_nonce', 'bbgea_nonce' );
 
 		$event_id   = $post->ID;
 		$start_date = get_post_meta( $event_id, '_event_start_date', true );
 		$end_date   = get_post_meta( $event_id, '_event_end_date', true );
 		$location   = get_post_meta( $event_id, '_event_location', true );
 		$event_type = get_post_meta( $event_id, '_event_type', true );
-		$attendees  = bb_get_event_attendees( $event_id );
+		$attendees  = bbgea_get_event_attendees( $event_id );
 
 		?>
 		<table class="form-table">
@@ -289,13 +289,13 @@ class BB_Group_Events_Admin_MetaBox {
 									$rsvp_status = $rsvp ? $rsvp->status : 'no';
 
 									?>
-									<label for="bb_member_rsvp-<?php echo esc_attr( $type_user->ID ); ?>" class="screen-reader-text">
+									<label for="bbgea_member_rsvp-<?php echo esc_attr( $type_user->ID ); ?>" class="screen-reader-text">
 										<?php
 										/* translators: accessibility text */
 										_e( 'Select group role for member', 'bb-group-event' );
 										?>
 									</label>
-									<select class="bb_member_rsvp" id="bb_member_rsvp-<?php echo esc_attr( $type_user->ID ); ?>" name="bb_member_rsvp[<?php echo esc_attr( $type_user->ID ); ?>]">
+									<select class="bbgea_member_rsvp" id="bbgea_member_rsvp-<?php echo esc_attr( $type_user->ID ); ?>" name="bbgea_member_rsvp[<?php echo esc_attr( $type_user->ID ); ?>]">
 										<option class="no" value="no" <?php selected( 'no', $rsvp_status ); ?>><?php esc_html_e( 'No', 'bb-group-event' ); ?></option>
 										<option class="yes" value="yes" <?php selected( 'yes', $rsvp_status ); ?>><?php esc_html_e( 'Yes', 'bb-group-event' ); ?></option>
 										<option class="maybe" value="maybe" <?php selected( 'maybe', $rsvp_status ); ?>><?php esc_html_e( 'Maybe', 'bb-group-event' ); ?></option>
@@ -324,7 +324,7 @@ class BB_Group_Events_Admin_MetaBox {
 	 * @since 1.0.0
 	 */
 	public function save_metabox_data( $post_id ) {
-		if ( ! isset( $_POST['bb_group_event_nonce'] ) || ! wp_verify_nonce( $_POST['bb_group_event_nonce'], 'bb_group_event_details_nonce' ) ) {
+		if ( ! isset( $_POST['bbgea_nonce'] ) || ! wp_verify_nonce( $_POST['bbgea_nonce'], 'bbgea_details_nonce' ) ) {
 			return;
 		}
 
@@ -344,9 +344,9 @@ class BB_Group_Events_Admin_MetaBox {
 			update_post_meta( $post_id, '_event_group_id', sanitize_text_field( $_POST['connected_group'] ) );
 		}
 
-		if ( isset( $_POST['bb_member_rsvp'] ) ) {
+		if ( isset( $_POST['bbgea_member_rsvp'] ) ) {
 			$event_id = $post_id;
-			$rsvps    = $_POST['bb_member_rsvp'];
+			$rsvps    = $_POST['bbgea_member_rsvp'];
 
 			foreach ( $rsvps as $user_id => $status ) {
 				$event_rsvp = BB_Group_Event_Manager::get_instance()->get_rsvp( $event_id, $user_id );
@@ -368,8 +368,8 @@ class BB_Group_Events_Admin_MetaBox {
 	 * AJAX callback to get BuddyBoss groups for Select2.
 	 * @since 1.0.0
 	 */
-	public function get_bb_groups() {
-		check_ajax_referer( 'bb_group_events_admin_nonce', 'nonce' );
+	public function bbgea_get_groups() {
+		check_ajax_referer( 'bbgea_admin_nonce', 'nonce' );
 
 		$search = isset( $_GET['q'] ) ? sanitize_text_field( $_GET['q'] ) : '';
 		$groups = groups_get_groups(

@@ -119,11 +119,11 @@ class BuddyBossGroupEvents {
             // AJAX request to get event data by `eventId`
             jQuery.ajax( {
                 type: 'GET',
-                url: bb_group_event_object.ajax_url,
+                url: bbgea_object.ajax_url,
                 data: {
                     action: 'fetch_group_event',
                     event_id: eventId,
-                    _wpnonce: bb_group_event_object.nonce,
+                    _wpnonce: bbgea_object.nonce,
                 },
                 success: ( response ) => {
                     if ( response.success ) {
@@ -212,7 +212,7 @@ class BuddyBossGroupEvents {
         // Data to send via AJAX
         const data = {
             action: 'group_event_save',
-            _wpnonce: bb_group_event_object.nonce,
+            _wpnonce: bbgea_object.nonce,
             event_id: eventId,
             title: title.val(),
             description: description,
@@ -227,7 +227,7 @@ class BuddyBossGroupEvents {
         jQuery.ajax(
             {
                 type: 'POST',
-                url: bb_group_event_object.ajax_url,
+                url: bbgea_object.ajax_url,
                 data: data,
                 success: ( response ) => {
                     setTimeout(
@@ -285,11 +285,11 @@ class BuddyBossGroupEvents {
         const eventId = jQuery( e.currentTarget ).data( 'event-id' );
         jQuery.ajax({
             type: 'GET',
-            url: bb_group_event_object.ajax_url,
+            url: bbgea_object.ajax_url,
             data: {
                 action: 'fetch_user_rsvp',
                 event_id: eventId,
-                _wpnonce: bb_group_event_object.nonce,
+                _wpnonce: bbgea_object.nonce,
             },
             success: (response) => {
                 if (response.success) {
@@ -321,7 +321,7 @@ class BuddyBossGroupEvents {
         // AJAX data payload
         const data = {
             action: 'save_user_rsvp',
-            _wpnonce: bb_group_event_object.nonce,
+            _wpnonce: bbgea_object.nonce,
             event_id: eventId,
             group_id: groupId,
             rsvp_status: rsvpStatus,
@@ -330,7 +330,7 @@ class BuddyBossGroupEvents {
 
         jQuery.ajax({
             type: 'POST',
-            url: bb_group_event_object.ajax_url,
+            url: bbgea_object.ajax_url,
             data: data,
             success: (response) => {
                 if (response.success) {
@@ -363,14 +363,14 @@ class BuddyBossGroupEvents {
         const groupID = jQuery('.gb-event-type-btn.active').data('group-id'); // Get the active event type
 
         jQuery.ajax({
-            url: bb_group_event_object.ajax_url,
+            url: bbgea_object.ajax_url,
             type: 'POST',
             data: {
                 action: 'load_events',
                 status: eventType,
                 group_id: groupID,
                 paged: page,
-                _wpnonce: bb_group_event_object.nonce,
+                _wpnonce: bbgea_object.nonce,
             },
             success: (response) => {
                 if (response.success) {

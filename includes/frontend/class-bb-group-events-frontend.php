@@ -68,21 +68,21 @@ class BB_Group_Events_FrontEnd {
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_editor();
-		wp_enqueue_style( 'bb-group-events-frontend', bb_group_events_dir_url( 'assets/css/frontend.css' ), array(), BB_GROUP_EVENTS_VERSION );
+		wp_enqueue_style( 'bbgea-frontend', bbgea_dir_url( 'assets/css/frontend.css' ), array(), BB_GROUP_EVENTS_VERSION );
 		wp_enqueue_script(
-			'bb-group-events-frontend',
-			bb_group_events_dir_url( 'assets/js/frontend.js' ),
+			'bbgea-frontend',
+			bbgea_dir_url( 'assets/js/frontend.js' ),
 			array( 'jquery' ),
 			BB_GROUP_EVENTS_VERSION,
 			true
 		);
 
 		wp_localize_script(
-			'bb-group-events-frontend',
-			'bb_group_event_object',
+			'bbgea-frontend',
+			'bbgea_object',
 			array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
-				'nonce'    => wp_create_nonce( 'bb_group_event_nonce' ),
+				'nonce'    => wp_create_nonce( 'bbgea_nonce' ),
 			)
 		);
 	}
@@ -92,10 +92,10 @@ class BB_Group_Events_FrontEnd {
 	 * @since 1.0.0
 	 */
 	public function enqueue_event_form_template() {
-		if ( bb_can_manage_group() ) {
-			include bb_group_events_get_template( 'events/manage/create-event.php' );
+		if ( bbgea_can_manage_group() ) {
+			include bbgea_group_events_get_template( 'events/manage/create-event.php' );
 		}
-		include bb_group_events_get_template( 'events/manage/edit-rsvp.php' );
+		include bbgea_group_events_get_template( 'events/manage/edit-rsvp.php' );
 	}
 
 	/**
@@ -103,8 +103,8 @@ class BB_Group_Events_FrontEnd {
 	 * @since 1.0.0
 	 */
 	public function load_event_template( $template ) {
-		if ( is_singular( bb_groups_event_get_post_type() ) ) {
-			$template = bb_group_events_get_template( 'single-bb-group-event.php' );
+		if ( is_singular( bbgea_groups_event_get_post_type() ) ) {
+			$template = bbgea_group_events_get_template( 'single-bb-group-event.php' );
 		}
 
 		return $template;
@@ -117,7 +117,7 @@ class BB_Group_Events_FrontEnd {
 	 */
 	public function fetch_group_event() {
 		// Check nonce for security.
-		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'bb_group_event_nonce' ) ) {
+		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'bbgea_nonce' ) ) {
 			wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
 
 			return;
@@ -135,7 +135,7 @@ class BB_Group_Events_FrontEnd {
 		// Retrieve event data.
 		$event_post = get_post( $event_id );
 
-		if ( ! $event_post || bb_groups_event_get_post_type() !== $event_post->post_type ) {
+		if ( ! $event_post || bbgea_groups_event_get_post_type() !== $event_post->post_type ) {
 			wp_send_json_error( array( 'message' => 'Event not found' ) );
 
 			return;
@@ -161,7 +161,7 @@ class BB_Group_Events_FrontEnd {
 	 * @since 1.0.0
 	 */
 	public function save_group_event() {
-		check_ajax_referer( 'bb_group_event_nonce', '_wpnonce' );
+		check_ajax_referer( 'bbgea_nonce', '_wpnonce' );
 
 		// Capture and sanitize inputs
 		$event_id       = ! empty( $_POST['event_id'] ) ? absint( $_POST['event_id'] ) : 0;
@@ -178,7 +178,7 @@ class BB_Group_Events_FrontEnd {
 			'post_title'   => $title,
 			'post_content' => $description,
 			'post_status'  => 'publish',
-			'post_type'    => bb_groups_event_get_post_type(), // Ensure this post type is registered
+			'post_type'    => bbgea_groups_event_get_post_type(), // Ensure this post type is registered
 		);
 
 		if ( $event_id ) {
@@ -204,7 +204,7 @@ class BB_Group_Events_FrontEnd {
 		// Prepare HTML for response
 		$event = BB_Group_Event_Manager::get_instance()->get_event( $event_id );
 		ob_start();
-		bb_group_events_include_template( 'events/list-item.php', array( 'event' => $event ) );
+		bbgea_group_events_include_template( 'events/list-item.php', array( 'event' => $event ) );
 		$event_html = ob_get_clean();
 
 		// Send the HTML as a response
@@ -219,7 +219,7 @@ class BB_Group_Events_FrontEnd {
 	 */
 	public function fetch_user_rsvp() {
 		// Check nonce for security.
-		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'bb_group_event_nonce' ) ) {
+		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'bbgea_nonce' ) ) {
 			wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
 
 			return;
@@ -247,7 +247,7 @@ class BB_Group_Events_FrontEnd {
 	 */
 	public function handle_user_rsvp() {
 		// Check nonce for security.
-		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'bb_group_event_nonce' ) ) {
+		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'bbgea_nonce' ) ) {
 			wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
 
 			return;
@@ -306,7 +306,7 @@ class BB_Group_Events_FrontEnd {
 	 */
 	public function load_events() {
 		// Check nonce for security.
-		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'bb_group_event_nonce' ) ) {
+		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'bbgea_nonce' ) ) {
 			wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
 
 			return;
@@ -328,7 +328,7 @@ class BB_Group_Events_FrontEnd {
 		if ( ! empty( $events_data['events'] ) ) {
 			foreach ( $events_data['events'] as $event ) {
 				ob_start();
-				bb_group_events_include_template( 'events/list-item.php', array( 'event' => $event ) );
+				bbgea_group_events_include_template( 'events/list-item.php', array( 'event' => $event ) );
 				$events_html .= ob_get_clean();
 			}
 		} else {

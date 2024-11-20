@@ -21,10 +21,10 @@ $post_author_id   = get_post_field( 'post_author', $event_id );
 $post_author_name = get_the_author_meta( 'display_name', $post_author_id );
 $event_banner     = wp_get_attachment_url( get_post_thumbnail_id( $event_id ) );
 $group_avatar_url = bp_get_group_avatar_url( $group );
-$group_attendees  = bb_get_event_attendees( $event_id );
+$group_attendees  = bbgea_get_event_attendees( $event_id );
 
 if ( empty( $group_avatar_url ) ) {
-	$group_avatar_url = bb_group_events_dir_url( 'assets/img/group-default.png' );
+	$group_avatar_url = bbgea_dir_url( 'assets/img/group-default.png' );
 }
 ?>
 
@@ -182,7 +182,7 @@ if ( empty( $group_avatar_url ) ) {
 										?>
 									</a>
 								</div>
-								<p><strong><?php echo esc_html( $group_attendee['name'] ); ?></strong><br><?php echo bb_get_user_role_in_group( $group_attendee['id'], $group_id ); ?></p>
+								<p><strong><?php echo esc_html( $group_attendee['name'] ); ?></strong><br><?php echo bbgea_get_user_role_in_group( $group_attendee['id'], $group_id ); ?></p>
 							</div>
 							<?php
 						endforeach;
@@ -194,7 +194,7 @@ if ( empty( $group_avatar_url ) ) {
 			</section>
 			<!-- Attend Button -->
 			<?php
-			$event_rsvp = bb_get_group_event_rsvp( $event_id, get_current_user_id() );
+			$event_rsvp = bbgea_get_group_event_rsvp( $event_id, get_current_user_id() );
 			if ( $event_rsvp ) {
 				if ( 'yes' === $event_rsvp->status ) {
 					$status = __( 'You\'re going!', 'bb-group-events' );

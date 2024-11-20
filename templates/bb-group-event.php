@@ -19,7 +19,7 @@ $group_id = bp_get_current_group_id();
 					<a href="#list" class="gb-tab active" data-tab="list"><?php esc_html_e( 'List', 'bb-group-events' ); ?></a>
 					<a href="#calendar" class="gb-tab" data-tab="calendar"><?php esc_html_e( 'Calendar', 'bb-group-events' ); ?></a>
 				</div>
-				<?php if ( bb_can_manage_group() ) { ?>
+				<?php if ( bbgea_can_manage_group() ) { ?>
 					<div class="gb-event-btn">
 						<a href="javascript:void(0);" id="gb-create-events" data-group-id="<?php echo esc_attr( bp_get_current_group_id() ); ?>" class="gb-create-events button small outline">
 							<i class="bb-icon-l bb-icon-plus"></i>
@@ -32,8 +32,8 @@ $group_id = bp_get_current_group_id();
 	</div>
 	<div class="gb-event-wrap">
 		<?php
-		require bb_group_events_get_template( 'events/list.php' );
-		require bb_group_events_get_template( 'events/calendar.php' );
+		require bbgea_group_events_get_template( 'events/list.php' );
+		require bbgea_group_events_get_template( 'events/calendar.php' );
 		?>
 	</div>
 </div>

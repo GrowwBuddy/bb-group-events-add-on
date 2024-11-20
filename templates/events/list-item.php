@@ -17,7 +17,7 @@ $attendees   = $event['attendees'];
 $is_rsvp     = $event['is_rsvp'];
 ?>
 	<div class="gb-event-item" data-event-id="<?php echo esc_attr( $event_id ); ?>">
-		<?php if ( bb_can_manage_group() ) { ?>
+		<?php if ( bbgea_can_manage_group() ) { ?>
 			<a class="gb-action-dots" href="javascript:void(0);">
 				<i class="bb-icon-f bb-icon-ellipsis-v"></i>
 			</a>

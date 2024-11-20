@@ -47,7 +47,7 @@ if ( ! class_exists( 'BB_Group_Events_Extension' ) && class_exists( 'BP_Group_Ex
 		 * @since 1.0.0
 		 */
 		public function display( $group_id = null ) {
-			include bb_group_events_get_template( 'bb-group-event.php' );
+			include bbgea_group_events_get_template( 'bb-group-event.php' );
 		}
 	}
 }

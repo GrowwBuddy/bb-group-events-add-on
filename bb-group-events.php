@@ -75,7 +75,7 @@ if ( ! class_exists( 'BB_Group_Events' ) ) {
 		 * @since 1.0.0
 		 */
 		public function includes() {
-			require_once bb_group_events_dir_path( 'includes/class-bb-group-events-main.php' );
+			require_once bbgea_dir_path( 'includes/class-bb-group-events-main.php' );
 		}
 
 		/**
@@ -90,7 +90,7 @@ if ( ! class_exists( 'BB_Group_Events' ) ) {
 			 * Triggered when plugin is loaded
 			 * @since 1.0.0
 			 */
-			do_action( 'bb_group_events_loaded' );
+			do_action( 'bbgea_group_events_loaded' );
 		}
 
 		/**
@@ -98,7 +98,7 @@ if ( ! class_exists( 'BB_Group_Events' ) ) {
 		 * @since 1.0.0
 		 */
 		public function load_textdomain() {
-			load_plugin_textdomain( 'bb-group-events', false, bb_group_events_dir_path( 'languages/' ) );
+			load_plugin_textdomain( 'bb-group-events', false, bbgea_dir_path( 'languages/' ) );
 		}
 
 
@@ -168,9 +168,9 @@ if ( ! function_exists( 'bb_group_events' ) ) {
 	 */
 	function bb_group_events() {
 		if ( ! defined( 'BP_PLATFORM_VERSION' ) ) {
-			add_action( 'all_admin_notices', 'bb_platform_required_notice' );
+			add_action( 'all_admin_notices', 'bbgea_platform_required_notice' );
 		} elseif ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
-			add_action( 'all_admin_notices', 'bb_group_events_required_notice' );
+			add_action( 'all_admin_notices', 'bbgea_group_component_required_notice' );
 			return BB_Group_Events::get_instance();
 		}
 	}
@@ -187,7 +187,7 @@ if ( ! function_exists( 'bb_group_events' ) ) {
  * Group event dir path.
  * @since 1.0.0
  */
-function bb_group_events_dir_path( $path = '' ) {
+function bbgea_dir_path( $path = '' ) {
 	return plugin_dir_path( __FILE__ ) . $path;
 }
 
@@ -195,7 +195,7 @@ function bb_group_events_dir_path( $path = '' ) {
  * Group event dir url.
  * @since 1.0.0
  */
-function bb_group_events_dir_url( $path = '' ) {
+function bbgea_dir_url( $path = '' ) {
 	return plugin_dir_url( __FILE__ ) . $path;
 }
 
@@ -203,7 +203,7 @@ function bb_group_events_dir_url( $path = '' ) {
  * Group event required notice.
  * @since 1.0.0
  */
-function bb_platform_required_notice() {
+function bbgea_platform_required_notice() {
 	echo '<div class="error fade"><p>';
 	echo sprintf(
 		'<strong>%s</strong> %s <a href="https://buddyboss.com/platform/" target="_blank">%s</a> %s',
@@ -219,7 +219,7 @@ function bb_platform_required_notice() {
  * Group event required notice.
  * @since 1.0.0
  */
-function bb_group_events_required_notice() {
+function bbgea_group_component_required_notice() {
 	if ( function_exists( 'bp_is_active' ) && bp_is_active( 'groups' ) ) {
 		return;
 	}

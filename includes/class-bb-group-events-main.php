@@ -63,16 +63,16 @@ class BB_Group_Events_Main {
 	 */
 	public function includes() {
 		// Load all functions.
-		require bb_group_events_dir_path( 'includes/functions.php' );
-		require bb_group_events_dir_path( 'includes/admin/class-bb-group-events-admin.php' );
-		require bb_group_events_dir_path( 'includes/admin/class-bb-group-events-admin-metabox.php' );
+		require bbgea_dir_path( 'includes/functions.php' );
+		require bbgea_dir_path( 'includes/admin/class-bb-group-events-admin.php' );
+		require bbgea_dir_path( 'includes/admin/class-bb-group-events-admin-metabox.php' );
 
 		// Load common classes.
-		require bb_group_events_dir_path( 'includes/common/class-bb-group-event-manager.php' );
-		require bb_group_events_dir_path( 'includes/common/class-bb-group-events-db.php' );
+		require bbgea_dir_path( 'includes/common/class-bb-group-event-manager.php' );
+		require bbgea_dir_path( 'includes/common/class-bb-group-events-db.php' );
 
 		// Load admin and frontend classes.
-		require bb_group_events_dir_path( 'includes/frontend/class-bb-group-events-frontend.php' );
+		require bbgea_dir_path( 'includes/frontend/class-bb-group-events-frontend.php' );
 	}
 
 	/**
@@ -93,10 +93,10 @@ class BB_Group_Events_Main {
 	 * @return array
 	 */
 	public function actions_links( $links, $file ) {
-		if ( plugin_basename( bb_group_events_dir_path( 'bb-group-events.php' ) ) === $file ) {
+		if ( plugin_basename( bbgea_dir_path( 'bb-group-events.php' ) ) === $file ) {
 			$links['settings'] = sprintf(
 				'<a href="%s">%s</a>',
-				admin_url( 'admin.php?page=bp-settings&tab=bp-groups#bb_group_events_settings' ),
+				admin_url( 'admin.php?page=bp-settings&tab=bp-groups#bbgea_bb_settings' ),
 				esc_html__( 'Settings', 'bb-group-events' )
 			);
 		}

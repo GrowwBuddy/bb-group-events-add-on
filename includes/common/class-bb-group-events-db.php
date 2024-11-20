@@ -60,14 +60,14 @@ class BB_Group_Events_DB {
 	 * @since 1.0.0
 	 */
 	public function setup_hooks() {
-		if ( ! bb_disable_group_event() ) {
+		if ( ! bbgea_disable_group_event() ) {
 			return;
 		}
 		add_action( 'bp_init', array( $this, 'load_extension' ) );
 		add_action( 'init', array( $this, 'main_init' ) );
 		add_filter( 'bp_core_get_groups_admin_tabs', array( $this, 'add_group_events_tab' ) );
-		add_action( 'all_admin_notices', array( $this, 'bb_groups_event_admin_group_type_listing_add_groups_tab' ) );
-		add_filter( 'parent_file', array( $this, 'bb_group_event_set_platform_tab_submenu_active' ) );
+		add_action( 'all_admin_notices', array( $this, 'bbgea_groups_event_admin_group_type_listing_add_groups_tab' ) );
+		add_filter( 'parent_file', array( $this, 'bbgea_group_event_set_platform_tab_submenu_active' ) );
 		add_action( 'admin_head', array( $this, 'modify_editor_for_group_event' ) );
 	}
 
@@ -89,7 +89,7 @@ class BB_Group_Events_DB {
 	public function load_extension() {
 		// Register the group extension only if groups are active
 		if ( bp_is_active( 'groups' ) ) {
-			require bb_group_events_dir_path( 'includes/common/class-bb-group-events-extension.php' );
+			require bbgea_dir_path( 'includes/common/class-bb-group-events-extension.php' );
 			bp_register_group_extension( 'BB_Group_Events_Extension' );
 		}
 	}
@@ -109,7 +109,7 @@ class BB_Group_Events_DB {
 			'parent_item_colon'     => __( 'Parent Group Event:', 'bb-group-events' ),
 			'all_items'             => __( 'All Group Events', 'bb-group-events' ),
 			'add_new'               => __( 'Add New', 'bb-group-events' ),
-			'add_new_item'          => __( 'Add New Group Event', 'bb-group-events' ),
+			'add_new_item'          => __( 'Add New', 'bb-group-events' ),
 			'new_item'              => __( 'New Group Event', 'bb-group-events' ),
 			'edit_item'             => __( 'Edit Group Event', 'bb-group-events' ),
 			'update_item'           => __( 'Update Group Event', 'bb-group-events' ),
@@ -117,7 +117,7 @@ class BB_Group_Events_DB {
 			'not_found_in_trash'    => __( 'No found in Trash', 'bb-group-events' ),
 			'view_item'             => __( 'View Group Event', 'bb-group-events' ),
 			'view_items'            => __( 'View Group Events', 'bb-group-events' ),
-			'search_items'          => __( 'Search Group Event', 'bb-group-events' ),
+			'search_items'          => __( 'Search', 'bb-group-events' ),
 			'items_list'            => __( 'Group Events list', 'bb-group-events' ),
 			'items_list_navigation' => __( 'Group Events list navigation', 'bb-group-events' ),
 			'filter_items_list'     => __( 'Filter Group Events list', 'bb-group-events' ),
@@ -145,7 +145,7 @@ class BB_Group_Events_DB {
 	 * @since 1.0.0
 	 */
 	public function add_group_events_tab( $tabs ) {
-		$cpt_type = bb_groups_event_get_post_type();
+		$cpt_type = bbgea_groups_event_get_post_type();
 		if ( is_network_admin() && bp_is_network_activated() ) {
 			$group_url = get_admin_url( bp_get_root_blog_id(), 'edit.php?post_type=' . $cpt_type );
 		} else {
@@ -166,7 +166,7 @@ class BB_Group_Events_DB {
 	 *
 	 * @since 1.0.0
 	 */
-	public function bb_groups_event_admin_group_type_listing_add_groups_tab() {
+	public function bbgea_groups_event_admin_group_type_listing_add_groups_tab() {
 		global $pagenow, $post;
 
 		if (
@@ -191,7 +191,7 @@ class BB_Group_Events_DB {
 	 * @since 1.0.0
 	 * @return string $parent_file The filename of the parent menu.
 	 */
-	public function bb_group_event_set_platform_tab_submenu_active( $parent_file ) {
+	public function bbgea_group_event_set_platform_tab_submenu_active( $parent_file ) {
 		global $pagenow, $current_screen, $post;
 
 		if ( true === bp_disable_group_type_creation() ) {

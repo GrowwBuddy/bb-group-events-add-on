@@ -30,7 +30,7 @@
 			if ( ! empty( $events_data['events'] ) ) {
 				echo '<div class="gb-event-list-body">';
 				foreach ( $events_data['events'] as $event ) {
-					bb_group_events_include_template( 'events/list-item.php', array( 'event' => $event ) );
+					bbgea_group_events_include_template( 'events/list-item.php', array( 'event' => $event ) );
 				}
 				echo '</div>';
 
@@ -75,7 +75,7 @@
 			if ( ! empty( $events_data['events'] ) ) {
 				echo '<div class="gb-event-list-body">';
 				foreach ( $events_data['events'] as $event ) {
-					bb_group_events_include_template( 'events/list-item.php', array( 'event' => $event ) );
+					bbgea_group_events_include_template( 'events/list-item.php', array( 'event' => $event ) );
 				}
 				echo '</div>';
 
