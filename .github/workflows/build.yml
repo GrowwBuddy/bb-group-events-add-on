@@ -42,7 +42,7 @@ jobs:
 
     # Upload the ZIP as an artifact (optional)
     - name: Upload Plugin ZIP
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: bb-group-event-addon
         path: build/bb-group-event-addon.zip
