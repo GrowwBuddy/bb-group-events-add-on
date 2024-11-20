@@ -10,8 +10,8 @@
 	<!-- Event Type Switch -->
 	<div class="gb-event-left">
 		<div class="gb-event-types">
-			<a href="#upcoming" class="gb-event-type-btn active" data-group-id="<?php echo esc_attr( bp_get_current_group_id() ); ?>"  data-event="upcoming"><?php esc_html_e( 'Upcoming Events', 'bb-group-events' ); ?></a>
-			<a href="#past" class="gb-event-type-btn" data-group-id="<?php echo esc_attr( bp_get_current_group_id() ); ?>" data-event="past"><?php esc_html_e( 'Past Events', 'bb-group-events' ); ?></a>
+			<a href="#upcoming" class="gb-event-type-btn active" data-group-id="<?php echo esc_attr( bp_get_current_group_id() ); ?>"  data-event="upcoming"><?php esc_html_e( 'Upcoming Events', 'bb-group-events-add-on' ); ?></a>
+			<a href="#past" class="gb-event-type-btn" data-group-id="<?php echo esc_attr( bp_get_current_group_id() ); ?>" data-event="past"><?php esc_html_e( 'Past Events', 'bb-group-events-add-on' ); ?></a>
 		</div>
 	</div>
 
@@ -45,8 +45,8 @@
 							'format'    => '',
 							'current'   => max( 1, 1 ),
 							'total'     => $events_data['pages'],
-							'prev_text' => __( '&larr;', 'bb-group-events' ),
-							'next_text' => __( '&rarr;', 'bb-group-events' ),
+							'prev_text' => __( '&larr;', 'bb-group-events-add-on' ),
+							'next_text' => __( '&rarr;', 'bb-group-events-add-on' ),
 							'mid_size'  => 1,
 							'add_args'  => array(),
 						)
@@ -91,8 +91,8 @@
 							'format'    => '',
 							'current'   => max( 1, 1 ),
 							'total'     => $events_data['pages'],
-							'prev_text' => __( '&larr;', 'bb-group-events' ),
-							'next_text' => __( '&rarr;', 'bb-group-events' ),
+							'prev_text' => __( '&larr;', 'bb-group-events-add-on' ),
+							'next_text' => __( '&rarr;', 'bb-group-events-add-on' ),
 							'mid_size'  => 1,
 							'add_args'  => array(),
 						)

@@ -3,7 +3,7 @@ Contributors: growwbuddy
 Donate link: https://growwbuddy.com/
 Tags: buddyboss, buddyboss platform, buddyboss theme, buddyboss events, buddyboss groups, buddyboss community, buddyboss social network, buddyboss plugin, buddyboss customization, buddyboss development, buddyboss extensions, buddyboss features, buddyboss addons
 Requires at least: 5.0
-Tested up to: 6.3
+Tested up to: 6.7
 Stable tag: 1.0.0
 Requires PHP: 7.2
 License: GPLv2 or later

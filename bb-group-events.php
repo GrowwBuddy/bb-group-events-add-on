@@ -8,7 +8,7 @@
  * Author URI: https://growwbuddy.com
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain: bb-group-events
+ * Text Domain: bb-group-events-add-on
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -207,10 +207,10 @@ function bbgea_platform_required_notice() {
 	echo '<div class="error fade"><p>';
 	echo sprintf(
 		'<strong>%s</strong> %s <a href="https://buddyboss.com/platform/" target="_blank">%s</a> %s',
-		esc_html__( 'BuddyBoss Group Events Add-on', 'bb-group-events' ),
-		esc_html__( 'requires the BuddyBoss Platform plugin to work. Please', 'bb-group-events' ),
-		esc_html__( 'install BuddyBoss Platform', 'bb-group-events' ),
-		esc_html__( 'first.', 'bb-group-events' )
+		esc_html__( 'BuddyBoss Group Events Add-on', 'bb-group-events-add-on' ),
+		esc_html__( 'requires the BuddyBoss Platform plugin to work. Please', 'bb-group-events-add-on' ),
+		esc_html__( 'install BuddyBoss Platform', 'bb-group-events-add-on' ),
+		esc_html__( 'first.', 'bb-group-events-add-on' )
 	);
 	echo '</p></div>';
 }
@@ -227,8 +227,8 @@ function bbgea_group_component_required_notice() {
 	echo '<div class="error fade"><p>';
 	echo sprintf(
 		'<strong>%s</strong> %s',
-		esc_html__( 'BuddyBoss Group Events Add-on', 'bb-group-events' ),
-		esc_html__( 'requires Social Groups Component to work. Please activate Social Groups Component.', 'bb-group-events' )
+		esc_html__( 'BuddyBoss Group Events Add-on', 'bb-group-events-add-on' ),
+		esc_html__( 'requires Social Groups Component to work. Please activate Social Groups Component.', 'bb-group-events-add-on' )
 	);
 	echo '</p></div>';
 }

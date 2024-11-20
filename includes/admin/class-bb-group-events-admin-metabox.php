@@ -65,7 +65,7 @@ class BB_Group_Events_Admin_MetaBox {
 	public function register_metaboxes() {
 		add_meta_box(
 			'bbgea_event_details_metabox',
-			__( 'Event Details', 'bb-group-events' ),
+			__( 'Event Details', 'bb-group-events-add-on' ),
 			array( $this, 'render_event_details_metabox' ),
 			bbgea_groups_event_get_post_type(),
 			'normal',

@@ -275,24 +275,24 @@ class BB_Group_Events_FrontEnd {
 		}
 
 		if ( 'yes' === $rsvp_status ) {
-			$status = sprintf( '<span>%s</span>', esc_html__( 'You\'re going!', 'bb-group-events' ) );
+			$status = sprintf( '<span>%s</span>', esc_html__( 'You\'re going!', 'bb-group-events-add-on' ) );
 		} elseif ( 'no' === $rsvp_status ) {
-			$status = sprintf( '<span>%s</span>', esc_html__( 'You\'re not going!', 'bb-group-events' ) );
+			$status = sprintf( '<span>%s</span>', esc_html__( 'You\'re not going!', 'bb-group-events-add-on' ) );
 		} else {
-			$status = sprintf( '<span>%s</span>', esc_html__( 'You\'re maybe going!', 'bb-group-events' ) );
+			$status = sprintf( '<span>%s</span>', esc_html__( 'You\'re maybe going!', 'bb-group-events-add-on' ) );
 		}
 
 		$button_html = sprintf(
 			'<button class="gb-edit-rsvp-event" data-event-id="%1$s" data-group-id="%2$s">%3$s</button>',
 			esc_attr( $event_id ),
 			esc_attr( $group_id ),
-			esc_html__( 'Edit RSVP', 'bb-group-events' )
+			esc_html__( 'Edit RSVP', 'bb-group-events-add-on' )
 		);
 
 		// Send the response.
 		wp_send_json_success(
 			array(
-				'message'     => esc_html__( 'RSVP updated successfully', 'bb-group-events' ),
+				'message'     => esc_html__( 'RSVP updated successfully', 'bb-group-events-add-on' ),
 				'rsvp_button' => $status . $button_html,
 			)
 		);
@@ -347,8 +347,8 @@ class BB_Group_Events_FrontEnd {
 					'format'    => '',
 					'current'   => $paged,
 					'total'     => $events_data['pages'],
-					'prev_text' => __( '&larr;', 'bb-group-events' ),
-					'next_text' => __( '&rarr;', 'bb-group-events' ),
+					'prev_text' => __( '&larr;', 'bb-group-events-add-on' ),
+					'next_text' => __( '&rarr;', 'bb-group-events-add-on' ),
 					'mid_size'  => 1,
 					'add_args'  => array(),
 				)

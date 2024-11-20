@@ -90,10 +90,10 @@ class BB_Group_Events_Admin {
 	 * @since 1.0.0
 	 */
 	public function bbgea_admin_setting_groups_register_fields( $admin_setting_groups ) {
-		$admin_setting_groups->add_section( 'bbgea_bb_settings', __( 'Group Events', 'bb-group-events' ) );
+		$admin_setting_groups->add_section( 'bbgea_bb_settings', __( 'Group Events', 'bb-group-events-add-on' ) );
 
 		// enable or disable group events.
-		$admin_setting_groups->add_field( 'bbgea-disable', __( 'Enable Group Events', 'bb-group-events' ), array( $this, 'bbgea_enable_group_events' ), 'intval' );
+		$admin_setting_groups->add_field( 'bbgea-disable', __( 'Enable Group Events', 'bb-group-events-add-on' ), array( $this, 'bbgea_enable_group_events' ), 'intval' );
 	}
 
 	/**
@@ -108,7 +108,7 @@ class BB_Group_Events_Admin {
 			printf(
 				'<label for="bbgea-disable">%s</label>',
 				sprintf(
-					__( 'Enable <a href="%s">group events</a> to better organize groups events', 'bb-group-events' ),
+					__( 'Enable <a href="%s">group events</a> to better organize groups events', 'bb-group-events-add-on' ),
 					add_query_arg(
 						array(
 							'post_type' => bbgea_groups_event_get_post_type(),
@@ -119,7 +119,7 @@ class BB_Group_Events_Admin {
 			);
 		} else {
 			?>
-			<label for="bbgea-disable"><?php esc_html_e( 'Enable group event to better organize groups events', 'bb-group-events' ); ?></label>
+			<label for="bbgea-disable"><?php esc_html_e( 'Enable group event to better organize groups events', 'bb-group-events-add-on' ); ?></label>
 			<?php
 		}
 	}
@@ -152,9 +152,9 @@ class BB_Group_Events_Admin {
 	 * @return array
 	 */
 	public function bbgea_group_events_columns_head( $columns ) {
-		$columns['group']      = __( 'Group', 'bb-group-events' );
-		$columns['event_date'] = __( 'Event Date', 'bb-group-events' );
-		$columns['total_rsvp'] = __( 'Total RSVP', 'bb-group-events' );
+		$columns['group']      = __( 'Group', 'bb-group-events-add-on' );
+		$columns['event_date'] = __( 'Event Date', 'bb-group-events-add-on' );
+		$columns['total_rsvp'] = __( 'Total RSVP', 'bb-group-events-add-on' );
 
 		return $columns;
 	}
@@ -188,11 +188,11 @@ class BB_Group_Events_Admin {
 				}
 
 				if ( ! empty( $event_start_date ) && $event_start_date < gmdate( 'Y-m-d H:i:s' ) ) {
-					echo '<br><span style="color: red;">' . esc_html__( 'Past Event', 'bb-group-events' ) . '</span>';
+					echo '<br><span style="color: red;">' . esc_html__( 'Past Event', 'bb-group-events-add-on' ) . '</span>';
 				}
 
 				if ( ! empty( $event_start_date ) && $event_start_date > gmdate( 'Y-m-d H:i:s' ) ) {
-					echo '<br><span style="color: green;">' . esc_html__( 'Upcoming Event', 'bb-group-events' ) . '</span>';
+					echo '<br><span style="color: green;">' . esc_html__( 'Upcoming Event', 'bb-group-events-add-on' ) . '</span>';
 				}
 
 				break;
@@ -201,13 +201,13 @@ class BB_Group_Events_Admin {
 				$rsvps_no    = BB_Group_Event_Manager::get_instance()->get_rsvps_by_event( $post_id, 'no' );
 				$rsvps_maybe = BB_Group_Event_Manager::get_instance()->get_rsvps_by_event( $post_id, 'maybe' );
 				if ( ! empty( count( $rsvps_yes ) ) ) {
-					echo sprintf( '<span style="color:green">%s: %d</span><br>', esc_html__( 'Yes', 'bb-group-events' ), count( $rsvps_yes ) );
+					echo sprintf( '<span style="color:green">%s: %d</span><br>', esc_html__( 'Yes', 'bb-group-events-add-on' ), count( $rsvps_yes ) );
 				}
 				if ( ! empty( count( $rsvps_no ) ) ) {
-					echo sprintf( '<span style="color:red">%s: %d</span><br>', esc_html__( 'No', 'bb-group-events' ), count( $rsvps_no ) );
+					echo sprintf( '<span style="color:red">%s: %d</span><br>', esc_html__( 'No', 'bb-group-events-add-on' ), count( $rsvps_no ) );
 				}
 				if ( ! empty( count( $rsvps_maybe ) ) ) {
-					echo sprintf( '<span style="color:grey">%s: %d</span>', esc_html__( 'Maybe', 'bb-group-events' ), count( $rsvps_maybe ) );
+					echo sprintf( '<span style="color:grey">%s: %d</span>', esc_html__( 'Maybe', 'bb-group-events-add-on' ), count( $rsvps_maybe ) );
 				}
 				break;
 		}

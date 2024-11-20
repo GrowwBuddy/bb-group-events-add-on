@@ -13,17 +13,17 @@
 			<div id="gb-group-event-open-popup" class="modal-container gb-group-event-open-popup">
 
 				<header class="bb-model-header">
-					<h4><?php esc_html_e( 'Update your RSVP', 'bb-group-events' ); ?></h4>
+					<h4><?php esc_html_e( 'Update your RSVP', 'bb-group-events-add-on' ); ?></h4>
 					<a class="bb-model-close-button" id="gb-group-event-modal-close" href="#"><span class="bb-icon-l bb-icon-times"></span></a>
 				</header>
 
 				<div class="bb-model-content">
 					<div class="bb-field-wrap">
-						<label for="event_rsvp"><?php esc_html_e( 'RSVP:', 'bb-group-events' ); ?></label>
+						<label for="event_rsvp"><?php esc_html_e( 'RSVP:', 'bb-group-events-add-on' ); ?></label>
 						<select name="event_rsvp" id="event_rsvp">
-							<option value="yes" {{{ data.status === 'yes' ? 'selected' : '' }}}><?php esc_html_e( 'Yes', 'bb-group-events' ); ?></option>
-							<option value="no" {{{ data.status === 'no' ? 'selected' : '' }}}><?php esc_html_e( 'No', 'bb-group-events' ); ?></option>
-							<option value="maybe" {{{ data.status === 'maybe' ? 'selected' : '' }}}><?php esc_html_e( 'Maybe', 'bb-group-events' ); ?></option>
+							<option value="yes" {{{ data.status === 'yes' ? 'selected' : '' }}}><?php esc_html_e( 'Yes', 'bb-group-events-add-on' ); ?></option>
+							<option value="no" {{{ data.status === 'no' ? 'selected' : '' }}}><?php esc_html_e( 'No', 'bb-group-events-add-on' ); ?></option>
+							<option value="maybe" {{{ data.status === 'maybe' ? 'selected' : '' }}}><?php esc_html_e( 'Maybe', 'bb-group-events-add-on' ); ?></option>
 						</select>
 					</div>
 

@@ -25,12 +25,12 @@ $is_rsvp     = $event['is_rsvp'];
 				<ul>
 					<li>
 						<a href="javascript:void(0);" class="gb-edit-action" data-event-id="<?php echo esc_attr( $event_id ); ?>">
-							<?php esc_html_e( 'Edit', 'bb-group-events' ); ?>
+							<?php esc_html_e( 'Edit', 'bb-group-events-add-on' ); ?>
 						</a>
 					</li>
 					<li>
 						<a href="javascript:void(0);" class="gb-delete-action" data-event-id="<?php echo esc_attr( $event_id ); ?>">
-							<?php esc_html_e( 'Delete', 'bb-group-events' ); ?>
+							<?php esc_html_e( 'Delete', 'bb-group-events-add-on' ); ?>
 						</a>
 					</li>
 				</ul>
@@ -55,7 +55,7 @@ $is_rsvp     = $event['is_rsvp'];
 						echo sprintf( '<img src="%s" alt="%s" class="gb-avatar">', esc_url( $attendee['avatar'] ), esc_attr( $attendee['name'] ) );
 					}
 					if ( $attendees_count > 3 ) {
-						echo sprintf( '<span class="gb-attendees-count">+%d %s</span>', $attendees_count - 3, __( 'Attendees', 'bb-group-events' ) );
+						echo sprintf( '<span class="gb-attendees-count">+%d %s</span>', $attendees_count - 3, __( 'Attendees', 'bb-group-events-add-on' ) );
 					}
 				}
 				?>
@@ -65,20 +65,20 @@ $is_rsvp     = $event['is_rsvp'];
 					<?php
 					if ( $is_rsvp ) {
 						if ( 'yes' === $is_rsvp->status ) {
-							$status = __( 'You\'re going!', 'bb-group-events' );
+							$status = __( 'You\'re going!', 'bb-group-events-add-on' );
 						} elseif ( 'no' === $is_rsvp->status ) {
-							$status = __( 'You\'re not going!', 'bb-group-events' );
+							$status = __( 'You\'re not going!', 'bb-group-events-add-on' );
 						} else {
-							$status = __( 'You\'re maybe going!', 'bb-group-events' );
+							$status = __( 'You\'re maybe going!', 'bb-group-events-add-on' );
 						}
 						?>
 						<span> <?php echo esc_html( $status ); ?></span>
 						<button class="gb-edit-rsvp-event" data-event-id="<?php echo esc_attr( $event_id ); ?>" data-group-id="<?php echo esc_attr( $group_id ); ?>">
-							<?php esc_html_e( 'Edit RSVP', 'bb-group-events' ); ?>
+							<?php esc_html_e( 'Edit RSVP', 'bb-group-events-add-on' ); ?>
 						</button>
 					<?php } else { ?>
 						<button class="gb-attend-event" data-event-id="<?php echo esc_attr( $event_id ); ?>" data-group-id="<?php echo esc_attr( $group_id ); ?>">
-							<?php esc_html_e( 'Attend', 'bb-group-events' ); ?>
+							<?php esc_html_e( 'Attend', 'bb-group-events-add-on' ); ?>
 						</button>
 					<?php } ?>
 				</div>

@@ -67,7 +67,7 @@ if ( empty( $group_avatar_url ) ) {
 							<?php
 							echo sprintf(
 								'%s: <br/><strong><a href="%s">%s</a></strong>',
-								esc_html__( 'Created By', 'bb-group-events' ),
+								esc_html__( 'Created By', 'bb-group-events-add-on' ),
 								esc_url( bp_core_get_user_domain( $post_author_id ) ),
 								esc_html( $post_author_name )
 							);
@@ -79,7 +79,7 @@ if ( empty( $group_avatar_url ) ) {
 				<!-- Event Details Section -->
 				<div class="details">
 					<div class="event-description">
-						<h2><?php esc_html_e( 'Details', 'bb-group-events' ); ?></h2>
+						<h2><?php esc_html_e( 'Details', 'bb-group-events-add-on' ); ?></h2>
 						<?php the_content(); ?>
 					</div>
 				</div>
@@ -87,7 +87,7 @@ if ( empty( $group_avatar_url ) ) {
 			<aside class="bb-group-event-right group-info">
 
 				<div class="group-details">
-					<h2><?php esc_html_e( 'Group Details', 'bb-group-events' ); ?></h2>
+					<h2><?php esc_html_e( 'Group Details', 'bb-group-events-add-on' ); ?></h2>
 					<div class="group-image">
 						<a href="<?php echo esc_url( bp_get_group_permalink( $group ) . 'group-events/' ); ?>">
 							<img src="<?php echo esc_url( $group_avatar_url ); ?>" alt="<?php echo esc_html( bp_get_group_name( $group ) ); ?>">
@@ -103,12 +103,12 @@ if ( empty( $group_avatar_url ) ) {
 					</p>
 				</div>
 				<div class="event-details">
-					<h2><?php esc_html_e( 'Event Details', 'bb-group-events' ); ?></h2>
+					<h2><?php esc_html_e( 'Event Details', 'bb-group-events-add-on' ); ?></h2>
 					<p class="event-date">
 						<?php
 						echo sprintf(
 							'%s: <strong>%s</strong>',
-							esc_html__( 'Start Date', 'bb-group-events' ),
+							esc_html__( 'Start Date', 'bb-group-events-add-on' ),
 							esc_html( date( 'F j, Y', strtotime( $start_date ) ) )
 						);
 						?>
@@ -117,7 +117,7 @@ if ( empty( $group_avatar_url ) ) {
 						<?php
 						echo sprintf(
 							'%s: <strong>%s</strong>',
-							esc_html__( 'Start Time', 'bb-group-events' ),
+							esc_html__( 'Start Time', 'bb-group-events-add-on' ),
 							esc_html( date( 'g:i A', strtotime( $start_date ) ) )
 						);
 						?>
@@ -126,7 +126,7 @@ if ( empty( $group_avatar_url ) ) {
 						<?php
 						echo sprintf(
 							'%s: <strong>%s</strong>',
-							esc_html__( 'End Date', 'bb-group-events' ),
+							esc_html__( 'End Date', 'bb-group-events-add-on' ),
 							esc_html( date( 'F j, Y', strtotime( $end_date ) ) )
 						);
 						?>
@@ -135,7 +135,7 @@ if ( empty( $group_avatar_url ) ) {
 						<?php
 						echo sprintf(
 							'%s: <strong>%s</strong>',
-							esc_html__( 'End Time', 'bb-group-events' ),
+							esc_html__( 'End Time', 'bb-group-events-add-on' ),
 							esc_html( date( 'g:i A', strtotime( $end_date ) ) )
 						);
 						?>
@@ -143,7 +143,7 @@ if ( empty( $group_avatar_url ) ) {
 						<?php
 						echo sprintf(
 							'%s: <strong>%s</strong>',
-							esc_html__( 'Location', 'bb-group-events' ),
+							esc_html__( 'Location', 'bb-group-events-add-on' ),
 							esc_html( $location )
 						);
 						?>
@@ -152,7 +152,7 @@ if ( empty( $group_avatar_url ) ) {
 						<?php
 						echo sprintf(
 							'%s: <strong>%s</strong>',
-							esc_html__( 'Type', 'bb-group-events' ),
+							esc_html__( 'Type', 'bb-group-events-add-on' ),
 							esc_html( $event_type )
 						);
 						?>
@@ -197,11 +197,11 @@ if ( empty( $group_avatar_url ) ) {
 			$event_rsvp = bbgea_get_group_event_rsvp( $event_id, get_current_user_id() );
 			if ( $event_rsvp ) {
 				if ( 'yes' === $event_rsvp->status ) {
-					$status = __( 'You\'re going!', 'bb-group-events' );
+					$status = __( 'You\'re going!', 'bb-group-events-add-on' );
 				} elseif ( 'no' === $event_rsvp->status ) {
-					$status = __( 'You\'re not going!', 'bb-group-events' );
+					$status = __( 'You\'re not going!', 'bb-group-events-add-on' );
 				} else {
-					$status = __( 'You\'re maybe going!', 'bb-group-events' );
+					$status = __( 'You\'re maybe going!', 'bb-group-events-add-on' );
 				}
 				?>
 				<div class="attend-button">
