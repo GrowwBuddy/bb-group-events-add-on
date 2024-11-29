@@ -13,28 +13,28 @@
 			<div id="gb-group-event-open-popup" class="modal-container gb-group-event-open-popup">
 
 				<header class="bb-model-header">
-					<h4><?php esc_html_e( 'Update your RSVP', 'bb-group-events-add-on' ); ?></h4>
+					<h4><?php esc_html_e( 'Update your RSVP', 'buddyboss-group-events' ); ?></h4>
 					<a class="bb-model-close-button" id="gb-group-event-modal-close" href="#"><span class="bb-icon-l bb-icon-times"></span></a>
 				</header>
 
 				<div class="bb-model-content">
 					<div class="bb-field-wrap">
-						<label for="event_rsvp"><?php esc_html_e( 'RSVP:', 'bb-group-events-add-on' ); ?></label>
+						<label for="event_rsvp"><?php esc_html_e( 'RSVP:', 'buddyboss-group-events' ); ?></label>
 						<select name="event_rsvp" id="event_rsvp">
-							<option value="yes" {{{ data.status === 'yes' ? 'selected' : '' }}}><?php esc_html_e( 'Yes', 'bb-group-events-add-on' ); ?></option>
-							<option value="no" {{{ data.status === 'no' ? 'selected' : '' }}}><?php esc_html_e( 'No', 'bb-group-events-add-on' ); ?></option>
-							<option value="maybe" {{{ data.status === 'maybe' ? 'selected' : '' }}}><?php esc_html_e( 'Maybe', 'bb-group-events-add-on' ); ?></option>
+							<option value="yes" {{{ data.status === 'yes' ? 'selected' : '' }}}><?php esc_html_e( 'Yes', 'buddyboss-group-events' ); ?></option>
+							<option value="no" {{{ data.status === 'no' ? 'selected' : '' }}}><?php esc_html_e( 'No', 'buddyboss-group-events' ); ?></option>
+							<option value="maybe" {{{ data.status === 'maybe' ? 'selected' : '' }}}><?php esc_html_e( 'Maybe', 'buddyboss-group-events' ); ?></option>
 						</select>
 					</div>
 
 					<div class="bb-field-wrap">
-						<label for="event_comment"><?php esc_html_e( 'Comment:', 'bb-group-events' ); ?></label>
+						<label for="event_comment"><?php esc_html_e( 'Comment:', 'buddyboss-group-events' ); ?></label>
 						<textarea id="event_comment" name="event_comment">{{{ data.comment || '' }}}</textarea>
 					</div>
 				</div>
 
 				<footer class="bb-model-footer">
-					<button class="bb-button bb-button-primary" id="gb-update-rsvp" data-mode="edit" data-event-id="{{{ data.event_id }}}" data-group-id="{{{ data.group_id }}}"><?php esc_html_e( 'Update RSVP', 'bb-group-events' ); ?></button>
+					<button class="bb-button bb-button-primary" id="gb-update-rsvp" data-mode="edit" data-event-id="{{{ data.event_id }}}" data-group-id="{{{ data.group_id }}}"><?php esc_html_e( 'Update RSVP', 'buddyboss-group-events' ); ?></button>
 				</footer>
 			</div>
 		</div>

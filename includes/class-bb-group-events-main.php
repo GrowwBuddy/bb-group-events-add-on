@@ -97,7 +97,7 @@ class BB_Group_Events_Main {
 			$links['settings'] = sprintf(
 				'<a href="%s">%s</a>',
 				admin_url( 'admin.php?page=bp-settings&tab=bp-groups#bbgea_bb_settings' ),
-				esc_html__( 'Settings', 'bb-group-events-add-on' )
+				esc_html__( 'Settings', 'buddyboss-group-events' )
 			);
 		}
 

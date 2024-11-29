@@ -31,15 +31,15 @@ if ( ! class_exists( 'BB_Group_Events_Extension' ) && class_exists( 'BP_Group_Ex
 		public function __construct() {
 			$args = array(
 				'slug'              => 'group-events',
-				'name'              => __( 'Events', 'bb-group-events-add-on' ),
+				'name'              => __( 'Events', 'buddyboss-group-events' ),
 				'nav_item_position' => 50,
 				'display_hook'      => 'bp_template_content',
 				'screens'           => array(
 					'create' => array(
-						'name'        => __( 'Create Events', 'bb-group-events-add-on' ),
+						'name'        => __( 'Create Events', 'buddyboss-group-events' ),
 						'enabled'     => true,
 						'slug'        => 'create-events',
-						'submit_text' => __( 'Create Event', 'bb-group-events-add-on' ),
+						'submit_text' => __( 'Create Event', 'buddyboss-group-events' ),
 					),
 
 				),

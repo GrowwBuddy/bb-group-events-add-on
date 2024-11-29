@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name: BuddyBoss Group Events Add-on
- * Plugin URI: https://growwbuddy.com/product/bb-group-events-add-on/
+ * Plugin Name: BuddyBoss Group Events
+ * Plugin URI: https://growwbuddy.com/product/bb-group-events/
  * Description: This plugin is used to manage the events for BuddyBoss groups.
  * Version: 1.0.0
  * Author: GrowwBuddy
  * Author URI: https://growwbuddy.com
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain: bb-group-events-add-on
+ * Text Domain: buddyboss-group-events
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -98,7 +98,7 @@ if ( ! class_exists( 'BB_Group_Events' ) ) {
 		 * @since 1.0.0
 		 */
 		public function load_textdomain() {
-			load_plugin_textdomain( 'bb-group-events', false, bbgea_dir_path( 'languages/' ) );
+			load_plugin_textdomain( 'buddyboss-group-events', false, bbgea_dir_path( 'languages/' ) );
 		}
 
 
@@ -207,10 +207,10 @@ function bbgea_platform_required_notice() {
 	echo '<div class="error fade"><p>';
 	echo sprintf(
 		'<strong>%s</strong> %s <a href="https://buddyboss.com/platform/" target="_blank">%s</a> %s',
-		esc_html__( 'BuddyBoss Group Events Add-on', 'bb-group-events-add-on' ),
-		esc_html__( 'requires the BuddyBoss Platform plugin to work. Please', 'bb-group-events-add-on' ),
-		esc_html__( 'install BuddyBoss Platform', 'bb-group-events-add-on' ),
-		esc_html__( 'first.', 'bb-group-events-add-on' )
+		esc_html__( 'BuddyBoss Group Events Add-on', 'buddyboss-group-events' ),
+		esc_html__( 'requires the BuddyBoss Platform plugin to work. Please', 'buddyboss-group-events' ),
+		esc_html__( 'install BuddyBoss Platform', 'buddyboss-group-events' ),
+		esc_html__( 'first.', 'buddyboss-group-events' )
 	);
 	echo '</p></div>';
 }
@@ -227,8 +227,8 @@ function bbgea_group_component_required_notice() {
 	echo '<div class="error fade"><p>';
 	echo sprintf(
 		'<strong>%s</strong> %s',
-		esc_html__( 'BuddyBoss Group Events Add-on', 'bb-group-events-add-on' ),
-		esc_html__( 'requires Social Groups Component to work. Please activate Social Groups Component.', 'bb-group-events-add-on' )
+		esc_html__( 'BuddyBoss Group Events Add-on', 'buddyboss-group-events' ),
+		esc_html__( 'requires Social Groups Component to work. Please activate Social Groups Component.', 'buddyboss-group-events' )
 	);
 	echo '</p></div>';
 }

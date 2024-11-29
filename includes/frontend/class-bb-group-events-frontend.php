@@ -117,7 +117,7 @@ class BB_Group_Events_FrontEnd {
 	 */
 	public function fetch_group_event() {
 		// Check nonce for security.
-		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'bbgea_nonce' ) ) {
+		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_GET['_wpnonce'] ), 'bbgea_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
 
 			return;
@@ -165,13 +165,13 @@ class BB_Group_Events_FrontEnd {
 
 		// Capture and sanitize inputs
 		$event_id       = ! empty( $_POST['event_id'] ) ? absint( $_POST['event_id'] ) : 0;
-		$title          = sanitize_text_field( $_POST['title'] );
-		$description    = wp_kses_post( $_POST['description'] );
-		$start_date     = sanitize_text_field( $_POST['start_date_time'] );
-		$end_date       = sanitize_text_field( $_POST['end_date_time'] );
-		$type           = sanitize_text_field( $_POST['event_type'] );
-		$location       = sanitize_text_field( $_POST['location'] );
-		$event_group_id = sanitize_text_field( $_POST['event_group_id'] );
+		$title          = ! empty( $_POST['title'] ) ? sanitize_text_field( wp_unslash( $_POST['title'] ) ) : '';
+		$description    = ! empty( $_POST['description'] ) ? wp_kses_post( wp_unslash( $_POST['description'] ) ) : '';
+		$start_date     = ! empty( $_POST['start_date_time'] ) ? sanitize_text_field( wp_unslash( $_POST['start_date_time'] ) ) : '';
+		$end_date       = ! empty( $_POST['end_date_time'] ) ? sanitize_text_field( wp_unslash( $_POST['end_date_time'] ) ) : '';
+		$type           = ! empty( $_POST['event_type'] ) ? sanitize_text_field( wp_unslash( $_POST['event_type'] ) ) : '';
+		$location       = ! empty( $_POST['location'] ) ? sanitize_text_field( wp_unslash( $_POST['location'] ) ) : '';
+		$event_group_id = ! empty( $_POST['event_group_id'] ) ? absint( $_POST['event_group_id'] ) : 0;
 
 		// Save event logic here (e.g., creating a custom post type entry)
 		$post_data = array(
@@ -219,7 +219,7 @@ class BB_Group_Events_FrontEnd {
 	 */
 	public function fetch_user_rsvp() {
 		// Check nonce for security.
-		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'bbgea_nonce' ) ) {
+		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_GET['_wpnonce'] ), 'bbgea_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
 
 			return;
@@ -247,7 +247,7 @@ class BB_Group_Events_FrontEnd {
 	 */
 	public function handle_user_rsvp() {
 		// Check nonce for security.
-		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'bbgea_nonce' ) ) {
+		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['_wpnonce'] ), 'bbgea_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
 
 			return;
@@ -255,8 +255,8 @@ class BB_Group_Events_FrontEnd {
 
 		$event_id    = isset( $_POST['event_id'] ) ? intval( $_POST['event_id'] ) : 0;
 		$group_id    = isset( $_POST['group_id'] ) ? intval( $_POST['group_id'] ) : null;
-		$rsvp_status = isset( $_POST['rsvp_status'] ) ? sanitize_text_field( $_POST['rsvp_status'] ) : 'no';
-		$comment     = isset( $_POST['comment'] ) ? sanitize_textarea_field( $_POST['comment'] ) : '';
+		$rsvp_status = isset( $_POST['rsvp_status'] ) ? sanitize_text_field( wp_unslash( $_POST['rsvp_status'] ) ) : 'no';
+		$comment     = isset( $_POST['comment'] ) ? sanitize_textarea_field( wp_unslash( $_POST['comment'] ) ) : '';
 		$user_id     = get_current_user_id();
 
 		if ( ! $event_id || ! $user_id ) {
@@ -275,24 +275,24 @@ class BB_Group_Events_FrontEnd {
 		}
 
 		if ( 'yes' === $rsvp_status ) {
-			$status = sprintf( '<span>%s</span>', esc_html__( 'You\'re going!', 'bb-group-events-add-on' ) );
+			$status = sprintf( '<span>%s</span>', esc_html__( 'You\'re going!', 'buddyboss-group-events' ) );
 		} elseif ( 'no' === $rsvp_status ) {
-			$status = sprintf( '<span>%s</span>', esc_html__( 'You\'re not going!', 'bb-group-events-add-on' ) );
+			$status = sprintf( '<span>%s</span>', esc_html__( 'You\'re not going!', 'buddyboss-group-events' ) );
 		} else {
-			$status = sprintf( '<span>%s</span>', esc_html__( 'You\'re maybe going!', 'bb-group-events-add-on' ) );
+			$status = sprintf( '<span>%s</span>', esc_html__( 'You\'re maybe going!', 'buddyboss-group-events' ) );
 		}
 
 		$button_html = sprintf(
 			'<button class="gb-edit-rsvp-event" data-event-id="%1$s" data-group-id="%2$s">%3$s</button>',
 			esc_attr( $event_id ),
 			esc_attr( $group_id ),
-			esc_html__( 'Edit RSVP', 'bb-group-events-add-on' )
+			esc_html__( 'Edit RSVP', 'buddyboss-group-events' )
 		);
 
 		// Send the response.
 		wp_send_json_success(
 			array(
-				'message'     => esc_html__( 'RSVP updated successfully', 'bb-group-events-add-on' ),
+				'message'     => esc_html__( 'RSVP updated successfully', 'buddyboss-group-events' ),
 				'rsvp_button' => $status . $button_html,
 			)
 		);
@@ -306,13 +306,13 @@ class BB_Group_Events_FrontEnd {
 	 */
 	public function load_events() {
 		// Check nonce for security.
-		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'bbgea_nonce' ) ) {
+		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['_wpnonce'] ), 'bbgea_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
 
 			return;
 		}
 
-		$status   = isset( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : 'upcoming';
+		$status   = isset( $_POST['status'] ) ? sanitize_text_field( wp_unslash( $_POST['status'] ) ) : 'upcoming';
 		$group_id = isset( $_POST['group_id'] ) ? absint( $_POST['group_id'] ) : 0;
 		$paged    = isset( $_POST['paged'] ) ? absint( $_POST['paged'] ) : 1;
 
@@ -347,8 +347,8 @@ class BB_Group_Events_FrontEnd {
 					'format'    => '',
 					'current'   => $paged,
 					'total'     => $events_data['pages'],
-					'prev_text' => __( '&larr;', 'bb-group-events-add-on' ),
-					'next_text' => __( '&rarr;', 'bb-group-events-add-on' ),
+					'prev_text' => __( '&larr;', 'buddyboss-group-events' ),
+					'next_text' => __( '&rarr;', 'buddyboss-group-events' ),
 					'mid_size'  => 1,
 					'add_args'  => array(),
 				)

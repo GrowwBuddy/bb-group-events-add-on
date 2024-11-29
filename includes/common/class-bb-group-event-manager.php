@@ -69,7 +69,7 @@ class BB_Group_Event_Manager {
 	public function add_rsvp( $group_id, $event_id, $user_id, $status, $comment = null ) {
 		global $wpdb;
 
-		$result = $wpdb->insert(
+		$result = $wpdb->insert( // phpcs:ignore
 			$this->table_name,
 			array(
 				'group_id'    => $group_id,
@@ -98,7 +98,7 @@ class BB_Group_Event_Manager {
 	public function update_rsvp( $id, $status, $comment = null ) {
 		global $wpdb;
 
-		$result = $wpdb->update(
+		$result = $wpdb->update( // phpcs:ignore
 			$this->table_name,
 			array(
 				'status'     => $status,
@@ -124,7 +124,7 @@ class BB_Group_Event_Manager {
 	public function delete_rsvp( $id ) {
 		global $wpdb;
 
-		$result = $wpdb->delete(
+		$result = $wpdb->delete( // phpcs:ignore
 			$this->table_name,
 			array( 'ID' => $id ),
 			array( '%d' )
@@ -145,15 +145,7 @@ class BB_Group_Event_Manager {
 	public function get_rsvp( $event_id, $user_id ) {
 		global $wpdb;
 
-		$result = $wpdb->get_row(
-			$wpdb->prepare(
-				"SELECT * FROM {$this->table_name} WHERE event_id = %d AND user_id = %d",
-				$event_id,
-				$user_id
-			)
-		);
-
-		return $result;
+		return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$this->table_name} WHERE event_id = %d AND user_id = %d", $event_id, $user_id ) ); // phpcs:ignore
 	}
 
 	/**
@@ -174,17 +166,17 @@ class BB_Group_Event_Manager {
 		}
 
 		if ( $status ) {
-			$result = $wpdb->get_results(
+			$result = $wpdb->get_results( // phpcs:ignore
 				$wpdb->prepare(
-					"SELECT * FROM {$this->table_name} WHERE event_id = %d AND status = %s",
+					"SELECT * FROM {$this->table_name} WHERE event_id = %d AND status = %s", // phpcs:ignore
 					$event_id,
 					$status
 				)
 			);
 		} else {
-			$result = $wpdb->get_results(
+			$result = $wpdb->get_results( // phpcs:ignore
 				$wpdb->prepare(
-					"SELECT * FROM {$this->table_name} WHERE event_id = %d",
+					"SELECT * FROM {$this->table_name} WHERE event_id = %d", // phpcs:ignore
 					$event_id
 				)
 			);
@@ -204,9 +196,9 @@ class BB_Group_Event_Manager {
 	public function get_rsvps_by_user( $user_id ) {
 		global $wpdb;
 
-		$result = $wpdb->get_results(
+		$result = $wpdb->get_results( // phpcs:ignore
 			$wpdb->prepare(
-				"SELECT * FROM {$this->table_name} WHERE user_id = %d",
+				"SELECT * FROM {$this->table_name} WHERE user_id = %d", // phpcs:ignore
 				$user_id
 			)
 		);
@@ -250,7 +242,7 @@ class BB_Group_Event_Manager {
 
 		// Determine event status filter
 		if ( isset( $args['status'] ) && 'upcoming' === $args['status'] ) {
-			$args['meta_query'] = array(
+			$args['meta_query'] = array( // phpcs:ignore
 				array(
 					'key'     => '_event_start_date',
 					'value'   => current_time( 'mysql' ),
@@ -259,7 +251,7 @@ class BB_Group_Event_Manager {
 				),
 			);
 		} elseif ( isset( $args['status'] ) && 'past' === $args['status'] ) {
-			$args['meta_query'] = array(
+			$args['meta_query'] = array( // phpcs:ignore
 				array(
 					'key'     => '_event_end_date',
 					'value'   => current_time( 'mysql' ),

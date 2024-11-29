@@ -10,8 +10,8 @@
 	<!-- Event Type Switch -->
 	<div class="gb-event-left">
 		<div class="gb-event-types">
-			<a href="#upcoming" class="gb-event-type-btn active" data-group-id="<?php echo esc_attr( bp_get_current_group_id() ); ?>"  data-event="upcoming"><?php esc_html_e( 'Upcoming Events', 'bb-group-events-add-on' ); ?></a>
-			<a href="#past" class="gb-event-type-btn" data-group-id="<?php echo esc_attr( bp_get_current_group_id() ); ?>" data-event="past"><?php esc_html_e( 'Past Events', 'bb-group-events-add-on' ); ?></a>
+			<a href="#upcoming" class="gb-event-type-btn active" data-group-id="<?php echo esc_attr( bp_get_current_group_id() ); ?>"  data-event="upcoming"><?php esc_html_e( 'Upcoming Events', 'buddyboss-group-events' ); ?></a>
+			<a href="#past" class="gb-event-type-btn" data-group-id="<?php echo esc_attr( bp_get_current_group_id() ); ?>" data-event="past"><?php esc_html_e( 'Past Events', 'buddyboss-group-events' ); ?></a>
 		</div>
 	</div>
 
@@ -39,16 +39,18 @@
 					echo '<div class="gb-event-list-footer">';
 					echo '<div class="bp-pagination-links bb-pagination bottom">';
 					echo '<p class="pag-data">';
-					echo paginate_links(
-						array(
-							'base'      => '%_%',
-							'format'    => '',
-							'current'   => max( 1, 1 ),
-							'total'     => $events_data['pages'],
-							'prev_text' => __( '&larr;', 'bb-group-events-add-on' ),
-							'next_text' => __( '&rarr;', 'bb-group-events-add-on' ),
-							'mid_size'  => 1,
-							'add_args'  => array(),
+					echo wp_kses_post(
+						paginate_links(
+							array(
+								'base'      => '%_%',
+								'format'    => '',
+								'current'   => max( 1, 1 ),
+								'total'     => $events_data['pages'],
+								'prev_text' => __( '&larr;', 'buddyboss-group-events' ),
+								'next_text' => __( '&rarr;', 'buddyboss-group-events' ),
+								'mid_size'  => 1,
+								'add_args'  => array(),
+							)
 						)
 					);
 					echo '</p>';
@@ -85,16 +87,18 @@
 					echo '<p class="pag-data">';
 
 					$pag_args = array( 'epage' => '%#%' );
-					echo paginate_links(
-						array(
-							'base'      => add_query_arg( $pag_args, get_permalink() ),
-							'format'    => '',
-							'current'   => max( 1, 1 ),
-							'total'     => $events_data['pages'],
-							'prev_text' => __( '&larr;', 'bb-group-events-add-on' ),
-							'next_text' => __( '&rarr;', 'bb-group-events-add-on' ),
-							'mid_size'  => 1,
-							'add_args'  => array(),
+					echo wp_kses_post(
+						paginate_links(
+							array(
+								'base'      => add_query_arg( $pag_args, get_permalink() ),
+								'format'    => '',
+								'current'   => max( 1, 1 ),
+								'total'     => $events_data['pages'],
+								'prev_text' => __( '&larr;', 'buddyboss-group-events' ),
+								'next_text' => __( '&rarr;', 'buddyboss-group-events' ),
+								'mid_size'  => 1,
+								'add_args'  => array(),
+							)
 						)
 					);
 					echo '</p>';

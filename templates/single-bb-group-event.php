@@ -52,10 +52,12 @@ if ( empty( $group_avatar_url ) ) {
 					<div class="author-image">
 						<a href="<?php echo esc_url( bp_core_get_user_domain( $post_author_id ) ); ?>">
 							<?php
-							echo bp_core_fetch_avatar(
-								array(
-									'item_id' => $post_author_id,
-									'type'    => 'thumb',
+							echo wp_kses_post(
+								bp_core_fetch_avatar(
+									array(
+										'item_id' => $post_author_id,
+										'type'    => 'thumb',
+									)
 								)
 							);
 							?>
@@ -67,7 +69,7 @@ if ( empty( $group_avatar_url ) ) {
 							<?php
 							echo sprintf(
 								'%s: <br/><strong><a href="%s">%s</a></strong>',
-								esc_html__( 'Created By', 'bb-group-events-add-on' ),
+								esc_html__( 'Created By', 'buddyboss-group-events' ),
 								esc_url( bp_core_get_user_domain( $post_author_id ) ),
 								esc_html( $post_author_name )
 							);
@@ -79,7 +81,7 @@ if ( empty( $group_avatar_url ) ) {
 				<!-- Event Details Section -->
 				<div class="details">
 					<div class="event-description">
-						<h2><?php esc_html_e( 'Details', 'bb-group-events-add-on' ); ?></h2>
+						<h2><?php esc_html_e( 'Details', 'buddyboss-group-events' ); ?></h2>
 						<?php the_content(); ?>
 					</div>
 				</div>
@@ -87,7 +89,7 @@ if ( empty( $group_avatar_url ) ) {
 			<aside class="bb-group-event-right group-info">
 
 				<div class="group-details">
-					<h2><?php esc_html_e( 'Group Details', 'bb-group-events-add-on' ); ?></h2>
+					<h2><?php esc_html_e( 'Group Details', 'buddyboss-group-events' ); ?></h2>
 					<div class="group-image">
 						<a href="<?php echo esc_url( bp_get_group_permalink( $group ) . 'group-events/' ); ?>">
 							<img src="<?php echo esc_url( $group_avatar_url ); ?>" alt="<?php echo esc_html( bp_get_group_name( $group ) ); ?>">
@@ -103,13 +105,13 @@ if ( empty( $group_avatar_url ) ) {
 					</p>
 				</div>
 				<div class="event-details">
-					<h2><?php esc_html_e( 'Event Details', 'bb-group-events-add-on' ); ?></h2>
+					<h2><?php esc_html_e( 'Event Details', 'buddyboss-group-events' ); ?></h2>
 					<p class="event-date">
 						<?php
 						echo sprintf(
 							'%s: <strong>%s</strong>',
-							esc_html__( 'Start Date', 'bb-group-events-add-on' ),
-							esc_html( date( 'F j, Y', strtotime( $start_date ) ) )
+							esc_html__( 'Start Date', 'buddyboss-group-events' ),
+							esc_html( gmdate( 'F j, Y', strtotime( $start_date ) ) )
 						);
 						?>
 											</p>
@@ -117,8 +119,8 @@ if ( empty( $group_avatar_url ) ) {
 						<?php
 						echo sprintf(
 							'%s: <strong>%s</strong>',
-							esc_html__( 'Start Time', 'bb-group-events-add-on' ),
-							esc_html( date( 'g:i A', strtotime( $start_date ) ) )
+							esc_html__( 'Start Time', 'buddyboss-group-events' ),
+							esc_html( gmdate( 'g:i A', strtotime( $start_date ) ) )
 						);
 						?>
 					</p>
@@ -126,8 +128,8 @@ if ( empty( $group_avatar_url ) ) {
 						<?php
 						echo sprintf(
 							'%s: <strong>%s</strong>',
-							esc_html__( 'End Date', 'bb-group-events-add-on' ),
-							esc_html( date( 'F j, Y', strtotime( $end_date ) ) )
+							esc_html__( 'End Date', 'buddyboss-group-events' ),
+							esc_html( gmdate( 'F j, Y', strtotime( $end_date ) ) )
 						);
 						?>
 					</p>
@@ -135,15 +137,15 @@ if ( empty( $group_avatar_url ) ) {
 						<?php
 						echo sprintf(
 							'%s: <strong>%s</strong>',
-							esc_html__( 'End Time', 'bb-group-events-add-on' ),
-							esc_html( date( 'g:i A', strtotime( $end_date ) ) )
+							esc_html__( 'End Time', 'buddyboss-group-events-add-on' ),
+							esc_html( gmdate( 'g:i A', strtotime( $end_date ) ) )
 						);
 						?>
 					<p class="event-location">
 						<?php
 						echo sprintf(
 							'%s: <strong>%s</strong>',
-							esc_html__( 'Location', 'bb-group-events-add-on' ),
+							esc_html__( 'Location', 'buddyboss-group-events-add-on' ),
 							esc_html( $location )
 						);
 						?>
@@ -152,7 +154,7 @@ if ( empty( $group_avatar_url ) ) {
 						<?php
 						echo sprintf(
 							'%s: <strong>%s</strong>',
-							esc_html__( 'Type', 'bb-group-events-add-on' ),
+							esc_html__( 'Type', 'buddyboss-group-events-add-on' ),
 							esc_html( $event_type )
 						);
 						?>
@@ -173,22 +175,24 @@ if ( empty( $group_avatar_url ) ) {
 								<div class="attendee-image">
 									<a href="<?php echo esc_url( bp_core_get_user_domain( $group_attendee['id'] ) ); ?>">
 										<?php
-										echo bp_core_fetch_avatar(
-											array(
-												'item_id' => $group_attendee['id'],
-												'type'    => 'thumb',
+										echo wp_kses_post(
+											bp_core_fetch_avatar(
+												array(
+													'item_id' => $group_attendee['id'],
+													'type' => 'thumb',
+												)
 											)
 										);
 										?>
 									</a>
 								</div>
-								<p><strong><?php echo esc_html( $group_attendee['name'] ); ?></strong><br><?php echo bbgea_get_user_role_in_group( $group_attendee['id'], $group_id ); ?></p>
+								<p><strong><?php echo esc_html( $group_attendee['name'] ); ?></strong><br><?php echo esc_html( bbgea_get_user_role_in_group( $group_attendee['id'], $group_id ) ); ?></p>
 							</div>
 							<?php
 						endforeach;
 					else :
 						?>
-						<p>No attendees yet.</p>
+						<p><?php esc_html_e( 'No attendees found.', 'buddyboss-group-events-add-on' ); ?></p>
 					<?php endif; ?>
 				</div>
 			</section>
@@ -197,23 +201,23 @@ if ( empty( $group_avatar_url ) ) {
 			$event_rsvp = bbgea_get_group_event_rsvp( $event_id, get_current_user_id() );
 			if ( $event_rsvp ) {
 				if ( 'yes' === $event_rsvp->status ) {
-					$status = __( 'You\'re going!', 'bb-group-events-add-on' );
+					$status = __( 'You\'re going!', 'buddyboss-group-events-add-on' );
 				} elseif ( 'no' === $event_rsvp->status ) {
-					$status = __( 'You\'re not going!', 'bb-group-events-add-on' );
+					$status = __( 'You\'re not going!', 'buddyboss-group-events-add-on' );
 				} else {
-					$status = __( 'You\'re maybe going!', 'bb-group-events-add-on' );
+					$status = __( 'You\'re maybe going!', 'buddyboss-group-events-add-on' );
 				}
 				?>
 				<div class="attend-button">
 					<span> <?php echo esc_html( $status ); ?></span>
 					<button class="gb-edit-rsvp-event" data-event-id="<?php echo esc_attr( $event_id ); ?>" data-group-id="<?php echo esc_attr( $group_id ); ?>">
-						<?php esc_html_e( 'Edit RSVP', 'bb-group-events' ); ?>
+						<?php esc_html_e( 'Edit RSVP', 'buddyboss-group-events-add-on' ); ?>
 					</button>
 				</div>
 			<?php } else { ?>
 				<div class="attend-button">
 					<button class="gb-attend-event" data-event-id="<?php echo esc_attr( $event_id ); ?>" data-group-id="<?php echo esc_attr( $group_id ); ?>">
-						<?php esc_html_e( 'Click to Attend Event', 'bb-group-events' ); ?>
+						<?php esc_html_e( 'Click to Attend Event', 'buddyboss-group-events-add-on' ); ?>
 					</button>
 				</div>
 			<?php } ?>

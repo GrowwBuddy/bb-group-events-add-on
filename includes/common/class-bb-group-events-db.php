@@ -100,31 +100,31 @@ class BB_Group_Events_DB {
 	 */
 	public function register_post_type() {
 		$labels = array(
-			'name'                  => _x( 'Group Events', 'Post Type General Name', 'bb-group-events-add-on' ),
-			'singular_name'         => _x( 'Group Event', 'Post Type Singular Name', 'bb-group-events-add-on' ),
-			'menu_name'             => __( 'Group Events', 'bb-group-events-add-on' ),
-			'name_admin_bar'        => __( 'Group Event', 'bb-group-events-add-on' ),
-			'archives'              => __( 'Group Event Archives', 'bb-group-events-add-on' ),
-			'attributes'            => __( 'Group Event Attributes', 'bb-group-events-add-on' ),
-			'parent_item_colon'     => __( 'Parent Group Event:', 'bb-group-events-add-on' ),
-			'all_items'             => __( 'All Group Events', 'bb-group-events-add-on' ),
-			'add_new'               => __( 'Add New', 'bb-group-events-add-on' ),
-			'add_new_item'          => __( 'Add New', 'bb-group-events-add-on' ),
-			'new_item'              => __( 'New Group Event', 'bb-group-events' ),
-			'edit_item'             => __( 'Edit Group Event', 'bb-group-events' ),
-			'update_item'           => __( 'Update Group Event', 'bb-group-events' ),
-			'not_found'             => __( 'No found', 'bb-group-events' ),
-			'not_found_in_trash'    => __( 'No found in Trash', 'bb-group-events' ),
-			'view_item'             => __( 'View Group Event', 'bb-group-events' ),
-			'view_items'            => __( 'View Group Events', 'bb-group-events' ),
-			'search_items'          => __( 'Search', 'bb-group-events' ),
-			'items_list'            => __( 'Group Events list', 'bb-group-events' ),
-			'items_list_navigation' => __( 'Group Events list navigation', 'bb-group-events' ),
-			'filter_items_list'     => __( 'Filter Group Events list', 'bb-group-events' ),
+			'name'                  => _x( 'Group Events', 'Post Type General Name', 'buddyboss-group-events' ),
+			'singular_name'         => _x( 'Group Event', 'Post Type Singular Name', 'buddyboss-group-events' ),
+			'menu_name'             => __( 'Group Events', 'buddyboss-group-events' ),
+			'name_admin_bar'        => __( 'Group Event', 'buddyboss-group-events' ),
+			'archives'              => __( 'Group Event Archives', 'buddyboss-group-events' ),
+			'attributes'            => __( 'Group Event Attributes', 'buddyboss-group-events' ),
+			'parent_item_colon'     => __( 'Parent Group Event:', 'buddyboss-group-events' ),
+			'all_items'             => __( 'All Group Events', 'buddyboss-group-events' ),
+			'add_new'               => __( 'Add New', 'buddyboss-group-events' ),
+			'add_new_item'          => __( 'Add New', 'buddyboss-group-events' ),
+			'new_item'              => __( 'New Group Event', 'buddyboss-group-events' ),
+			'edit_item'             => __( 'Edit Group Event', 'buddyboss-group-events' ),
+			'update_item'           => __( 'Update Group Event', 'buddyboss-group-events' ),
+			'not_found'             => __( 'No found', 'buddyboss-group-events' ),
+			'not_found_in_trash'    => __( 'No found in Trash', 'buddyboss-group-events' ),
+			'view_item'             => __( 'View Group Event', 'buddyboss-group-events' ),
+			'view_items'            => __( 'View Group Events', 'buddyboss-group-events-add-on' ),
+			'search_items'          => __( 'Search', 'buddyboss-group-events-add-on' ),
+			'items_list'            => __( 'Group Events list', 'buddyboss-group-events-add-on' ),
+			'items_list_navigation' => __( 'Group Events list navigation', 'buddyboss-group-events-add-on' ),
+			'filter_items_list'     => __( 'Filter Group Events list', 'buddyboss-group-events-add-on' ),
 		);
 		$args   = array(
-			'label'              => __( 'Group Event', 'bb-group-events' ),
-			'description'        => __( 'Events for BuddyBoss groups', 'bb-group-events' ),
+			'label'              => __( 'Group Event', 'buddyboss-group-events-add-on' ),
+			'description'        => __( 'Events for BuddyBoss groups', 'buddyboss-group-events-add-on' ),
 			'labels'             => $labels,
 			'public'             => true,
 			'publicly_queryable' => true,
@@ -154,8 +154,8 @@ class BB_Group_Events_DB {
 
 		$tabs[] = array(
 			'href'  => $group_url,
-			'name'  => __( 'Group Events', 'bb-group-events' ),
-			'class' => 'bb-group-events',
+			'name'  => __( 'Group Events', 'buddyboss-group-events-add-on' ),
+			'class' => 'buddyboss-group-events-add-on',
 		);
 
 		return $tabs;
@@ -177,7 +177,7 @@ class BB_Group_Events_DB {
 		) {
 			?>
 			<div class="wrap">
-				<h2 class="nav-tab-wrapper"><?php bp_core_admin_groups_tabs( __( 'Group Events', 'bb-group-events' ) ); ?></h2>
+				<h2 class="nav-tab-wrapper"><?php bp_core_admin_groups_tabs( __( 'Group Events', 'buddyboss-group-events-add-on' ) ); ?></h2>
 			</div>
 			<?php
 		}

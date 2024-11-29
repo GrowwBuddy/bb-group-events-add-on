@@ -61,12 +61,14 @@ class BB_Group_Events_Admin {
 	 * @since 1.0.0
 	 */
 	public function enqueue_scripts() {
-		wp_enqueue_script( 'select2-js', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js', array( 'jquery' ), null, true );
-		wp_enqueue_style( 'select2-css', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css', array(), null );
+		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		wp_enqueue_style( 'bb-group-events-admin', bbgea_dir_url( 'assets/css/admin.css' ), array(), BB_GROUP_EVENTS_VERSION );
+		wp_enqueue_script( 'select2-js', bbgea_dir_url( 'assets/lib/select2-4.0.13/js/select2' . $suffix . '.js', array( 'jquery' ), BB_GROUP_EVENTS_VERSION, true ) );
+		wp_enqueue_style( 'select2-css', bbgea_dir_url( 'assets/lib/select2-4.0.13/css/select2' . $suffix . '.css' ), array(), BB_GROUP_EVENTS_VERSION );
+
+		wp_enqueue_style( 'buddyboss-group-events-add-on-admin', bbgea_dir_url( 'assets/css/admin.css' ), array(), BB_GROUP_EVENTS_VERSION );
 		wp_enqueue_script(
-			'bb-group-events-admin',
+			'buddyboss-group-events-add-on-admin',
 			bbgea_dir_url( 'assets/js/admin.js' ),
 			array( 'jquery', 'select2-js' ),
 			BB_GROUP_EVENTS_VERSION,
@@ -75,14 +77,13 @@ class BB_Group_Events_Admin {
 
 		// Pass AJAX URL and nonce to JavaScript
 		wp_localize_script(
-			'bb-group-events-admin',
+			'buddyboss-group-events-add-on-admin',
 			'BBGroupEvents',
 			array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'nonce'    => wp_create_nonce( 'bbgea_admin_nonce' ),
 			)
 		);
-		//wp_add_inline_script( 'select2-js', 'jQuery(document).ready(function($) { $(".select2-dropdown").select2(); });' );
 	}
 
 	/**
@@ -90,10 +91,10 @@ class BB_Group_Events_Admin {
 	 * @since 1.0.0
 	 */
 	public function bbgea_admin_setting_groups_register_fields( $admin_setting_groups ) {
-		$admin_setting_groups->add_section( 'bbgea_bb_settings', __( 'Group Events', 'bb-group-events-add-on' ) );
+		$admin_setting_groups->add_section( 'bbgea_bb_settings', __( 'Group Events', 'buddyboss-group-events' ) );
 
 		// enable or disable group events.
-		$admin_setting_groups->add_field( 'bbgea-disable', __( 'Enable Group Events', 'bb-group-events-add-on' ), array( $this, 'bbgea_enable_group_events' ), 'intval' );
+		$admin_setting_groups->add_field( 'bbgea-disable', __( 'Enable Group Events', 'buddyboss-group-events' ), array( $this, 'bbgea_enable_group_events' ), 'intval' );
 	}
 
 	/**
@@ -105,21 +106,28 @@ class BB_Group_Events_Admin {
 		<input id="bbgea-disable" name="bbgea-disable" type="checkbox" value="1" <?php checked( bbgea_disable_group_event() ); ?> />
 		<?php
 		if ( true === bbgea_disable_group_event() ) {
+
 			printf(
 				'<label for="bbgea-disable">%s</label>',
 				sprintf(
-					__( 'Enable <a href="%s">group events</a> to better organize groups events', 'bb-group-events-add-on' ),
-					add_query_arg(
-						array(
-							'post_type' => bbgea_groups_event_get_post_type(),
-						),
-						admin_url( 'edit.php' )
-					)
+						/* translators: 1. Enable group events link 2. Group events 3. Group events description */
+					'%s<a href="%s">%s</a> %s',
+					esc_html__( 'Enable ', 'buddyboss-group-events' ),
+					esc_url(
+						add_query_arg(
+							array(
+								'post_type' => bbgea_groups_event_get_post_type(),
+							),
+							admin_url( 'edit.php' )
+						)
+					),
+					esc_html__( 'group events', 'buddyboss-group-events' ),
+					esc_html__( 'to better organize groups events', 'buddyboss-group-events' ),
 				)
 			);
 		} else {
 			?>
-			<label for="bbgea-disable"><?php esc_html_e( 'Enable group event to better organize groups events', 'bb-group-events-add-on' ); ?></label>
+			<label for="bbgea-disable"><?php esc_html_e( 'Enable group event to better organize groups events', 'buddyboss-group-events' ); ?></label>
 			<?php
 		}
 	}
@@ -152,9 +160,9 @@ class BB_Group_Events_Admin {
 	 * @return array
 	 */
 	public function bbgea_group_events_columns_head( $columns ) {
-		$columns['group']      = __( 'Group', 'bb-group-events-add-on' );
-		$columns['event_date'] = __( 'Event Date', 'bb-group-events-add-on' );
-		$columns['total_rsvp'] = __( 'Total RSVP', 'bb-group-events-add-on' );
+		$columns['group']      = __( 'Group', 'buddyboss-group-events' );
+		$columns['event_date'] = __( 'Event Date', 'buddyboss-group-events' );
+		$columns['total_rsvp'] = __( 'Total RSVP', 'buddyboss-group-events' );
 
 		return $columns;
 	}
@@ -175,8 +183,8 @@ class BB_Group_Events_Admin {
 					$group = groups_get_group( $event['group_id'] );
 					echo sprintf(
 						'<a href="%s"><strong>%s</strong></a>',
-						bp_get_group_permalink( $group ),
-						bp_get_group_name( $group )
+						esc_url( bp_get_group_permalink( $group ) ),
+						esc_html( bp_get_group_name( $group ) )
 					);
 				}
 
@@ -188,11 +196,11 @@ class BB_Group_Events_Admin {
 				}
 
 				if ( ! empty( $event_start_date ) && $event_start_date < gmdate( 'Y-m-d H:i:s' ) ) {
-					echo '<br><span style="color: red;">' . esc_html__( 'Past Event', 'bb-group-events-add-on' ) . '</span>';
+					echo '<br><span style="color: red;">' . esc_html__( 'Past Event', 'buddyboss-group-events' ) . '</span>';
 				}
 
 				if ( ! empty( $event_start_date ) && $event_start_date > gmdate( 'Y-m-d H:i:s' ) ) {
-					echo '<br><span style="color: green;">' . esc_html__( 'Upcoming Event', 'bb-group-events-add-on' ) . '</span>';
+					echo '<br><span style="color: green;">' . esc_html__( 'Upcoming Event', 'buddyboss-group-events' ) . '</span>';
 				}
 
 				break;
@@ -201,13 +209,13 @@ class BB_Group_Events_Admin {
 				$rsvps_no    = BB_Group_Event_Manager::get_instance()->get_rsvps_by_event( $post_id, 'no' );
 				$rsvps_maybe = BB_Group_Event_Manager::get_instance()->get_rsvps_by_event( $post_id, 'maybe' );
 				if ( ! empty( count( $rsvps_yes ) ) ) {
-					echo sprintf( '<span style="color:green">%s: %d</span><br>', esc_html__( 'Yes', 'bb-group-events-add-on' ), count( $rsvps_yes ) );
+					echo sprintf( '<span style="color:green">%s: %d</span><br>', esc_html__( 'Yes', 'buddyboss-group-events' ), count( $rsvps_yes ) );
 				}
 				if ( ! empty( count( $rsvps_no ) ) ) {
-					echo sprintf( '<span style="color:red">%s: %d</span><br>', esc_html__( 'No', 'bb-group-events-add-on' ), count( $rsvps_no ) );
+					echo sprintf( '<span style="color:red">%s: %d</span><br>', esc_html__( 'No', 'buddyboss-group-events' ), count( $rsvps_no ) );
 				}
 				if ( ! empty( count( $rsvps_maybe ) ) ) {
-					echo sprintf( '<span style="color:grey">%s: %d</span>', esc_html__( 'Maybe', 'bb-group-events-add-on' ), count( $rsvps_maybe ) );
+					echo sprintf( '<span style="color:grey">%s: %d</span>', esc_html__( 'Maybe', 'buddyboss-group-events' ), count( $rsvps_maybe ) );
 				}
 				break;
 		}

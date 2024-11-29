@@ -1,7 +1,7 @@
-=== BuddyBoss Group Events ===
+=== BuddyBoss Group Events Add-on ===
 Contributors: growwbuddy
 Donate link: https://growwbuddy.com/
-Tags: buddyboss, buddyboss platform, buddyboss theme, buddyboss events, buddyboss groups, buddyboss community, buddyboss social network, buddyboss plugin, buddyboss customization, buddyboss development, buddyboss extensions, buddyboss features, buddyboss addons
+Tags: buddyboss, buddyboss platform, group events, events, groups
 Requires at least: 5.0
 Tested up to: 6.7
 Stable tag: 1.0.0
@@ -9,7 +9,7 @@ Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Group Events for BuddyBoss is a plugin that allows you to create events for BuddyBoss groups. It adds a new tab to the group page where members can view and RSVP to upcoming events.
+Create events for BuddyBoss groups and allow members to RSVP to upcoming events.
 
 == Description ==
 
