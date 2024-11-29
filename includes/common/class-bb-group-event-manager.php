@@ -235,7 +235,7 @@ class BB_Group_Event_Manager {
 			'post_type'      => bbgea_groups_event_get_post_type(),
 			'posts_per_page' => 2,
 			'paged'          => 1,
-			'order'          => 'ASC',
+			'order'          => 'DESC',
 		);
 
 		$args = wp_parse_args( $args, $default_args );

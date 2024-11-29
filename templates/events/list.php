@@ -39,10 +39,11 @@
 					echo '<div class="gb-event-list-footer">';
 					echo '<div class="bp-pagination-links bb-pagination bottom">';
 					echo '<p class="pag-data">';
+					$pag_args = array( 'epage' => '%#%' );
 					echo wp_kses_post(
 						paginate_links(
 							array(
-								'base'      => '%_%',
+								'base'      => add_query_arg( $pag_args, get_permalink( bp_get_current_group_id() ) ),
 								'format'    => '',
 								'current'   => max( 1, 1 ),
 								'total'     => $events_data['pages'],
@@ -90,7 +91,7 @@
 					echo wp_kses_post(
 						paginate_links(
 							array(
-								'base'      => add_query_arg( $pag_args, get_permalink() ),
+								'base'      => add_query_arg( $pag_args, get_permalink( bp_get_current_group_id() ) ),
 								'format'    => '',
 								'current'   => max( 1, 1 ),
 								'total'     => $events_data['pages'],

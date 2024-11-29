@@ -165,11 +165,12 @@ if ( empty( $group_avatar_url ) ) {
 		<div class="bb-group-event-footer">
 			<!-- Attendees Section -->
 			<section class="attendees">
+				<?php if ( is_user_logged_in() ) { ?>
 				<h2>Attendees (<?php echo esc_html( count( $group_attendees ) ); ?>)</h2>
 				<div class="attendee-grid">
 					<?php
-					if ( ! empty( $group_attendees ) ) :
-						foreach ( $group_attendees as $group_attendee ) :
+					if ( ! empty( $group_attendees ) ) {
+						foreach ( $group_attendees as $group_attendee ) {
 							?>
 							<div class="attendee-card">
 								<div class="attendee-image">
@@ -189,37 +190,42 @@ if ( empty( $group_avatar_url ) ) {
 								<p><strong><?php echo esc_html( $group_attendee['name'] ); ?></strong><br><?php echo esc_html( bbgea_get_user_role_in_group( $group_attendee['id'], $group_id ) ); ?></p>
 							</div>
 							<?php
-						endforeach;
-					else :
+						}
+					} else {
 						?>
 						<p><?php esc_html_e( 'No attendees found.', 'buddyboss-group-events' ); ?></p>
-					<?php endif; ?>
+					<?php } ?>
 				</div>
+				<?php } else { ?>
+					<p><?php esc_html_e( 'Please login to see attendees.', 'buddyboss-group-events' ); ?></p>
+				<?php } ?>
 			</section>
 			<!-- Attend Button -->
 			<?php
 			$event_rsvp = bbgea_get_group_event_rsvp( $event_id, get_current_user_id() );
-			if ( $event_rsvp ) {
-				if ( 'yes' === $event_rsvp->status ) {
-					$status = __( 'You\'re going!', 'buddyboss-group-events' );
-				} elseif ( 'no' === $event_rsvp->status ) {
-					$status = __( 'You\'re not going!', 'buddyboss-group-events' );
-				} else {
-					$status = __( 'You\'re maybe going!', 'buddyboss-group-events' );
-				}
-				?>
+			if ( is_user_logged_in() && $end_date > gmdate( 'Y-m-d H:i:s' ) ) {
+				if ( $event_rsvp ) {
+					if ( 'yes' === $event_rsvp->status ) {
+						$status = __( 'You\'re going!', 'buddyboss-group-events' );
+					} elseif ( 'no' === $event_rsvp->status ) {
+						$status = __( 'You\'re not going!', 'buddyboss-group-events' );
+					} else {
+						$status = __( 'You\'re maybe going!', 'buddyboss-group-events' );
+					}
+					?>
 				<div class="attend-button">
 					<span> <?php echo esc_html( $status ); ?></span>
 					<button class="gb-edit-rsvp-event" data-event-id="<?php echo esc_attr( $event_id ); ?>" data-group-id="<?php echo esc_attr( $group_id ); ?>">
 						<?php esc_html_e( 'Edit RSVP', 'buddyboss-group-events' ); ?>
 					</button>
 				</div>
-			<?php } else { ?>
+				<?php } else { ?>
 				<div class="attend-button">
 					<button class="gb-attend-event" data-event-id="<?php echo esc_attr( $event_id ); ?>" data-group-id="<?php echo esc_attr( $group_id ); ?>">
 						<?php esc_html_e( 'Click to Attend Event', 'buddyboss-group-events' ); ?>
 					</button>
 				</div>
+			<?php } ?>
 			<?php } ?>
 
 		</div>

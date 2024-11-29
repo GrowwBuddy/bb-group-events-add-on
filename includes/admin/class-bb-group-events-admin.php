@@ -63,7 +63,7 @@ class BB_Group_Events_Admin {
 	public function enqueue_scripts() {
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		wp_enqueue_script( 'select2-js', bbgea_dir_url( 'assets/lib/select2-4.0.13/js/select2' . $suffix . '.js', array( 'jquery' ), BB_GROUP_EVENTS_VERSION, true ) );
+		wp_enqueue_script( 'select2-js', bbgea_dir_url( 'assets/lib/select2-4.0.13/js/select2' . $suffix . '.js', array( 'jquery' ), BB_GROUP_EVENTS_VERSION, array( 'in_footer' => true ) ) );
 		wp_enqueue_style( 'select2-css', bbgea_dir_url( 'assets/lib/select2-4.0.13/css/select2' . $suffix . '.css' ), array(), BB_GROUP_EVENTS_VERSION );
 
 		wp_enqueue_style( 'buddyboss-group-events-admin', bbgea_dir_url( 'assets/css/admin.css' ), array(), BB_GROUP_EVENTS_VERSION );

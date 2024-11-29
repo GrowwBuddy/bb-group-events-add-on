@@ -60,6 +60,7 @@ class BB_Group_Events_FrontEnd {
 		add_action( 'wp_ajax_fetch_user_rsvp', array( $this, 'fetch_user_rsvp' ) );
 		add_action( 'wp_ajax_save_user_rsvp', array( $this, 'handle_user_rsvp' ) );
 		add_action( 'wp_ajax_load_events', array( $this, 'load_events' ) );
+		add_action( 'wp_ajax_nopriv_load_events', array( $this, 'load_events' ) );
 	}
 
 	/**
