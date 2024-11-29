@@ -137,7 +137,7 @@ if ( empty( $group_avatar_url ) ) {
 						<?php
 						echo sprintf(
 							'%s: <strong>%s</strong>',
-							esc_html__( 'End Time', 'buddyboss-group-events-add-on' ),
+							esc_html__( 'End Time', 'buddyboss-group-events' ),
 							esc_html( gmdate( 'g:i A', strtotime( $end_date ) ) )
 						);
 						?>
@@ -145,7 +145,7 @@ if ( empty( $group_avatar_url ) ) {
 						<?php
 						echo sprintf(
 							'%s: <strong>%s</strong>',
-							esc_html__( 'Location', 'buddyboss-group-events-add-on' ),
+							esc_html__( 'Location', 'buddyboss-group-events' ),
 							esc_html( $location )
 						);
 						?>
@@ -154,7 +154,7 @@ if ( empty( $group_avatar_url ) ) {
 						<?php
 						echo sprintf(
 							'%s: <strong>%s</strong>',
-							esc_html__( 'Type', 'buddyboss-group-events-add-on' ),
+							esc_html__( 'Type', 'buddyboss-group-events' ),
 							esc_html( $event_type )
 						);
 						?>
@@ -192,7 +192,7 @@ if ( empty( $group_avatar_url ) ) {
 						endforeach;
 					else :
 						?>
-						<p><?php esc_html_e( 'No attendees found.', 'buddyboss-group-events-add-on' ); ?></p>
+						<p><?php esc_html_e( 'No attendees found.', 'buddyboss-group-events' ); ?></p>
 					<?php endif; ?>
 				</div>
 			</section>
@@ -201,23 +201,23 @@ if ( empty( $group_avatar_url ) ) {
 			$event_rsvp = bbgea_get_group_event_rsvp( $event_id, get_current_user_id() );
 			if ( $event_rsvp ) {
 				if ( 'yes' === $event_rsvp->status ) {
-					$status = __( 'You\'re going!', 'buddyboss-group-events-add-on' );
+					$status = __( 'You\'re going!', 'buddyboss-group-events' );
 				} elseif ( 'no' === $event_rsvp->status ) {
-					$status = __( 'You\'re not going!', 'buddyboss-group-events-add-on' );
+					$status = __( 'You\'re not going!', 'buddyboss-group-events' );
 				} else {
-					$status = __( 'You\'re maybe going!', 'buddyboss-group-events-add-on' );
+					$status = __( 'You\'re maybe going!', 'buddyboss-group-events' );
 				}
 				?>
 				<div class="attend-button">
 					<span> <?php echo esc_html( $status ); ?></span>
 					<button class="gb-edit-rsvp-event" data-event-id="<?php echo esc_attr( $event_id ); ?>" data-group-id="<?php echo esc_attr( $group_id ); ?>">
-						<?php esc_html_e( 'Edit RSVP', 'buddyboss-group-events-add-on' ); ?>
+						<?php esc_html_e( 'Edit RSVP', 'buddyboss-group-events' ); ?>
 					</button>
 				</div>
 			<?php } else { ?>
 				<div class="attend-button">
 					<button class="gb-attend-event" data-event-id="<?php echo esc_attr( $event_id ); ?>" data-group-id="<?php echo esc_attr( $group_id ); ?>">
-						<?php esc_html_e( 'Click to Attend Event', 'buddyboss-group-events-add-on' ); ?>
+						<?php esc_html_e( 'Click to Attend Event', 'buddyboss-group-events' ); ?>
 					</button>
 				</div>
 			<?php } ?>

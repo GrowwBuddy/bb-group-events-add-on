@@ -207,7 +207,7 @@ function bbgea_platform_required_notice() {
 	echo '<div class="error fade"><p>';
 	echo sprintf(
 		'<strong>%s</strong> %s <a href="https://buddyboss.com/platform/" target="_blank">%s</a> %s',
-		esc_html__( 'BuddyBoss Group Events Add-on', 'buddyboss-group-events' ),
+		esc_html__( 'BuddyBoss Group Events', 'buddyboss-group-events' ),
 		esc_html__( 'requires the BuddyBoss Platform plugin to work. Please', 'buddyboss-group-events' ),
 		esc_html__( 'install BuddyBoss Platform', 'buddyboss-group-events' ),
 		esc_html__( 'first.', 'buddyboss-group-events' )
@@ -227,7 +227,7 @@ function bbgea_group_component_required_notice() {
 	echo '<div class="error fade"><p>';
 	echo sprintf(
 		'<strong>%s</strong> %s',
-		esc_html__( 'BuddyBoss Group Events Add-on', 'buddyboss-group-events' ),
+		esc_html__( 'BuddyBoss Group Events', 'buddyboss-group-events' ),
 		esc_html__( 'requires Social Groups Component to work. Please activate Social Groups Component.', 'buddyboss-group-events' )
 	);
 	echo '</p></div>';

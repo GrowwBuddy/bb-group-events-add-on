@@ -116,15 +116,15 @@ class BB_Group_Events_DB {
 			'not_found'             => __( 'No found', 'buddyboss-group-events' ),
 			'not_found_in_trash'    => __( 'No found in Trash', 'buddyboss-group-events' ),
 			'view_item'             => __( 'View Group Event', 'buddyboss-group-events' ),
-			'view_items'            => __( 'View Group Events', 'buddyboss-group-events-add-on' ),
-			'search_items'          => __( 'Search', 'buddyboss-group-events-add-on' ),
-			'items_list'            => __( 'Group Events list', 'buddyboss-group-events-add-on' ),
-			'items_list_navigation' => __( 'Group Events list navigation', 'buddyboss-group-events-add-on' ),
-			'filter_items_list'     => __( 'Filter Group Events list', 'buddyboss-group-events-add-on' ),
+			'view_items'            => __( 'View Group Events', 'buddyboss-group-events' ),
+			'search_items'          => __( 'Search', 'buddyboss-group-events' ),
+			'items_list'            => __( 'Group Events list', 'buddyboss-group-events' ),
+			'items_list_navigation' => __( 'Group Events list navigation', 'buddyboss-group-events' ),
+			'filter_items_list'     => __( 'Filter Group Events list', 'buddyboss-group-events' ),
 		);
 		$args   = array(
-			'label'              => __( 'Group Event', 'buddyboss-group-events-add-on' ),
-			'description'        => __( 'Events for BuddyBoss groups', 'buddyboss-group-events-add-on' ),
+			'label'              => __( 'Group Event', 'buddyboss-group-events' ),
+			'description'        => __( 'Events for BuddyBoss groups', 'buddyboss-group-events' ),
 			'labels'             => $labels,
 			'public'             => true,
 			'publicly_queryable' => true,
@@ -154,8 +154,8 @@ class BB_Group_Events_DB {
 
 		$tabs[] = array(
 			'href'  => $group_url,
-			'name'  => __( 'Group Events', 'buddyboss-group-events-add-on' ),
-			'class' => 'buddyboss-group-events-add-on',
+			'name'  => __( 'Group Events', 'buddyboss-group-events' ),
+			'class' => 'buddyboss-group-events',
 		);
 
 		return $tabs;
@@ -177,7 +177,7 @@ class BB_Group_Events_DB {
 		) {
 			?>
 			<div class="wrap">
-				<h2 class="nav-tab-wrapper"><?php bp_core_admin_groups_tabs( __( 'Group Events', 'buddyboss-group-events-add-on' ) ); ?></h2>
+				<h2 class="nav-tab-wrapper"><?php bp_core_admin_groups_tabs( __( 'Group Events', 'buddyboss-group-events' ) ); ?></h2>
 			</div>
 			<?php
 		}

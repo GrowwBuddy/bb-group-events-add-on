@@ -66,9 +66,9 @@ class BB_Group_Events_Admin {
 		wp_enqueue_script( 'select2-js', bbgea_dir_url( 'assets/lib/select2-4.0.13/js/select2' . $suffix . '.js', array( 'jquery' ), BB_GROUP_EVENTS_VERSION, true ) );
 		wp_enqueue_style( 'select2-css', bbgea_dir_url( 'assets/lib/select2-4.0.13/css/select2' . $suffix . '.css' ), array(), BB_GROUP_EVENTS_VERSION );
 
-		wp_enqueue_style( 'buddyboss-group-events-add-on-admin', bbgea_dir_url( 'assets/css/admin.css' ), array(), BB_GROUP_EVENTS_VERSION );
+		wp_enqueue_style( 'buddyboss-group-events-admin', bbgea_dir_url( 'assets/css/admin.css' ), array(), BB_GROUP_EVENTS_VERSION );
 		wp_enqueue_script(
-			'buddyboss-group-events-add-on-admin',
+			'buddyboss-group-events-admin',
 			bbgea_dir_url( 'assets/js/admin.js' ),
 			array( 'jquery', 'select2-js' ),
 			BB_GROUP_EVENTS_VERSION,
@@ -77,7 +77,7 @@ class BB_Group_Events_Admin {
 
 		// Pass AJAX URL and nonce to JavaScript
 		wp_localize_script(
-			'buddyboss-group-events-add-on-admin',
+			'buddyboss-group-events-admin',
 			'BBGroupEvents',
 			array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),

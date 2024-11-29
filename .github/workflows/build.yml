@@ -31,7 +31,7 @@ jobs:
       - name: Create Plugin ZIP
         run: |
           mkdir -p build
-          zip -r build/buddyboss-group-events-add-on.zip . \
+          zip -r build/buddyboss-group-events.zip . \
           -x "*.git*" "*.github*" "build/*"
 
       # Upload the ZIP as an artifact (optional)
@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: GrowwBuddyPlugin
-          path: build/buddyboss-group-events-add-on.zip
+          path: build/buddyboss-group-events.zip
 
         env:
           CI: true

@@ -126,25 +126,25 @@ class BB_Group_Events_Admin_MetaBox {
 				</td>
 			</tr>
 			<tr>
-				<th><label for="type"><?php esc_html_e( 'Type', 'buddyboss-group-events-add-on' ); ?></label></th>
+				<th><label for="type"><?php esc_html_e( 'Type', 'buddyboss-group-events' ); ?></label></th>
 				<td>
 					<select name="type" id="type" class="widefat">
-						<option value=""><?php esc_html_e( 'Select Type', 'buddyboss-group-events-add-on' ); ?></option>
-						<option value="meeting" <?php selected( 'meeting', $event_type ); ?>><?php esc_html_e( 'Meeting', 'buddyboss-group-events-add-on' ); ?></option>
-						<option value="webinar" <?php selected( 'webinar', $event_type ); ?>><?php esc_html_e( 'Webinar', 'buddyboss-group-events-add-on' ); ?></option>
-						<option value="workshop" <?php selected( 'workshop', $event_type ); ?>><?php esc_html_e( 'Workshop', 'buddyboss-group-events-add-on' ); ?></option>
+						<option value=""><?php esc_html_e( 'Select Type', 'buddyboss-group-events' ); ?></option>
+						<option value="meeting" <?php selected( 'meeting', $event_type ); ?>><?php esc_html_e( 'Meeting', 'buddyboss-group-events' ); ?></option>
+						<option value="webinar" <?php selected( 'webinar', $event_type ); ?>><?php esc_html_e( 'Webinar', 'buddyboss-group-events' ); ?></option>
+						<option value="workshop" <?php selected( 'workshop', $event_type ); ?>><?php esc_html_e( 'Workshop', 'buddyboss-group-events' ); ?></option>
 					</select>
 				</td>
 			</tr>
 			<tr>
-				<th><label for="attendees"><?php esc_html_e( 'RSVP Members', 'buddyboss-group-events-add-on' ); ?></label></th>
+				<th><label for="attendees"><?php esc_html_e( 'RSVP Members', 'buddyboss-group-events' ); ?></label></th>
 				<td>
 					<table class="widefat bb-attendees-table">
 						<thead>
 							<tr>
-								<th><?php esc_html_e( 'ID', 'buddyboss-group-events-add-on' ); ?></th>
-								<th><?php esc_html_e( 'Name', 'buddyboss-group-events-add-on' ); ?></th>
-								<th><?php esc_html_e( 'RSVP Status', 'buddyboss-group-events-add-on' ); ?></th>
+								<th><?php esc_html_e( 'ID', 'buddyboss-group-events' ); ?></th>
+								<th><?php esc_html_e( 'Name', 'buddyboss-group-events' ); ?></th>
+								<th><?php esc_html_e( 'RSVP Status', 'buddyboss-group-events' ); ?></th>
 							</tr>
 						</thead>
 						<tbody class="tbody">
@@ -233,13 +233,13 @@ class BB_Group_Events_Admin_MetaBox {
 					<?php
 					switch ( $member_type ) :
 						case 'admin':
-							esc_html_e( 'Organizers', 'buddyboss-group-events-add-on' );
+							esc_html_e( 'Organizers', 'buddyboss-group-events' );
 							break;
 						case 'mod':
-							esc_html_e( 'Moderators', 'buddyboss-group-events-add-on' );
+							esc_html_e( 'Moderators', 'buddyboss-group-events' );
 							break;
 						case 'member':
-							esc_html_e( 'Members', 'buddyboss-group-events-add-on' );
+							esc_html_e( 'Members', 'buddyboss-group-events' );
 							break;
 					endswitch;
 					?>
@@ -254,9 +254,9 @@ class BB_Group_Events_Admin_MetaBox {
 					<table class="widefat bp-group-members">
 						<thead>
 						<tr>
-							<th scope="col" class="uid-column"><?php esc_html_e( 'ID', 'buddyboss-group-events-add-on' ); ?></th>
-							<th scope="col" class="uname-column"><?php esc_html_e( 'Name', 'buddyboss-group-events-add-on' ); ?></th>
-							<th scope="col" class="urole-column"><?php esc_html_e( 'RSVP status', 'buddyboss-group-events-add-on' ); ?></th>
+							<th scope="col" class="uid-column"><?php esc_html_e( 'ID', 'buddyboss-group-events' ); ?></th>
+							<th scope="col" class="uname-column"><?php esc_html_e( 'Name', 'buddyboss-group-events' ); ?></th>
+							<th scope="col" class="urole-column"><?php esc_html_e( 'RSVP status', 'buddyboss-group-events' ); ?></th>
 						</tr>
 						</thead>
 
@@ -294,13 +294,13 @@ class BB_Group_Events_Admin_MetaBox {
 									<label for="bbgea_member_rsvp-<?php echo esc_attr( $type_user->ID ); ?>" class="screen-reader-text">
 										<?php
 										/* translators: accessibility text */
-										esc_html_e( 'Select group role for member', 'buddyboss-group-events-add-on' );
+										esc_html_e( 'Select group role for member', 'buddyboss-group-events' );
 										?>
 									</label>
 									<select class="bbgea_member_rsvp" id="bbgea_member_rsvp-<?php echo esc_attr( $type_user->ID ); ?>" name="bbgea_member_rsvp[<?php echo esc_attr( $type_user->ID ); ?>]">
-										<option class="no" value="no" <?php selected( 'no', $rsvp_status ); ?>><?php esc_html_e( 'No', 'buddyboss-group-events-add-on' ); ?></option>
-										<option class="yes" value="yes" <?php selected( 'yes', $rsvp_status ); ?>><?php esc_html_e( 'Yes', 'buddyboss-group-events-add-on' ); ?></option>
-										<option class="maybe" value="maybe" <?php selected( 'maybe', $rsvp_status ); ?>><?php esc_html_e( 'Maybe', 'buddyboss-group-events-add-on' ); ?></option>
+										<option class="no" value="no" <?php selected( 'no', $rsvp_status ); ?>><?php esc_html_e( 'No', 'buddyboss-group-events' ); ?></option>
+										<option class="yes" value="yes" <?php selected( 'yes', $rsvp_status ); ?>><?php esc_html_e( 'Yes', 'buddyboss-group-events' ); ?></option>
+										<option class="maybe" value="maybe" <?php selected( 'maybe', $rsvp_status ); ?>><?php esc_html_e( 'Maybe', 'buddyboss-group-events' ); ?></option>
 									</select>
 								</td>
 							</tr>
@@ -311,7 +311,7 @@ class BB_Group_Events_Admin_MetaBox {
 
 				<?php else : ?>
 
-					<p class="bp-groups-no-members description"><?php esc_html_e( 'No members of this type', 'buddyboss-group-events-add-on' ); ?></p>
+					<p class="bp-groups-no-members description"><?php esc_html_e( 'No members of this type', 'buddyboss-group-events' ); ?></p>
 
 				<?php endif; ?>
 
