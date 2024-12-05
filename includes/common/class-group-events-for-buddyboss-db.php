@@ -23,7 +23,7 @@ class Group_Events_For_BuddyBoss_DB {
 	 */
 	private static $instance;
 
-	public $group_event_post_type = 'group-events-for-buddyboss';
+	public $group_event_post_type = 'group-events';
 
 	/**
 	 * Return the plugin instance
@@ -170,15 +170,15 @@ class Group_Events_For_BuddyBoss_DB {
 		global $pagenow, $post;
 
 		if (
-				( isset( $GLOBALS['wp_list_table']->screen->post_type ) && $GLOBALS['wp_list_table']->screen->post_type === $this->group_event_post_type && 'edit.php' === $pagenow ) ||
-				( isset( $post->post_type ) && $post->post_type === $this->group_event_post_type && 'edit.php' === $pagenow ) ||
-				( isset( $post->post_type ) && $post->post_type === $this->group_event_post_type && 'post-new.php' === $pagenow ) ||
-				( isset( $post->post_type ) && $post->post_type === $this->group_event_post_type && 'post.php' === $pagenow )
+			( isset( $GLOBALS['wp_list_table']->screen->post_type ) && $GLOBALS['wp_list_table']->screen->post_type === $this->group_event_post_type && 'edit.php' === $pagenow ) ||
+			( isset( $post->post_type ) && $post->post_type === $this->group_event_post_type && 'edit.php' === $pagenow ) ||
+			( isset( $post->post_type ) && $post->post_type === $this->group_event_post_type && 'post-new.php' === $pagenow ) ||
+			( isset( $post->post_type ) && $post->post_type === $this->group_event_post_type && 'post.php' === $pagenow )
 		) {
 			?>
-			<div class="wrap">
-				<h2 class="nav-tab-wrapper"><?php bp_core_admin_groups_tabs( __( 'Group Events', 'group-events-for-buddyboss' ) ); ?></h2>
-			</div>
+            <div class="wrap">
+                <h2 class="nav-tab-wrapper"><?php bp_core_admin_groups_tabs( __( 'Group Events', 'group-events-for-buddyboss' ) ); ?></h2>
+            </div>
 			<?php
 		}
 	}
@@ -196,10 +196,10 @@ class Group_Events_For_BuddyBoss_DB {
 
 		if ( true === bp_disable_group_type_creation() ) {
 			if (
-					( isset( $GLOBALS['wp_list_table']->screen->post_type ) && $GLOBALS['wp_list_table']->screen->post_type === $this->group_event_post_type && 'edit.php' === $pagenow ) ||
-					( isset( $post->post_type ) && $post->post_type === $this->group_event_post_type && 'edit.php' === $pagenow ) ||
-					( isset( $post->post_type ) && $post->post_type === $this->group_event_post_type && 'post-new.php' === $pagenow ) ||
-					( isset( $post->post_type ) && $post->post_type === $this->group_event_post_type && 'post.php' === $pagenow )
+				( isset( $GLOBALS['wp_list_table']->screen->post_type ) && $GLOBALS['wp_list_table']->screen->post_type === $this->group_event_post_type && 'edit.php' === $pagenow ) ||
+				( isset( $post->post_type ) && $post->post_type === $this->group_event_post_type && 'edit.php' === $pagenow ) ||
+				( isset( $post->post_type ) && $post->post_type === $this->group_event_post_type && 'post-new.php' === $pagenow ) ||
+				( isset( $post->post_type ) && $post->post_type === $this->group_event_post_type && 'post.php' === $pagenow )
 			) {
 				$parent_file = 'buddyboss-platform';
 			}
@@ -226,16 +226,12 @@ class Group_Events_For_BuddyBoss_DB {
 	 * @since 1.0.0
 	 */
 	public function remove_media_buttons_from_editor( $settings, $editor_id ) {
-
-		// Check if we are editing the 'group-events-for-buddyboss' post type
-		//  if ( isset( $settings['post'] ) && get_post_type( $settings['post'] ) == $this->group_event_post_type ) {
-			// Customize the editor settings
-			$settings['media_buttons'] = false; // Disable the media buttons
-			$settings['teeny']         = true; // Enable the 'teeny' mode for a simplified editor
-			$settings['textarea_rows'] = 5; // Set the textarea rows
-			$settings['quicktags']     = array( 'buttons' => 'strong,em,link,block,del,ins,img,code,spell,close' ); // Customize quicktags
-			$settings['editor_height'] = 200; // Customize quicktags
-		//  }
+		// Customize the editor settings
+		$settings['media_buttons'] = false; // Disable the media buttons
+		$settings['teeny']         = true; // Enable the 'teeny' mode for a simplified editor
+		$settings['textarea_rows'] = 5; // Set the textarea rows
+		$settings['quicktags']     = array( 'buttons' => 'strong,em,link,block,del,ins,img,code,spell,close' ); // Customize quicktags
+		$settings['editor_height'] = 200; // Customize quicktags
 
 		return $settings;
 	}

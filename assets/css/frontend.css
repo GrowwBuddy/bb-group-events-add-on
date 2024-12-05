@@ -380,10 +380,10 @@ span.gb-attendees-count {
 }
 
 /* General Container Styles */
-.single-group-events-for-buddyboss .group-events-for-buddyboss-header,
-.single-group-events-for-buddyboss .group-events-for-buddyboss-left,
-.single-group-events-for-buddyboss .group-events-for-buddyboss-right,
-.single-group-events-for-buddyboss .group-events-for-buddyboss-footer
+.single-group-events .group-events-for-buddyboss-header,
+.single-group-events .group-events-for-buddyboss-left,
+.single-group-events .group-events-for-buddyboss-right,
+.single-group-events .group-events-for-buddyboss-footer
 {
 	background: #fff;
 	border: 1px solid #ddd;
@@ -394,10 +394,14 @@ span.gb-attendees-count {
 	font-family: Arial, sans-serif;
 }
 
-.single-group-events-for-buddyboss .group-events-for-buddyboss-left {flex: 70%;}
+.single-group-events .group-events-for-buddyboss-left {flex: 70%;}
+
+.single-group-events .group-events-for-buddyboss-header h1{
+	margin: 0;
+}
 
 /* Banner Section */
-.single-group-events-for-buddyboss .banner-image img {
+.single-group-events .banner-image img {
 	width: 100%;
 	height: auto;
 	border-radius: 8px;
@@ -407,7 +411,7 @@ span.gb-attendees-count {
 	gap: 30px;
 }
 /* Group Info Section */
-.single-group-events-for-buddyboss .group-info {
+.single-group-events .group-info {
 	display: flex;
 	gap: 20px;
 	margin: 20px 0;
@@ -415,8 +419,8 @@ span.gb-attendees-count {
 	flex: 30%;
 }
 
-.single-group-events-for-buddyboss .group-details,
-.single-group-events-for-buddyboss .event-details {
+.single-group-events .group-details,
+.single-group-events .event-details {
 	background: #f9f9f9;
 	padding: 15px;
 	border: 1px solid #ddd;
@@ -424,28 +428,28 @@ span.gb-attendees-count {
 	text-align: center;
 }
 
-.single-group-events-for-buddyboss .group-details p,
-.single-group-events-for-buddyboss .event-details p {
+.single-group-events .group-details p,
+.single-group-events .event-details p {
 	font-size: 14px; /* Regular text size */
 	margin: 5px 0; /* Vertical spacing between lines */
 	color: #495057; /* Subtle text color */
 }
 
-.single-group-events-for-buddyboss .event-details strong {
+.single-group-events .event-details strong {
 	color: #000; /* Highlight important information */
 }
 
-.single-group-events-for-buddyboss .event-details .event-date,
-.single-group-events-for-buddyboss .event-details .event-time,
-.single-group-events-for-buddyboss .event-details .end-date,
-.single-group-events-for-buddyboss .event-details .end-time,
-.single-group-events-for-buddyboss .event-details .event-location,
-.single-group-events-for-buddyboss .event-details .event-type {
+.single-group-events .event-details .event-date,
+.single-group-events .event-details .event-time,
+.single-group-events .event-details .end-date,
+.single-group-events .event-details .end-time,
+.single-group-events .event-details .event-location,
+.single-group-events .event-details .event-type {
 	line-height: 1.6; /* Improve readability */
 }
 
 
-.single-group-events-for-buddyboss .group-image img {
+.single-group-events .group-image img {
 	width: 100px;
 	height: 100px;
 	border-radius: 10%;
@@ -454,48 +458,48 @@ span.gb-attendees-count {
 }
 
 /* Details Section */
-.single-group-events-for-buddyboss .details {
+.single-group-events .details {
 	display: flex;
 	gap: 20px;
 	margin: 20px 0;
 }
 
-.single-group-events-for-buddyboss .author-info {
+.single-group-events .author-info {
 	display: flex;
 	align-items: center;
 	gap: 10px;
 	margin: 15px 0;
 }
 
-.single-group-events-for-buddyboss .author-image img {
+.single-group-events .author-image img {
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;
 	background: #ccc;
 }
 
-.single-group-events-for-buddyboss .event-description h2 {
+.single-group-events .event-description h2 {
 	font-size: 20px;
 	margin-bottom: 10px;
 }
 
 /* Attendees Section */
-.single-group-events-for-buddyboss .attendees {
+.single-group-events .attendees {
 	margin-top: 20px;
 }
 
-.single-group-events-for-buddyboss .attendees h2 {
+.single-group-events .attendees h2 {
 	font-size: 20px;
 	margin-bottom: 10px;
 }
 
-.single-group-events-for-buddyboss .attendee-grid {
+.single-group-events .attendee-grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(15%, 15%));
 	gap: 20px;
 }
 
-.single-group-events-for-buddyboss .attendee-card {
+.single-group-events .attendee-card {
 	text-align: center;
 	padding: 15px;
 	background: #f9f9f9;
@@ -504,7 +508,7 @@ span.gb-attendees-count {
 	box-sizing: border-box;
 }
 
-.single-group-events-for-buddyboss .attendee-image img {
+.single-group-events .attendee-image img {
 	width: 60px;
 	height: 60px;
 	border-radius: 50%;
@@ -512,7 +516,7 @@ span.gb-attendees-count {
 }
 
 /* Attend Button */
-.single-group-events-for-buddyboss .attend-button {
+.single-group-events .attend-button {
 	text-align: right;
 	margin: 20px 0;
 	display: flex;
@@ -521,7 +525,7 @@ span.gb-attendees-count {
 	align-items: flex-end;
 }
 
-.single-group-events-for-buddyboss .attend-button button {
+.single-group-events .attend-button button {
 	padding: 10px 20px;
 	background-color: #0073aa;
 	color: #fff;
@@ -531,16 +535,16 @@ span.gb-attendees-count {
 	cursor: pointer;
 }
 
-.single-group-events-for-buddyboss .attend-button button:hover {
+.single-group-events .attend-button button:hover {
 	background-color: #005f8d;
 }
 
-.single-group-events-for-buddyboss .bb-event-author-meta {
+.single-group-events .bb-event-author-meta {
 	display: flex;
 	flex-direction: column;
 }
 
-.single-group-events-for-buddyboss .bb-event-author-meta p {
+.single-group-events .bb-event-author-meta p {
 	margin-bottom: 0;
 	font-size: 14px;
 }
