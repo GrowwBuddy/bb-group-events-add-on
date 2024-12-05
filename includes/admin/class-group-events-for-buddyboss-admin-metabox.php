@@ -2,7 +2,7 @@
 /**
  * The admin class of Group Events for BuddyBoss.
  *
- * @package    BB_Group_Events
+ * @package    Group_Events_For_BuddyBoss
  * @subpackage Admin
  */
 
@@ -11,14 +11,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class BB_Group_Events_Admin_MetaBox
+ * Class Group_Events_For_BuddyBoss_Admin_MetaBox
  */
-class BB_Group_Events_Admin_MetaBox {
+class Group_Events_For_BuddyBoss_Admin_MetaBox {
 
 	/**
 	 * The instance of the class.
 	 *
-	 * @var BB_Group_Events_Admin_MetaBox
+	 * @var Group_Events_For_BuddyBoss_Admin_MetaBox
 	 */
 	private static $instance;
 
@@ -26,7 +26,7 @@ class BB_Group_Events_Admin_MetaBox {
 	 * Return the plugin instance
 	 *
 	 * @since 1.0.0
-	 * @return BB_Group_Events_Admin_MetaBox
+	 * @return Group_Events_For_BuddyBoss_Admin_MetaBox
 	 */
 	public static function get_instance() {
 		if ( is_null( self::$instance ) ) {
@@ -55,7 +55,7 @@ class BB_Group_Events_Admin_MetaBox {
 		// Save metabox data
 		add_action( 'save_post', array( $this, 'save_metabox_data' ) );
 
-		add_action( 'wp_ajax_bbgea_get_groups', array( $this, 'bbgea_get_groups' ) );
+		add_action( 'wp_ajax_gb_get_groups', array( $this, 'gb_get_groups' ) );
 	}
 
 	/**
@@ -64,28 +64,28 @@ class BB_Group_Events_Admin_MetaBox {
 	 */
 	public function register_metaboxes() {
 		add_meta_box(
-			'bbgea_event_details_metabox',
-			__( 'Event Details', 'buddyboss-group-events' ),
+			'gb_event_details_metabox',
+			__( 'Event Details', 'group-events-for-buddyboss' ),
 			array( $this, 'render_event_details_metabox' ),
-			bbgea_groups_event_get_post_type(),
+			gb_groups_event_get_post_type(),
 			'normal',
 			'high'
 		);
 
 		add_meta_box(
-			'bbgea_selected_group_metabox',
-			__( 'Selected Group', 'buddyboss-group-events' ),
+			'gb_selected_group_metabox',
+			__( 'Selected Group', 'group-events-for-buddyboss' ),
 			array( $this, 'render_selected_group_metabox' ),
-			bbgea_groups_event_get_post_type(),
+			gb_groups_event_get_post_type(),
 			'side',
 			'high'
 		);
 
 		add_meta_box(
-			'bbgea_group_members_metabox',
-			__( 'Manage Event Members', 'buddyboss-group-events' ),
+			'gb_group_members_metabox',
+			__( 'Manage Event Members', 'group-events-for-buddyboss' ),
 			array( $this, 'render_group_members_metabox' ),
-			bbgea_groups_event_get_post_type(),
+			gb_groups_event_get_post_type(),
 			'normal',
 			'high'
 		);
@@ -96,55 +96,55 @@ class BB_Group_Events_Admin_MetaBox {
 	 * @since 1.0.0
 	 */
 	public function render_event_details_metabox( $post ) {
-		wp_nonce_field( 'bbgea_details_nonce', 'bbgea_nonce' );
+		wp_nonce_field( 'gb_details_nonce', 'gb_nonce' );
 
 		$event_id   = $post->ID;
 		$start_date = get_post_meta( $event_id, '_event_start_date', true );
 		$end_date   = get_post_meta( $event_id, '_event_end_date', true );
 		$location   = get_post_meta( $event_id, '_event_location', true );
 		$event_type = get_post_meta( $event_id, '_event_type', true );
-		$attendees  = bbgea_get_event_attendees( $event_id );
+		$attendees  = gb_get_event_attendees( $event_id );
 
 		?>
 		<table class="form-table">
 			<tr>
-				<th><label for="event_start_date_time"><?php esc_html_e( 'Start Date', 'buddyboss-group-events' ); ?></label></th>
+				<th><label for="event_start_date_time"><?php esc_html_e( 'Start Date', 'group-events-for-buddyboss' ); ?></label></th>
 				<td>
 					<input type="datetime-local" name="start_date" id="event_start_date_time" class="widefat" value="<?php echo esc_attr( $start_date ); ?>" />
 				</td>
 			</tr>
 			<tr>
-				<th><label for="event_end_date_time"><?php esc_html_e( 'End Date', 'buddyboss-group-events' ); ?></label></th>
+				<th><label for="event_end_date_time"><?php esc_html_e( 'End Date', 'group-events-for-buddyboss' ); ?></label></th>
 				<td>
 					<input type="datetime-local" name="end_date" id="event_end_date_time" class="widefat" value="<?php echo esc_attr( $end_date ); ?>" />
 				</td>
 			</tr>
 			<tr>
-				<th><label for="location"><?php esc_html_e( 'Location', 'buddyboss-group-events' ); ?></label></th>
+				<th><label for="location"><?php esc_html_e( 'Location', 'group-events-for-buddyboss' ); ?></label></th>
 				<td>
 					<input type="text" name="location" id="location" class="widefat" value="<?php echo esc_attr( $location ); ?>" />
 				</td>
 			</tr>
 			<tr>
-				<th><label for="type"><?php esc_html_e( 'Type', 'buddyboss-group-events' ); ?></label></th>
+				<th><label for="type"><?php esc_html_e( 'Type', 'group-events-for-buddyboss' ); ?></label></th>
 				<td>
 					<select name="type" id="type" class="widefat">
-						<option value=""><?php esc_html_e( 'Select Type', 'buddyboss-group-events' ); ?></option>
-						<option value="meeting" <?php selected( 'meeting', $event_type ); ?>><?php esc_html_e( 'Meeting', 'buddyboss-group-events' ); ?></option>
-						<option value="webinar" <?php selected( 'webinar', $event_type ); ?>><?php esc_html_e( 'Webinar', 'buddyboss-group-events' ); ?></option>
-						<option value="workshop" <?php selected( 'workshop', $event_type ); ?>><?php esc_html_e( 'Workshop', 'buddyboss-group-events' ); ?></option>
+						<option value=""><?php esc_html_e( 'Select Type', 'group-events-for-buddyboss' ); ?></option>
+						<option value="meeting" <?php selected( 'meeting', $event_type ); ?>><?php esc_html_e( 'Meeting', 'group-events-for-buddyboss' ); ?></option>
+						<option value="webinar" <?php selected( 'webinar', $event_type ); ?>><?php esc_html_e( 'Webinar', 'group-events-for-buddyboss' ); ?></option>
+						<option value="workshop" <?php selected( 'workshop', $event_type ); ?>><?php esc_html_e( 'Workshop', 'group-events-for-buddyboss' ); ?></option>
 					</select>
 				</td>
 			</tr>
 			<tr>
-				<th><label for="attendees"><?php esc_html_e( 'RSVP Members', 'buddyboss-group-events' ); ?></label></th>
+				<th><label for="attendees"><?php esc_html_e( 'RSVP Members', 'group-events-for-buddyboss' ); ?></label></th>
 				<td>
 					<table class="widefat bb-attendees-table">
 						<thead>
 							<tr>
-								<th><?php esc_html_e( 'ID', 'buddyboss-group-events' ); ?></th>
-								<th><?php esc_html_e( 'Name', 'buddyboss-group-events' ); ?></th>
-								<th><?php esc_html_e( 'RSVP Status', 'buddyboss-group-events' ); ?></th>
+								<th><?php esc_html_e( 'ID', 'group-events-for-buddyboss' ); ?></th>
+								<th><?php esc_html_e( 'Name', 'group-events-for-buddyboss' ); ?></th>
+								<th><?php esc_html_e( 'RSVP Status', 'group-events-for-buddyboss' ); ?></th>
 							</tr>
 						</thead>
 						<tbody class="tbody">
@@ -233,13 +233,13 @@ class BB_Group_Events_Admin_MetaBox {
 					<?php
 					switch ( $member_type ) :
 						case 'admin':
-							esc_html_e( 'Organizers', 'buddyboss-group-events' );
+							esc_html_e( 'Organizers', 'group-events-for-buddyboss' );
 							break;
 						case 'mod':
-							esc_html_e( 'Moderators', 'buddyboss-group-events' );
+							esc_html_e( 'Moderators', 'group-events-for-buddyboss' );
 							break;
 						case 'member':
-							esc_html_e( 'Members', 'buddyboss-group-events' );
+							esc_html_e( 'Members', 'group-events-for-buddyboss' );
 							break;
 					endswitch;
 					?>
@@ -254,9 +254,9 @@ class BB_Group_Events_Admin_MetaBox {
 					<table class="widefat bp-group-members">
 						<thead>
 						<tr>
-							<th scope="col" class="uid-column"><?php esc_html_e( 'ID', 'buddyboss-group-events' ); ?></th>
-							<th scope="col" class="uname-column"><?php esc_html_e( 'Name', 'buddyboss-group-events' ); ?></th>
-							<th scope="col" class="urole-column"><?php esc_html_e( 'RSVP status', 'buddyboss-group-events' ); ?></th>
+							<th scope="col" class="uid-column"><?php esc_html_e( 'ID', 'group-events-for-buddyboss' ); ?></th>
+							<th scope="col" class="uname-column"><?php esc_html_e( 'Name', 'group-events-for-buddyboss' ); ?></th>
+							<th scope="col" class="urole-column"><?php esc_html_e( 'RSVP status', 'group-events-for-buddyboss' ); ?></th>
 						</tr>
 						</thead>
 
@@ -287,20 +287,20 @@ class BB_Group_Events_Admin_MetaBox {
 
 								<td class="urole-column">
 									<?php
-									$rsvp        = BB_Group_Event_Manager::get_instance()->get_rsvp( $item->ID, $type_user->ID );
+									$rsvp        = Group_Events_For_BuddyBoss_Manager::get_instance()->get_rsvp( $item->ID, $type_user->ID );
 									$rsvp_status = $rsvp ? $rsvp->status : 'no';
 
 									?>
-									<label for="bbgea_member_rsvp-<?php echo esc_attr( $type_user->ID ); ?>" class="screen-reader-text">
+									<label for="gb_member_rsvp-<?php echo esc_attr( $type_user->ID ); ?>" class="screen-reader-text">
 										<?php
 										/* translators: accessibility text */
-										esc_html_e( 'Select group role for member', 'buddyboss-group-events' );
+										esc_html_e( 'Select group role for member', 'group-events-for-buddyboss' );
 										?>
 									</label>
-									<select class="bbgea_member_rsvp" id="bbgea_member_rsvp-<?php echo esc_attr( $type_user->ID ); ?>" name="bbgea_member_rsvp[<?php echo esc_attr( $type_user->ID ); ?>]">
-										<option class="no" value="no" <?php selected( 'no', $rsvp_status ); ?>><?php esc_html_e( 'No', 'buddyboss-group-events' ); ?></option>
-										<option class="yes" value="yes" <?php selected( 'yes', $rsvp_status ); ?>><?php esc_html_e( 'Yes', 'buddyboss-group-events' ); ?></option>
-										<option class="maybe" value="maybe" <?php selected( 'maybe', $rsvp_status ); ?>><?php esc_html_e( 'Maybe', 'buddyboss-group-events' ); ?></option>
+									<select class="gb_member_rsvp" id="gb_member_rsvp-<?php echo esc_attr( $type_user->ID ); ?>" name="gb_member_rsvp[<?php echo esc_attr( $type_user->ID ); ?>]">
+										<option class="no" value="no" <?php selected( 'no', $rsvp_status ); ?>><?php esc_html_e( 'No', 'group-events-for-buddyboss' ); ?></option>
+										<option class="yes" value="yes" <?php selected( 'yes', $rsvp_status ); ?>><?php esc_html_e( 'Yes', 'group-events-for-buddyboss' ); ?></option>
+										<option class="maybe" value="maybe" <?php selected( 'maybe', $rsvp_status ); ?>><?php esc_html_e( 'Maybe', 'group-events-for-buddyboss' ); ?></option>
 									</select>
 								</td>
 							</tr>
@@ -311,7 +311,7 @@ class BB_Group_Events_Admin_MetaBox {
 
 				<?php else : ?>
 
-					<p class="bp-groups-no-members description"><?php esc_html_e( 'No members of this type', 'buddyboss-group-events' ); ?></p>
+					<p class="bp-groups-no-members description"><?php esc_html_e( 'No members of this type', 'group-events-for-buddyboss' ); ?></p>
 
 				<?php endif; ?>
 
@@ -326,7 +326,7 @@ class BB_Group_Events_Admin_MetaBox {
 	 * @since 1.0.0
 	 */
 	public function save_metabox_data( $post_id ) {
-		if ( ! isset( $_POST['bbgea_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['bbgea_nonce'] ), 'bbgea_details_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( ! isset( $_POST['gb_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['gb_nonce'] ), 'gb_details_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			return;
 		}
 
@@ -346,21 +346,21 @@ class BB_Group_Events_Admin_MetaBox {
 			update_post_meta( $post_id, '_event_group_id', intval( $_POST['connected_group'] ) );
 		}
 
-		if ( isset( $_POST['bbgea_member_rsvp'] ) ) {
+		if ( isset( $_POST['gb_member_rsvp'] ) ) {
 			$event_id = $post_id;
-			$rsvps    = array_map( 'sanitize_text_field', wp_unslash( $_POST['bbgea_member_rsvp'] ) );
+			$rsvps    = array_map( 'sanitize_text_field', wp_unslash( $_POST['gb_member_rsvp'] ) );
 
 			foreach ( $rsvps as $user_id => $status ) {
-				$event_rsvp = BB_Group_Event_Manager::get_instance()->get_rsvp( $event_id, $user_id );
+				$event_rsvp = Group_Events_For_BuddyBoss_Manager::get_instance()->get_rsvp( $event_id, $user_id );
 				$group_id   = get_post_meta( $event_id, '_event_group_id', true );
 
 				if ( $event_rsvp ) {
-					BB_Group_Event_Manager::get_instance()->update_rsvp( $event_rsvp->ID, $status );
+					Group_Events_For_BuddyBoss_Manager::get_instance()->update_rsvp( $event_rsvp->ID, $status );
 				} else {
 					if ( 'no' === $status ) {
 						continue;
 					}
-					BB_Group_Event_Manager::get_instance()->add_rsvp( $group_id, $event_id, $user_id, $status );
+					Group_Events_For_BuddyBoss_Manager::get_instance()->add_rsvp( $group_id, $event_id, $user_id, $status );
 				}
 			}
 		}
@@ -370,8 +370,8 @@ class BB_Group_Events_Admin_MetaBox {
 	 * AJAX callback to get BuddyBoss groups for Select2.
 	 * @since 1.0.0
 	 */
-	public function bbgea_get_groups() {
-		check_ajax_referer( 'bbgea_admin_nonce', 'nonce' );
+	public function gb_get_groups() {
+		check_ajax_referer( 'gb_admin_nonce', 'nonce' );
 
 		$search = isset( $_GET['q'] ) ? sanitize_text_field( wp_unslash( $_GET['q'] ) ) : '';
 		$groups = groups_get_groups(

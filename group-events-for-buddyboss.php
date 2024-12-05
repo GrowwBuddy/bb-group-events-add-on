@@ -1,14 +1,13 @@
 <?php
 /**
- * Plugin Name: BuddyBoss Group Events
- * Plugin URI: https://growwbuddy.com/product/bb-group-events/
+ * Plugin Name: Group Events for BuddyBoss
  * Description: This plugin is used to manage the events for BuddyBoss groups.
  * Version: 1.0.0
  * Author: GrowwBuddy
  * Author URI: https://growwbuddy.com
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain: buddyboss-group-events
+ * Text Domain: group-events-for-buddyboss
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -19,11 +18,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once plugin_dir_path( __FILE__ ) . 'constants.php';
 
 // Register activation hook
-register_activation_hook( __FILE__, array( 'BB_Group_Events', 'activation_hook' ) );
+register_activation_hook( __FILE__, array( 'Group_Events_For_BuddyBoss', 'activation_hook' ) );
 // Register deactivation hook
-register_deactivation_hook( __FILE__, array( 'BB_Group_Events', 'deactivation_hook' ) );
+register_deactivation_hook( __FILE__, array( 'Group_Events_For_BuddyBoss', 'deactivation_hook' ) );
 
-if ( ! defined( 'BB_GROUP_EVENTS_VERSION' ) ) {
+if ( ! defined( 'GB_GEFBB_VERSION' ) ) {
 	return;
 }
 
@@ -32,17 +31,17 @@ if ( ! defined( 'BB_GROUP_EVENTS_VERSION' ) ) {
  *
  * @since 1.0.0
  */
-if ( ! class_exists( 'BB_Group_Events' ) ) {
+if ( ! class_exists( 'Group_Events_For_BuddyBoss' ) ) {
 	/**
-	 * Class BB_Group_Events
+	 * Class Group_Events_For_BuddyBoss
 	 * @since 1.0.0
 	 */
-	class BB_Group_Events {
+	class Group_Events_For_BuddyBoss {
 
 		/**
 		 * The instance of the class.
 		 *
-		 * @var BB_Group_Events
+		 * @var Group_Events_For_BuddyBoss
 		 */
 		private static $instance;
 
@@ -50,7 +49,7 @@ if ( ! class_exists( 'BB_Group_Events' ) ) {
 		 * Return the plugin instance
 		 *
 		 * @since 1.0.0
-		 * @return BB_Group_Events
+		 * @return Group_Events_For_BuddyBoss
 		 */
 		public static function get_instance() {
 			if ( is_null( self::$instance ) ) {
@@ -75,7 +74,7 @@ if ( ! class_exists( 'BB_Group_Events' ) ) {
 		 * @since 1.0.0
 		 */
 		public function includes() {
-			require_once bbgea_dir_path( 'includes/class-bb-group-events-main.php' );
+			require_once gb_dir_path( 'includes/class-group-events-for-buddyboss-main.php' );
 		}
 
 		/**
@@ -84,13 +83,13 @@ if ( ! class_exists( 'BB_Group_Events' ) ) {
 		 */
 		public function init() {
 			// Initialize plugin core
-			BB_Group_Events_Main::get_instance();
+			Group_Events_For_BuddyBoss_Main::get_instance();
 
 			/**
 			 * Triggered when plugin is loaded
 			 * @since 1.0.0
 			 */
-			do_action( 'bbgea_group_events_loaded' );
+			do_action( 'gb_group_events_loaded' );
 		}
 
 		/**
@@ -98,7 +97,7 @@ if ( ! class_exists( 'BB_Group_Events' ) ) {
 		 * @since 1.0.0
 		 */
 		public function load_textdomain() {
-			load_plugin_textdomain( 'buddyboss-group-events', false, bbgea_dir_path( 'languages/' ) );
+			load_plugin_textdomain( 'group-events-for-buddyboss', false, gb_dir_path( 'languages/' ) );
 		}
 
 
@@ -107,7 +106,7 @@ if ( ! class_exists( 'BB_Group_Events' ) ) {
 		 * @since 1.0.0
 		 */
 		public static function activation_hook() {
-			BB_Group_Events::get_instance()->on_database_update();
+			Group_Events_For_BuddyBoss::get_instance()->on_database_update();
 		}
 
 		/**
@@ -135,7 +134,7 @@ if ( ! class_exists( 'BB_Group_Events' ) ) {
 			global $wpdb;
 			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			$charset_collate = $wpdb->get_charset_collate();
-			$table_name      = $wpdb->prefix . 'bb_group_event_rsvp';
+			$table_name      = $wpdb->prefix . 'gb_rsvp';
 
 			$sql = "CREATE TABLE IF NOT EXISTS {$table_name} (
 			ID BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -159,19 +158,19 @@ if ( ! class_exists( 'BB_Group_Events' ) ) {
 
 /************************* Load functions *************************/
 
-if ( ! function_exists( 'bb_group_events' ) ) {
+if ( ! function_exists( 'gb_group_events_for_buddyboss' ) ) {
 	/**
-	 * Get the instance of the BB_Group_Events class
+	 * Get the instance of the Group_Events_For_BuddyBoss class
 	 *
 	 * @since 1.0.0
-	 * @return BB_Group_Events
+	 * @return Group_Events_For_BuddyBoss
 	 */
-	function bb_group_events() {
+	function gb_group_events_for_buddyboss() {
 		if ( ! defined( 'BP_PLATFORM_VERSION' ) ) {
-			add_action( 'all_admin_notices', 'bbgea_platform_required_notice' );
+			add_action( 'all_admin_notices', 'gb_platform_required_notice' );
 		} elseif ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
-			add_action( 'all_admin_notices', 'bbgea_group_component_required_notice' );
-			return BB_Group_Events::get_instance();
+			add_action( 'all_admin_notices', 'gb_group_component_required_notice' );
+			return Group_Events_For_BuddyBoss::get_instance();
 		}
 	}
 
@@ -180,37 +179,37 @@ if ( ! function_exists( 'bb_group_events' ) ) {
 	 *
 	 * @since 1.0.0
 	 */
-	add_action( 'plugins_loaded', 'bb_group_events' );
+	add_action( 'plugins_loaded', 'gb_group_events_for_buddyboss' );
 }
 
 /**
  * Group event dir path.
  * @since 1.0.0
  */
-function bbgea_dir_path( $path = '' ) {
-	return plugin_dir_path( __FILE__ ) . $path;
+function gb_dir_path( $path = '' ) {
+	return GB_GEFBB_PLUGIN_DIR_PATH . $path;
 }
 
 /**
  * Group event dir url.
  * @since 1.0.0
  */
-function bbgea_dir_url( $path = '' ) {
-	return plugin_dir_url( __FILE__ ) . $path;
+function gb_dir_url( $path = '' ) {
+	return GB_GEFBB_PLUGIN_URL_PATH . $path;
 }
 
 /**
  * Group event required notice.
  * @since 1.0.0
  */
-function bbgea_platform_required_notice() {
+function gb_platform_required_notice() {
 	echo '<div class="error fade"><p>';
 	echo sprintf(
 		'<strong>%s</strong> %s <a href="https://buddyboss.com/platform/" target="_blank">%s</a> %s',
-		esc_html__( 'BuddyBoss Group Events', 'buddyboss-group-events' ),
-		esc_html__( 'requires the BuddyBoss Platform plugin to work. Please', 'buddyboss-group-events' ),
-		esc_html__( 'install BuddyBoss Platform', 'buddyboss-group-events' ),
-		esc_html__( 'first.', 'buddyboss-group-events' )
+		esc_html__( 'BuddyBoss Group Events', 'group-events-for-buddyboss' ),
+		esc_html__( 'requires the BuddyBoss Platform plugin to work. Please', 'group-events-for-buddyboss' ),
+		esc_html__( 'install BuddyBoss Platform', 'group-events-for-buddyboss' ),
+		esc_html__( 'first.', 'group-events-for-buddyboss' )
 	);
 	echo '</p></div>';
 }
@@ -219,7 +218,7 @@ function bbgea_platform_required_notice() {
  * Group event required notice.
  * @since 1.0.0
  */
-function bbgea_group_component_required_notice() {
+function gb_group_component_required_notice() {
 	if ( function_exists( 'bp_is_active' ) && bp_is_active( 'groups' ) ) {
 		return;
 	}
@@ -227,8 +226,8 @@ function bbgea_group_component_required_notice() {
 	echo '<div class="error fade"><p>';
 	echo sprintf(
 		'<strong>%s</strong> %s',
-		esc_html__( 'BuddyBoss Group Events', 'buddyboss-group-events' ),
-		esc_html__( 'requires Social Groups Component to work. Please activate Social Groups Component.', 'buddyboss-group-events' )
+		esc_html__( 'BuddyBoss Group Events', 'group-events-for-buddyboss' ),
+		esc_html__( 'requires Social Groups Component to work. Please activate Social Groups Component.', 'group-events-for-buddyboss' )
 	);
 	echo '</p></div>';
 }

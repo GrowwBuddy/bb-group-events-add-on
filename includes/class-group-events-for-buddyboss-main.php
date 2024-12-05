@@ -2,7 +2,7 @@
 /**
  * The main class of the plugin.
  *
- * @package    BB_Group_Events
+ * @package    Group_Events_For_BuddyBoss
  * @subpackage Main
  */
 
@@ -13,12 +13,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class Main
  */
-class BB_Group_Events_Main {
+class Group_Events_For_BuddyBoss_Main {
 
 	/**
 	 * The instance of the class.
 	 *
-	 * @var BB_Group_Events_Main
+	 * @var Group_Events_For_BuddyBoss_Main
 	 */
 	private static $instance;
 
@@ -26,7 +26,7 @@ class BB_Group_Events_Main {
 	 * Return the plugin instance
 	 *
 	 * @since 1.0.0
-	 * @return BB_Group_Events_Main
+	 * @return Group_Events_For_BuddyBoss_Main
 	 */
 	public static function get_instance() {
 		if ( is_null( self::$instance ) ) {
@@ -46,15 +46,15 @@ class BB_Group_Events_Main {
 
 		if ( is_admin() ) {
 			// Initialize admin core.
-			BB_Group_Events_Admin::get_instance();
-			BB_Group_Events_Admin_MetaBox::get_instance();
+			Group_Events_For_BuddyBoss_Admin::get_instance();
+			Group_Events_For_BuddyBoss_Admin_MetaBox::get_instance();
 		}
 
-		BB_Group_Event_Manager::get_instance();
-		BB_Group_Events_DB::get_instance();
+		Group_Events_For_BuddyBoss_Manager::get_instance();
+		Group_Events_For_BuddyBoss_DB::get_instance();
 
 		// Initialize frontend core.
-		BB_Group_Events_FrontEnd::get_instance();
+		Group_Events_For_BuddyBoss_FrontEnd::get_instance();
 	}
 
 	/**
@@ -63,16 +63,16 @@ class BB_Group_Events_Main {
 	 */
 	public function includes() {
 		// Load all functions.
-		require bbgea_dir_path( 'includes/functions.php' );
-		require bbgea_dir_path( 'includes/admin/class-bb-group-events-admin.php' );
-		require bbgea_dir_path( 'includes/admin/class-bb-group-events-admin-metabox.php' );
+		require gb_dir_path( 'includes/functions.php' );
+		require gb_dir_path( 'includes/admin/class-group-events-for-buddyboss-admin.php' );
+		require gb_dir_path( 'includes/admin/class-group-events-for-buddyboss-admin-metabox.php' );
 
 		// Load common classes.
-		require bbgea_dir_path( 'includes/common/class-bb-group-event-manager.php' );
-		require bbgea_dir_path( 'includes/common/class-bb-group-events-db.php' );
+		require gb_dir_path( 'includes/common/class-group-events-for-buddyboss-manager.php' );
+		require gb_dir_path( 'includes/common/class-group-events-for-buddyboss-db.php' );
 
 		// Load admin and frontend classes.
-		require bbgea_dir_path( 'includes/frontend/class-bb-group-events-frontend.php' );
+		require gb_dir_path( 'includes/frontend/class-group-events-for-buddyboss-frontend.php' );
 	}
 
 	/**
@@ -93,11 +93,11 @@ class BB_Group_Events_Main {
 	 * @return array
 	 */
 	public function actions_links( $links, $file ) {
-		if ( plugin_basename( bbgea_dir_path( 'bb-group-events.php' ) ) === $file ) {
+		if ( plugin_basename( gb_dir_path( 'group-events-for-buddyboss.php' ) ) === $file ) {
 			$links['settings'] = sprintf(
 				'<a href="%s">%s</a>',
-				admin_url( 'admin.php?page=bp-settings&tab=bp-groups#bbgea_bb_settings' ),
-				esc_html__( 'Settings', 'buddyboss-group-events' )
+				admin_url( 'admin.php?page=bp-settings&tab=bp-groups#gb_gefbb_settings' ),
+				esc_html__( 'Settings', 'group-events-for-buddyboss' )
 			);
 		}
 

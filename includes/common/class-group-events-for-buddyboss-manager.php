@@ -2,7 +2,7 @@
 /**
  * The database class of the plugin.
  *
- * @package    BB_Group_Events
+ * @package    Group_Events_For_BuddyBoss
  * @subpackage Main
  */
 
@@ -11,15 +11,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class BB_Group_Event_Manager
+ * Class Group_Events_For_BuddyBoss_Manager
  * @since 1.0.0
  */
-class BB_Group_Event_Manager {
+class Group_Events_For_BuddyBoss_Manager {
 
 	/**
 	 * The instance of the class.
 	 * @since 1.0.0
-	 * @var BB_Group_Event_Manager
+	 * @var Group_Events_For_BuddyBoss_Manager
 	 */
 	private static $instance;
 
@@ -35,7 +35,7 @@ class BB_Group_Event_Manager {
 	 * Return the plugin instance.
 	 *
 	 * @since 1.0.0
-	 * @return BB_Group_Event_Manager
+	 * @return Group_Events_For_BuddyBoss_Manager
 	 */
 	public static function get_instance() {
 		if ( is_null( self::$instance ) ) {
@@ -51,7 +51,7 @@ class BB_Group_Event_Manager {
 	 */
 	public function __construct() {
 		global $wpdb;
-		$this->table_name = $wpdb->prefix . 'bb_group_event_rsvp';
+		$this->table_name = $wpdb->prefix . 'gb_rsvp';
 	}
 
 	/**
@@ -232,7 +232,7 @@ class BB_Group_Event_Manager {
 	 */
 	public function get_events( $args = array() ) {
 		$default_args = array(
-			'post_type'      => bbgea_groups_event_get_post_type(),
+			'post_type'      => gb_groups_event_get_post_type(),
 			'posts_per_page' => 2,
 			'paged'          => 1,
 			'order'          => 'DESC',
@@ -320,8 +320,8 @@ class BB_Group_Event_Manager {
 			'location'    => get_post_meta( $event->ID, '_event_location', true ),
 			'type'        => get_post_meta( $event->ID, '_event_type', true ),
 			'group_id'    => $group_id,
-			'attendees'   => bbgea_get_event_attendees( $event->ID ),
-			'is_rsvp'     => is_user_logged_in() ? bbgea_get_group_event_rsvp( $event->ID, get_current_user_id() ) : false,
+			'attendees'   => gb_get_event_attendees( $event->ID ),
+			'is_rsvp'     => is_user_logged_in() ? gb_get_group_event_rsvp( $event->ID, get_current_user_id() ) : false,
 		);
 
 		return $event_item;

@@ -2,7 +2,7 @@ jQuery( document ).ready( function () {
     var menuOpen = jQuery( '#wpwrap #adminmenumain #adminmenuwrap #adminmenu #toplevel_page_buddyboss-platform ul.wp-submenu li' );
 
     // Set Groups selected on Group Type post types.
-    if ( jQuery( 'body.buddypress.post-type-bb-group-event' ).length ) {
+    if ( jQuery( 'body.buddypress.post-type-group-events-for-buddyboss' ).length ) {
         var selectorGroups = jQuery( '#wpwrap #adminmenumain #adminmenuwrap #adminmenu .toplevel_page_buddyboss-platform ul.wp-submenu-wrap li a[href*="bp-groups"]' );
         jQuery( menuOpen ).removeClass( 'current' );
         jQuery( selectorGroups ).addClass( 'current' );
@@ -21,7 +21,7 @@ jQuery( document ).ready( function () {
             data: function(params) {
                 return {
                     q: params.term,
-                    action: 'bbgea_get_groups',
+                    action: 'gb_get_groups',
                     nonce: BBGroupEvents.nonce,
                 };
             },

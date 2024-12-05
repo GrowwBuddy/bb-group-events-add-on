@@ -1,8 +1,8 @@
 <?php
 /**
  * The template for displaying events list.
- * This template can be overridden by copying it to yourtheme/bb-group-events/events/list.php.
- * @package    BB_Group_Events
+ * This template can be overridden by copying it to yourtheme/gb-gefbb/events/list.php.
+ * @package    Group_Events_For_BuddyBoss
  * @subpackage Templates
  */
 ?>
@@ -10,8 +10,8 @@
 	<!-- Event Type Switch -->
 	<div class="gb-event-left">
 		<div class="gb-event-types">
-			<a href="#upcoming" class="gb-event-type-btn active" data-group-id="<?php echo esc_attr( bp_get_current_group_id() ); ?>"  data-event="upcoming"><?php esc_html_e( 'Upcoming Events', 'buddyboss-group-events' ); ?></a>
-			<a href="#past" class="gb-event-type-btn" data-group-id="<?php echo esc_attr( bp_get_current_group_id() ); ?>" data-event="past"><?php esc_html_e( 'Past Events', 'buddyboss-group-events' ); ?></a>
+			<a href="#upcoming" class="gb-event-type-btn active" data-group-id="<?php echo esc_attr( bp_get_current_group_id() ); ?>"  data-event="upcoming"><?php esc_html_e( 'Upcoming Events', 'group-events-for-buddyboss' ); ?></a>
+			<a href="#past" class="gb-event-type-btn" data-group-id="<?php echo esc_attr( bp_get_current_group_id() ); ?>" data-event="past"><?php esc_html_e( 'Past Events', 'group-events-for-buddyboss' ); ?></a>
 		</div>
 	</div>
 
@@ -19,7 +19,7 @@
 	<div class="gb-event-right">
 		<div class="gb-events-list gb-upcoming-events">
 			<?php
-			$events_data = BB_Group_Event_Manager::get_instance()->get_events(
+			$events_data = Group_Events_For_BuddyBoss_Manager::get_instance()->get_events(
 				array(
 					'status'   => 'upcoming',
 					'paged'    => 1,
@@ -30,7 +30,7 @@
 			if ( ! empty( $events_data['events'] ) ) {
 				echo '<div class="gb-event-list-body">';
 				foreach ( $events_data['events'] as $event ) {
-					bbgea_group_events_include_template( 'events/list-item.php', array( 'event' => $event ) );
+					gb_group_events_include_template( 'events/list-item.php', array( 'event' => $event ) );
 				}
 				echo '</div>';
 
@@ -47,8 +47,8 @@
 								'format'    => '',
 								'current'   => max( 1, 1 ),
 								'total'     => $events_data['pages'],
-								'prev_text' => __( '&larr;', 'buddyboss-group-events' ),
-								'next_text' => __( '&rarr;', 'buddyboss-group-events' ),
+								'prev_text' => __( '&larr;', 'group-events-for-buddyboss' ),
+								'next_text' => __( '&rarr;', 'group-events-for-buddyboss' ),
 								'mid_size'  => 1,
 								'add_args'  => array(),
 							)
@@ -67,7 +67,7 @@
 		<!-- Past Events Section -->
 		<div class="gb-events-list gb-past-events" style="display: none;">
 			<?php
-			$events_data = BB_Group_Event_Manager::get_instance()->get_events(
+			$events_data = Group_Events_For_BuddyBoss_Manager::get_instance()->get_events(
 				array(
 					'status'   => 'past',
 					'paged'    => 1,
@@ -78,7 +78,7 @@
 			if ( ! empty( $events_data['events'] ) ) {
 				echo '<div class="gb-event-list-body">';
 				foreach ( $events_data['events'] as $event ) {
-					bbgea_group_events_include_template( 'events/list-item.php', array( 'event' => $event ) );
+					gb_group_events_include_template( 'events/list-item.php', array( 'event' => $event ) );
 				}
 				echo '</div>';
 
@@ -95,8 +95,8 @@
 								'format'    => '',
 								'current'   => max( 1, 1 ),
 								'total'     => $events_data['pages'],
-								'prev_text' => __( '&larr;', 'buddyboss-group-events' ),
-								'next_text' => __( '&rarr;', 'buddyboss-group-events' ),
+								'prev_text' => __( '&larr;', 'group-events-for-buddyboss' ),
+								'next_text' => __( '&rarr;', 'group-events-for-buddyboss' ),
 								'mid_size'  => 1,
 								'add_args'  => array(),
 							)

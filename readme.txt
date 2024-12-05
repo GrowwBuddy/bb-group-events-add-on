@@ -8,12 +8,16 @@ Stable tag: 1.0.0
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Disclaimer: This plugin is not affiliated with or endorsed by BuddyBoss. "BuddyBoss" is a trademark of BuddyBoss LLC.
 
 Create events for BuddyBoss groups and allow members to RSVP to upcoming events.
 
 == Description ==
 
 **Group Events for BuddyBoss** is a plugin that allows you to create events for BuddyBoss groups. It adds a new tab to the group page where members can view and RSVP to upcoming events. The plugin includes features to create, edit, and delete events, as well as send notifications to group members.
+
+
+
 
 **Features:**
 - Create events for BuddyBoss groups

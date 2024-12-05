@@ -1,9 +1,9 @@
 <?php
 /**
  * The template for displaying calendar view.
- * This template can be overridden by copying it to yourtheme/bb-group-events/calendar.php.
+ * This template can be overridden by copying it to yourtheme/gb-gefbb/calendar.php.
  *
- * @package    BB_Group_Events
+ * @package    Group_Events_For_BuddyBoss
  * @subpackage Templates
  */
 ?>

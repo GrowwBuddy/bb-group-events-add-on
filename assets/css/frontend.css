@@ -281,7 +281,7 @@
 	border-radius: var(--bb-button-radius);
 }
 
-.gb-group-event-modal header.bb-model-header {
+.group-events-for-buddyboss-modal header.bb-model-header {
 	background: #fbfbfc;
 	box-shadow: 0 1px 0 0 #eef0f3;
 	border-radius: 4px 4px 0 0;
@@ -292,7 +292,7 @@
 	border-bottom: 1px solid #eef0f3;
 }
 
-.gb-group-event-modal footer.bb-model-footer {
+.group-events-for-buddyboss-modal footer.bb-model-footer {
 	border-top: 1px solid var(--bb-content-border-color);
 	display: block;
 	margin: 35px -30px -30px;
@@ -303,7 +303,7 @@
 	border-top: 1px solid #eef0f3;
 }
 
-.gb-group-event-modal .modal-container {
+.group-events-for-buddyboss-modal .modal-container {
 	max-height: 80vh; /* Adjusts to 80% of viewport height */
 	overflow-y: auto; /* Enables scrolling for overflowing content */
 	width: 100%; /* Full width of modal mask */
@@ -312,7 +312,7 @@
 	border-radius: 8px;
 }
 
-.group-events .gb-group-event-open-popup .wp-editor-tools button {
+.group-events .group-events-for-buddyboss-open-popup .wp-editor-tools button {
 	color: #000;
 	background: #f2f4f5;
 	border: 1px solid #d7d9dd;
@@ -326,12 +326,12 @@
 	padding: 0 20px;
 }
 
-.group-events .gb-group-event-open-popup .tmce-active button.switch-tmce,
-.group-events .gb-group-event-open-popup .html-active button.switch-html{
+.group-events .group-events-for-buddyboss-open-popup .tmce-active button.switch-tmce,
+.group-events .group-events-for-buddyboss-open-popup .html-active button.switch-html{
 	border-bottom-color: transparent;
 }
 
-.group-events #buddypress .gb-group-event-open-popup .wp-editor-container input[type="button"] {
+.group-events #buddypress .group-events-for-buddyboss-open-popup .wp-editor-container input[type="button"] {
 	color: #000;
 	background: #f2f4f5;
 	border: 1px solid #d7d9dd;
@@ -345,22 +345,22 @@
 	padding: 0 10px;
 }
 
-.group-events .gb-group-event-open-popup .wp-editor-tools button:hover,
-.group-events .gb-group-event-open-popup .wp-editor-tools button:focus,
-.group-events #buddypress .gb-group-event-open-popup .wp-editor-container input[type="button"]:hover{
+.group-events .group-events-for-buddyboss-open-popup .wp-editor-tools button:hover,
+.group-events .group-events-for-buddyboss-open-popup .wp-editor-tools button:focus,
+.group-events #buddypress .group-events-for-buddyboss-open-popup .wp-editor-container input[type="button"]:hover{
 	background: #e7e7e7;
 	border: 1px solid #d7d9dd;
 	color: #000;
 }
 
-.group-events .gb-group-event-open-popup .tmce-active button.switch-tmce:hover,
-.group-events .gb-group-event-open-popup .html-active button.switch-html:hover,
-.group-events .gb-group-event-open-popup .tmce-active button.switch-tmce:focus,
-.group-events .gb-group-event-open-popup .html-active button.switch-html:focus {
+.group-events .group-events-for-buddyboss-open-popup .tmce-active button.switch-tmce:hover,
+.group-events .group-events-for-buddyboss-open-popup .html-active button.switch-html:hover,
+.group-events .group-events-for-buddyboss-open-popup .tmce-active button.switch-tmce:focus,
+.group-events .group-events-for-buddyboss-open-popup .html-active button.switch-html:focus {
 	border-bottom-color: transparent;
 }
 
-.gb-group-event-modal .modal-mask {
+.group-events-for-buddyboss-modal .modal-mask {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -380,10 +380,10 @@ span.gb-attendees-count {
 }
 
 /* General Container Styles */
-.single-bb-group-event .bb-group-event-header,
-.single-bb-group-event .bb-group-event-left,
-.single-bb-group-event .bb-group-event-right,
-.single-bb-group-event .bb-group-event-footer
+.single-group-events-for-buddyboss .group-events-for-buddyboss-header,
+.single-group-events-for-buddyboss .group-events-for-buddyboss-left,
+.single-group-events-for-buddyboss .group-events-for-buddyboss-right,
+.single-group-events-for-buddyboss .group-events-for-buddyboss-footer
 {
 	background: #fff;
 	border: 1px solid #ddd;
@@ -394,20 +394,20 @@ span.gb-attendees-count {
 	font-family: Arial, sans-serif;
 }
 
-.single-bb-group-event .bb-group-event-left {flex: 70%;}
+.single-group-events-for-buddyboss .group-events-for-buddyboss-left {flex: 70%;}
 
 /* Banner Section */
-.single-bb-group-event .banner-image img {
+.single-group-events-for-buddyboss .banner-image img {
 	width: 100%;
 	height: auto;
 	border-radius: 8px;
 }
-.bb-group-event-body {
+.group-events-for-buddyboss-body {
 	display: flex;
 	gap: 30px;
 }
 /* Group Info Section */
-.single-bb-group-event .group-info {
+.single-group-events-for-buddyboss .group-info {
 	display: flex;
 	gap: 20px;
 	margin: 20px 0;
@@ -415,8 +415,8 @@ span.gb-attendees-count {
 	flex: 30%;
 }
 
-.single-bb-group-event .group-details,
-.single-bb-group-event .event-details {
+.single-group-events-for-buddyboss .group-details,
+.single-group-events-for-buddyboss .event-details {
 	background: #f9f9f9;
 	padding: 15px;
 	border: 1px solid #ddd;
@@ -424,28 +424,28 @@ span.gb-attendees-count {
 	text-align: center;
 }
 
-.single-bb-group-event .group-details p,
-.single-bb-group-event .event-details p {
+.single-group-events-for-buddyboss .group-details p,
+.single-group-events-for-buddyboss .event-details p {
 	font-size: 14px; /* Regular text size */
 	margin: 5px 0; /* Vertical spacing between lines */
 	color: #495057; /* Subtle text color */
 }
 
-.single-bb-group-event .event-details strong {
+.single-group-events-for-buddyboss .event-details strong {
 	color: #000; /* Highlight important information */
 }
 
-.single-bb-group-event .event-details .event-date,
-.single-bb-group-event .event-details .event-time,
-.single-bb-group-event .event-details .end-date,
-.single-bb-group-event .event-details .end-time,
-.single-bb-group-event .event-details .event-location,
-.single-bb-group-event .event-details .event-type {
+.single-group-events-for-buddyboss .event-details .event-date,
+.single-group-events-for-buddyboss .event-details .event-time,
+.single-group-events-for-buddyboss .event-details .end-date,
+.single-group-events-for-buddyboss .event-details .end-time,
+.single-group-events-for-buddyboss .event-details .event-location,
+.single-group-events-for-buddyboss .event-details .event-type {
 	line-height: 1.6; /* Improve readability */
 }
 
 
-.single-bb-group-event .group-image img {
+.single-group-events-for-buddyboss .group-image img {
 	width: 100px;
 	height: 100px;
 	border-radius: 10%;
@@ -454,48 +454,48 @@ span.gb-attendees-count {
 }
 
 /* Details Section */
-.single-bb-group-event .details {
+.single-group-events-for-buddyboss .details {
 	display: flex;
 	gap: 20px;
 	margin: 20px 0;
 }
 
-.single-bb-group-event .author-info {
+.single-group-events-for-buddyboss .author-info {
 	display: flex;
 	align-items: center;
 	gap: 10px;
 	margin: 15px 0;
 }
 
-.single-bb-group-event .author-image img {
+.single-group-events-for-buddyboss .author-image img {
 	width: 50px;
 	height: 50px;
 	border-radius: 50%;
 	background: #ccc;
 }
 
-.single-bb-group-event .event-description h2 {
+.single-group-events-for-buddyboss .event-description h2 {
 	font-size: 20px;
 	margin-bottom: 10px;
 }
 
 /* Attendees Section */
-.single-bb-group-event .attendees {
+.single-group-events-for-buddyboss .attendees {
 	margin-top: 20px;
 }
 
-.single-bb-group-event .attendees h2 {
+.single-group-events-for-buddyboss .attendees h2 {
 	font-size: 20px;
 	margin-bottom: 10px;
 }
 
-.single-bb-group-event .attendee-grid {
+.single-group-events-for-buddyboss .attendee-grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(15%, 15%));
 	gap: 20px;
 }
 
-.single-bb-group-event .attendee-card {
+.single-group-events-for-buddyboss .attendee-card {
 	text-align: center;
 	padding: 15px;
 	background: #f9f9f9;
@@ -504,7 +504,7 @@ span.gb-attendees-count {
 	box-sizing: border-box;
 }
 
-.single-bb-group-event .attendee-image img {
+.single-group-events-for-buddyboss .attendee-image img {
 	width: 60px;
 	height: 60px;
 	border-radius: 50%;
@@ -512,7 +512,7 @@ span.gb-attendees-count {
 }
 
 /* Attend Button */
-.single-bb-group-event .attend-button {
+.single-group-events-for-buddyboss .attend-button {
 	text-align: right;
 	margin: 20px 0;
 	display: flex;
@@ -521,7 +521,7 @@ span.gb-attendees-count {
 	align-items: flex-end;
 }
 
-.single-bb-group-event .attend-button button {
+.single-group-events-for-buddyboss .attend-button button {
 	padding: 10px 20px;
 	background-color: #0073aa;
 	color: #fff;
@@ -531,16 +531,16 @@ span.gb-attendees-count {
 	cursor: pointer;
 }
 
-.single-bb-group-event .attend-button button:hover {
+.single-group-events-for-buddyboss .attend-button button:hover {
 	background-color: #005f8d;
 }
 
-.single-bb-group-event .bb-event-author-meta {
+.single-group-events-for-buddyboss .bb-event-author-meta {
 	display: flex;
 	flex-direction: column;
 }
 
-.single-bb-group-event .bb-event-author-meta p {
+.single-group-events-for-buddyboss .bb-event-author-meta p {
 	margin-bottom: 0;
 	font-size: 14px;
 }

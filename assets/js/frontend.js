@@ -17,8 +17,8 @@ class BuddyBossGroupEvents {
         jQuery( '.bp-nouveau' ).on( 'click', '.gb-create-events', ( e ) => this.openCreateEventModal( e ) );
         jQuery( '.bp-nouveau' ).on( 'click', '.gb-edit-action', ( e ) => this.openEditEventModal( e ) );
         // Close modal for group event creation
-        jQuery( '.bp-nouveau' ).on( 'click', '#gb-group-event-modal-close', ( e ) => this.closeModal( e ) );
-        jQuery( document ).on( 'click', '#gb-group-event-save-submit', ( e ) => this.saveEvent( e ) ); // Add submit event handler
+        jQuery( '.bp-nouveau' ).on( 'click', '#group-events-for-buddyboss-modal-close', ( e ) => this.closeModal( e ) );
+        jQuery( document ).on( 'click', '#group-events-for-buddyboss-save-submit', ( e ) => this.saveEvent( e ) ); // Add submit event handler
         jQuery( document ).on( 'click', '.gb-edit-rsvp-event', ( e ) => this.loadEditRSVPTemplate( e ) );
         jQuery( document ).on( 'click', '.gb-attend-event, #gb-update-rsvp', ( e ) => this.saveUserRSVP( e ) );
         jQuery( document ).on( 'click', '.bb-pagination a.page-numbers', ( e ) => this.loadEvents( e ) );
@@ -102,7 +102,7 @@ class BuddyBossGroupEvents {
 
     closeModal(e) {
         e.preventDefault();
-        jQuery('#gb-group-event-modal').empty(); // Empty the modal content.
+        jQuery('#group-events-for-buddyboss-modal').empty(); // Empty the modal content.
 
         // Destroy the TinyMCE editor instance
         wp.editor.remove('event_description');
@@ -119,11 +119,11 @@ class BuddyBossGroupEvents {
             // AJAX request to get event data by `eventId`
             jQuery.ajax( {
                 type: 'GET',
-                url: bbgea_object.ajax_url,
+                url: gb_object.ajax_url,
                 data: {
                     action: 'fetch_group_event',
                     event_id: eventId,
-                    _wpnonce: bbgea_object.nonce,
+                    _wpnonce: gb_object.nonce,
                 },
                 success: ( response ) => {
                     if ( response.success ) {
@@ -142,7 +142,7 @@ class BuddyBossGroupEvents {
                         };
 
                         // Render the template with event data
-                        jQuery( '#gb-group-event-modal' ).html( template( data ) );
+                        jQuery( '#group-events-for-buddyboss-modal' ).html( template( data ) );
 
                         // Initialize TinyMCE or Quicktags on the existing textarea
                         wp.editor.initialize('event_description', {
@@ -161,7 +161,7 @@ class BuddyBossGroupEvents {
             } );
         } else {
             // Render the template with event data
-            jQuery( '#gb-group-event-modal' ).html( template( data ) );
+            jQuery( '#group-events-for-buddyboss-modal' ).html( template( data ) );
 
             // Initialize TinyMCE or Quicktags on the existing textarea
             wp.editor.initialize('event_description', {
@@ -212,7 +212,7 @@ class BuddyBossGroupEvents {
         // Data to send via AJAX
         const data = {
             action: 'group_event_save',
-            _wpnonce: bbgea_object.nonce,
+            _wpnonce: gb_object.nonce,
             event_id: eventId,
             title: title.val(),
             description: description,
@@ -227,7 +227,7 @@ class BuddyBossGroupEvents {
         jQuery.ajax(
             {
                 type: 'POST',
-                url: bbgea_object.ajax_url,
+                url: gb_object.ajax_url,
                 data: data,
                 success: ( response ) => {
                     setTimeout(
@@ -264,11 +264,11 @@ class BuddyBossGroupEvents {
                         }
                     } else {
                         // Handle error feedback
-                        jQuery( '#gb-group-event-open-popup .bb-model-header' ).after( response.data.feedback );
+                        jQuery( '#group-events-for-buddyboss-open-popup .bb-model-header' ).after( response.data.feedback );
                     }
 
                     // Close the modal
-                    jQuery( '#gb-group-event-open-popup' ).find( '#gb-group-event-modal-close' ).trigger( 'click' );
+                    jQuery( '#group-events-for-buddyboss-open-popup' ).find( '#group-events-for-buddyboss-modal-close' ).trigger( 'click' );
                     //window.location.reload();
                 },
                 error: ( xhr, status, error ) => {
@@ -285,18 +285,18 @@ class BuddyBossGroupEvents {
         const eventId = jQuery( e.currentTarget ).data( 'event-id' );
         jQuery.ajax({
             type: 'GET',
-            url: bbgea_object.ajax_url,
+            url: gb_object.ajax_url,
             data: {
                 action: 'fetch_user_rsvp',
                 event_id: eventId,
-                _wpnonce: bbgea_object.nonce,
+                _wpnonce: gb_object.nonce,
             },
             success: (response) => {
                 if (response.success) {
                     const data = response.data.rsvp_data;
 
                     // Render the template with the fetched data
-                    jQuery('#gb-group-event-modal').html(template(data));
+                    jQuery('#group-events-for-buddyboss-modal').html(template(data));
                 } else {
                     console.error(response.data.message);
                 }
@@ -321,7 +321,7 @@ class BuddyBossGroupEvents {
         // AJAX data payload
         const data = {
             action: 'save_user_rsvp',
-            _wpnonce: bbgea_object.nonce,
+            _wpnonce: gb_object.nonce,
             event_id: eventId,
             group_id: groupId,
             rsvp_status: rsvpStatus,
@@ -330,18 +330,18 @@ class BuddyBossGroupEvents {
 
         jQuery.ajax({
             type: 'POST',
-            url: bbgea_object.ajax_url,
+            url: gb_object.ajax_url,
             data: data,
             success: (response) => {
                 if (response.success) {
                     alert(response.data.message);
                     if( mode === 'edit' ) {
-                        jQuery('#gb-group-event-modal').empty(); // Empty the modal content.
+                        jQuery('#group-events-for-buddyboss-modal').empty(); // Empty the modal content.
                     }
                     if( jQuery('.gb-events-list').length > 0 ) {
                         jQuery('.gb-events-list').find(`[data-event-id='${eventId}']`).find('.gb-attend-btn').html(response.data.rsvp_button);
                     } else {
-                        jQuery('.bb-group-event-footer').find('.attend-button').html(response.data.rsvp_button);
+                        jQuery('.group-events-for-buddyboss-footer').find('.attend-button').html(response.data.rsvp_button);
                     }
                 } else {
                     console.error(response.data.message);
@@ -363,14 +363,14 @@ class BuddyBossGroupEvents {
         const groupID = jQuery('.gb-event-type-btn.active').data('group-id'); // Get the active event type
 
         jQuery.ajax({
-            url: bbgea_object.ajax_url,
+            url: gb_object.ajax_url,
             type: 'POST',
             data: {
                 action: 'load_events',
                 status: eventType,
                 group_id: groupID,
                 paged: page,
-                _wpnonce: bbgea_object.nonce,
+                _wpnonce: gb_object.nonce,
             },
             success: (response) => {
                 if (response.success) {

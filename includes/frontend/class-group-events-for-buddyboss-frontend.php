@@ -3,7 +3,7 @@
 /**
  * The frontend class of Group Events for BuddyBoss.
  *
- * @package    BB_Group_Events
+ * @package    Group_Events_For_BuddyBoss
  * @subpackage Frontend
  */
 
@@ -15,12 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class FrontEnd
  * @since 1.0.0
  */
-class BB_Group_Events_FrontEnd {
+class Group_Events_For_BuddyBoss_FrontEnd {
 
 	/**
 	 * The instance of the class.
 	 * @since 1.0.0
-	 * @var BB_Group_Events_FrontEnd
+	 * @var Group_Events_For_BuddyBoss_FrontEnd
 	 */
 	private static $instance;
 
@@ -28,7 +28,7 @@ class BB_Group_Events_FrontEnd {
 	 * Return the plugin instance
 	 *
 	 * @since 1.0.0
-	 * @return BB_Group_Events_FrontEnd
+	 * @return Group_Events_For_BuddyBoss_FrontEnd
 	 */
 	public static function get_instance() {
 		if ( is_null( self::$instance ) ) {
@@ -69,21 +69,21 @@ class BB_Group_Events_FrontEnd {
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_editor();
-		wp_enqueue_style( 'bbgea-frontend', bbgea_dir_url( 'assets/css/frontend.css' ), array(), BB_GROUP_EVENTS_VERSION );
+		wp_enqueue_style( 'gb-frontend', gb_dir_url( 'assets/css/frontend.css' ), array(), GB_GEFBB_VERSION );
 		wp_enqueue_script(
-			'bbgea-frontend',
-			bbgea_dir_url( 'assets/js/frontend.js' ),
+			'gb-frontend',
+			gb_dir_url( 'assets/js/frontend.js' ),
 			array( 'jquery' ),
-			BB_GROUP_EVENTS_VERSION,
+			GB_GEFBB_VERSION,
 			true
 		);
 
 		wp_localize_script(
-			'bbgea-frontend',
-			'bbgea_object',
+			'gb-frontend',
+			'gb_object',
 			array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
-				'nonce'    => wp_create_nonce( 'bbgea_nonce' ),
+				'nonce'    => wp_create_nonce( 'gb_nonce' ),
 			)
 		);
 	}
@@ -93,10 +93,10 @@ class BB_Group_Events_FrontEnd {
 	 * @since 1.0.0
 	 */
 	public function enqueue_event_form_template() {
-		if ( bbgea_can_manage_group() ) {
-			include bbgea_group_events_get_template( 'events/manage/create-event.php' );
+		if ( gb_can_manage_group() ) {
+			include gb_group_events_get_template( 'events/manage/create-event.php' );
 		}
-		include bbgea_group_events_get_template( 'events/manage/edit-rsvp.php' );
+		include gb_group_events_get_template( 'events/manage/edit-rsvp.php' );
 	}
 
 	/**
@@ -104,8 +104,8 @@ class BB_Group_Events_FrontEnd {
 	 * @since 1.0.0
 	 */
 	public function load_event_template( $template ) {
-		if ( is_singular( bbgea_groups_event_get_post_type() ) ) {
-			$template = bbgea_group_events_get_template( 'single-bb-group-event.php' );
+		if ( is_singular( gb_groups_event_get_post_type() ) ) {
+			$template = gb_group_events_get_template( 'single-group-events-for-buddyboss.php' );
 		}
 
 		return $template;
@@ -118,7 +118,7 @@ class BB_Group_Events_FrontEnd {
 	 */
 	public function fetch_group_event() {
 		// Check nonce for security.
-		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_GET['_wpnonce'] ), 'bbgea_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_GET['_wpnonce'] ), 'gb_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
 
 			return;
@@ -136,7 +136,7 @@ class BB_Group_Events_FrontEnd {
 		// Retrieve event data.
 		$event_post = get_post( $event_id );
 
-		if ( ! $event_post || bbgea_groups_event_get_post_type() !== $event_post->post_type ) {
+		if ( ! $event_post || gb_groups_event_get_post_type() !== $event_post->post_type ) {
 			wp_send_json_error( array( 'message' => 'Event not found' ) );
 
 			return;
@@ -162,7 +162,7 @@ class BB_Group_Events_FrontEnd {
 	 * @since 1.0.0
 	 */
 	public function save_group_event() {
-		check_ajax_referer( 'bbgea_nonce', '_wpnonce' );
+		check_ajax_referer( 'gb_nonce', '_wpnonce' );
 
 		// Capture and sanitize inputs
 		$event_id       = ! empty( $_POST['event_id'] ) ? absint( $_POST['event_id'] ) : 0;
@@ -179,7 +179,7 @@ class BB_Group_Events_FrontEnd {
 			'post_title'   => $title,
 			'post_content' => $description,
 			'post_status'  => 'publish',
-			'post_type'    => bbgea_groups_event_get_post_type(), // Ensure this post type is registered
+			'post_type'    => gb_groups_event_get_post_type(), // Ensure this post type is registered
 		);
 
 		if ( $event_id ) {
@@ -203,9 +203,9 @@ class BB_Group_Events_FrontEnd {
 		update_post_meta( $event_id, '_event_group_id', $event_group_id );
 
 		// Prepare HTML for response
-		$event = BB_Group_Event_Manager::get_instance()->get_event( $event_id );
+		$event = Group_Events_For_BuddyBoss_Manager::get_instance()->get_event( $event_id );
 		ob_start();
-		bbgea_group_events_include_template( 'events/list-item.php', array( 'event' => $event ) );
+		gb_group_events_include_template( 'events/list-item.php', array( 'event' => $event ) );
 		$event_html = ob_get_clean();
 
 		// Send the HTML as a response
@@ -220,7 +220,7 @@ class BB_Group_Events_FrontEnd {
 	 */
 	public function fetch_user_rsvp() {
 		// Check nonce for security.
-		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_GET['_wpnonce'] ), 'bbgea_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_GET['_wpnonce'] ), 'gb_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
 
 			return;
@@ -236,7 +236,7 @@ class BB_Group_Events_FrontEnd {
 			return;
 		}
 
-		$rsvp = BB_Group_Event_Manager::get_instance()->get_rsvp( $event_id, $user_id );
+		$rsvp = Group_Events_For_BuddyBoss_Manager::get_instance()->get_rsvp( $event_id, $user_id );
 
 		// Send the response.
 		wp_send_json_success( array( 'rsvp_data' => $rsvp ) );
@@ -248,7 +248,7 @@ class BB_Group_Events_FrontEnd {
 	 */
 	public function handle_user_rsvp() {
 		// Check nonce for security.
-		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['_wpnonce'] ), 'bbgea_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['_wpnonce'] ), 'gb_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
 
 			return;
@@ -267,33 +267,33 @@ class BB_Group_Events_FrontEnd {
 		}
 
 		// Check if RSVP exists and update or insert accordingly.
-		$rsvp = BB_Group_Event_Manager::get_instance()->get_rsvp( $event_id, $user_id );
+		$rsvp = Group_Events_For_BuddyBoss_Manager::get_instance()->get_rsvp( $event_id, $user_id );
 
 		if ( $rsvp ) {
-			BB_Group_Event_Manager::get_instance()->update_rsvp( $rsvp->ID, $rsvp_status, $comment );
+			Group_Events_For_BuddyBoss_Manager::get_instance()->update_rsvp( $rsvp->ID, $rsvp_status, $comment );
 		} else {
-			BB_Group_Event_Manager::get_instance()->add_rsvp( $group_id, $event_id, $user_id, $rsvp_status, $comment );
+			Group_Events_For_BuddyBoss_Manager::get_instance()->add_rsvp( $group_id, $event_id, $user_id, $rsvp_status, $comment );
 		}
 
 		if ( 'yes' === $rsvp_status ) {
-			$status = sprintf( '<span>%s</span>', esc_html__( 'You\'re going!', 'buddyboss-group-events' ) );
+			$status = sprintf( '<span>%s</span>', esc_html__( 'You\'re going!', 'group-events-for-buddyboss' ) );
 		} elseif ( 'no' === $rsvp_status ) {
-			$status = sprintf( '<span>%s</span>', esc_html__( 'You\'re not going!', 'buddyboss-group-events' ) );
+			$status = sprintf( '<span>%s</span>', esc_html__( 'You\'re not going!', 'group-events-for-buddyboss' ) );
 		} else {
-			$status = sprintf( '<span>%s</span>', esc_html__( 'You\'re maybe going!', 'buddyboss-group-events' ) );
+			$status = sprintf( '<span>%s</span>', esc_html__( 'You\'re maybe going!', 'group-events-for-buddyboss' ) );
 		}
 
 		$button_html = sprintf(
 			'<button class="gb-edit-rsvp-event" data-event-id="%1$s" data-group-id="%2$s">%3$s</button>',
 			esc_attr( $event_id ),
 			esc_attr( $group_id ),
-			esc_html__( 'Edit RSVP', 'buddyboss-group-events' )
+			esc_html__( 'Edit RSVP', 'group-events-for-buddyboss' )
 		);
 
 		// Send the response.
 		wp_send_json_success(
 			array(
-				'message'     => esc_html__( 'RSVP updated successfully', 'buddyboss-group-events' ),
+				'message'     => esc_html__( 'RSVP updated successfully', 'group-events-for-buddyboss' ),
 				'rsvp_button' => $status . $button_html,
 			)
 		);
@@ -307,7 +307,7 @@ class BB_Group_Events_FrontEnd {
 	 */
 	public function load_events() {
 		// Check nonce for security.
-		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['_wpnonce'] ), 'bbgea_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['_wpnonce'] ), 'gb_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
 
 			return;
@@ -317,7 +317,7 @@ class BB_Group_Events_FrontEnd {
 		$group_id = isset( $_POST['group_id'] ) ? absint( $_POST['group_id'] ) : 0;
 		$paged    = isset( $_POST['paged'] ) ? absint( $_POST['paged'] ) : 1;
 
-		$events_data = BB_Group_Event_Manager::get_instance()->get_events(
+		$events_data = Group_Events_For_BuddyBoss_Manager::get_instance()->get_events(
 			array(
 				'status'   => $status,
 				'paged'    => $paged,
@@ -329,7 +329,7 @@ class BB_Group_Events_FrontEnd {
 		if ( ! empty( $events_data['events'] ) ) {
 			foreach ( $events_data['events'] as $event ) {
 				ob_start();
-				bbgea_group_events_include_template( 'events/list-item.php', array( 'event' => $event ) );
+				gb_group_events_include_template( 'events/list-item.php', array( 'event' => $event ) );
 				$events_html .= ob_get_clean();
 			}
 		} else {
@@ -348,8 +348,8 @@ class BB_Group_Events_FrontEnd {
 					'format'    => '',
 					'current'   => $paged,
 					'total'     => $events_data['pages'],
-					'prev_text' => __( '&larr;', 'buddyboss-group-events' ),
-					'next_text' => __( '&rarr;', 'buddyboss-group-events' ),
+					'prev_text' => __( '&larr;', 'group-events-for-buddyboss' ),
+					'next_text' => __( '&rarr;', 'group-events-for-buddyboss' ),
 					'mid_size'  => 1,
 					'add_args'  => array(),
 				)
