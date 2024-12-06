@@ -6,7 +6,7 @@
  *
  * This template can be overridden by copying it to yourtheme/gb-gefbb/single-group-events-for-buddyboss.php.
  *
- * @package BuddyBoss Group Events
+ * @package Group Events for BuddyBoss
  */
 
 get_header();

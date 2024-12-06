@@ -1,4 +1,4 @@
-=== BuddyBoss Group Events ===
+=== Group Events for BuddyBoss ===
 Contributors: growwbuddy
 Donate link: https://growwbuddy.com/
 Tags: buddyboss, buddyboss platform, group events, events, groups

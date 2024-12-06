@@ -27,7 +27,7 @@ if ( ! defined( 'GB_GEFBB_VERSION' ) ) {
 }
 
 /**
- * Main class of BuddyBoss Group Events
+ * Main class of Group Events for BuddyBoss
  *
  * @since 1.0.0
  */
@@ -206,7 +206,7 @@ function gb_platform_required_notice() {
 	echo '<div class="error fade"><p>';
 	echo sprintf(
 		'<strong>%s</strong> %s <a href="https://buddyboss.com/platform/" target="_blank">%s</a> %s',
-		esc_html__( 'BuddyBoss Group Events', 'group-events-for-buddyboss' ),
+		esc_html__( 'Group Events for BuddyBoss', 'group-events-for-buddyboss' ),
 		esc_html__( 'requires the BuddyBoss Platform plugin to work. Please', 'group-events-for-buddyboss' ),
 		esc_html__( 'install BuddyBoss Platform', 'group-events-for-buddyboss' ),
 		esc_html__( 'first.', 'group-events-for-buddyboss' )
@@ -226,7 +226,7 @@ function gb_group_component_required_notice() {
 	echo '<div class="error fade"><p>';
 	echo sprintf(
 		'<strong>%s</strong> %s',
-		esc_html__( 'BuddyBoss Group Events', 'group-events-for-buddyboss' ),
+		esc_html__( 'Group Events for BuddyBoss', 'group-events-for-buddyboss' ),
 		esc_html__( 'requires Social Groups Component to work. Please activate Social Groups Component.', 'group-events-for-buddyboss' )
 	);
 	echo '</p></div>';
