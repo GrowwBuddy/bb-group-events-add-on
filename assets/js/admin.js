@@ -21,7 +21,7 @@ jQuery( document ).ready( function () {
             data: function(params) {
                 return {
                     q: params.term,
-                    action: 'gb_get_groups',
+                    action: 'gb_gefbb_get_groups',
                     nonce: BBGroupEvents.nonce,
                 };
             },

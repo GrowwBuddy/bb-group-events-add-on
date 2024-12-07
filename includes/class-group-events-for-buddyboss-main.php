@@ -63,16 +63,16 @@ class Group_Events_For_BuddyBoss_Main {
 	 */
 	public function includes() {
 		// Load all functions.
-		require gb_dir_path( 'includes/functions.php' );
-		require gb_dir_path( 'includes/admin/class-group-events-for-buddyboss-admin.php' );
-		require gb_dir_path( 'includes/admin/class-group-events-for-buddyboss-admin-metabox.php' );
+		require gb_gefbb_dir_path( 'includes/functions.php' );
+		require gb_gefbb_dir_path( 'includes/admin/class-group-events-for-buddyboss-admin.php' );
+		require gb_gefbb_dir_path( 'includes/admin/class-group-events-for-buddyboss-admin-metabox.php' );
 
 		// Load common classes.
-		require gb_dir_path( 'includes/common/class-group-events-for-buddyboss-manager.php' );
-		require gb_dir_path( 'includes/common/class-group-events-for-buddyboss-db.php' );
+		require gb_gefbb_dir_path( 'includes/common/class-group-events-for-buddyboss-manager.php' );
+		require gb_gefbb_dir_path( 'includes/common/class-group-events-for-buddyboss-db.php' );
 
 		// Load admin and frontend classes.
-		require gb_dir_path( 'includes/frontend/class-group-events-for-buddyboss-frontend.php' );
+		require gb_gefbb_dir_path( 'includes/frontend/class-group-events-for-buddyboss-frontend.php' );
 	}
 
 	/**
@@ -93,7 +93,7 @@ class Group_Events_For_BuddyBoss_Main {
 	 * @return array
 	 */
 	public function actions_links( $links, $file ) {
-		if ( plugin_basename( gb_dir_path( 'group-events-for-buddyboss.php' ) ) === $file ) {
+		if ( plugin_basename( gb_gefbb_dir_path( 'group-events-for-buddyboss.php' ) ) === $file ) {
 			$links['settings'] = sprintf(
 				'<a href="%s">%s</a>',
 				admin_url( 'admin.php?page=bp-settings&tab=bp-groups#gb_gefbb_settings' ),

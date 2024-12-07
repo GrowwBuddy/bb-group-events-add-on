@@ -74,7 +74,7 @@ if ( ! class_exists( 'Group_Events_For_BuddyBoss' ) ) {
 		 * @since 1.0.0
 		 */
 		public function includes() {
-			require_once gb_dir_path( 'includes/class-group-events-for-buddyboss-main.php' );
+			require_once gb_gefbb_dir_path( 'includes/class-group-events-for-buddyboss-main.php' );
 		}
 
 		/**
@@ -89,7 +89,7 @@ if ( ! class_exists( 'Group_Events_For_BuddyBoss' ) ) {
 			 * Triggered when plugin is loaded
 			 * @since 1.0.0
 			 */
-			do_action( 'gb_group_events_loaded' );
+			do_action( 'gb_gefbb_loaded' );
 		}
 
 		/**
@@ -97,7 +97,7 @@ if ( ! class_exists( 'Group_Events_For_BuddyBoss' ) ) {
 		 * @since 1.0.0
 		 */
 		public function load_textdomain() {
-			load_plugin_textdomain( 'group-events-for-buddyboss', false, gb_dir_path( 'languages/' ) );
+			load_plugin_textdomain( 'group-events-for-buddyboss', false, gb_gefbb_dir_path( 'languages/' ) );
 		}
 
 
@@ -158,18 +158,18 @@ if ( ! class_exists( 'Group_Events_For_BuddyBoss' ) ) {
 
 /************************* Load functions *************************/
 
-if ( ! function_exists( 'gb_group_events_for_buddyboss' ) ) {
+if ( ! function_exists( 'gb_gefbb' ) ) {
 	/**
 	 * Get the instance of the Group_Events_For_BuddyBoss class
 	 *
 	 * @since 1.0.0
 	 * @return Group_Events_For_BuddyBoss
 	 */
-	function gb_group_events_for_buddyboss() {
+	function gb_gefbb() {
 		if ( ! defined( 'BP_PLATFORM_VERSION' ) ) {
-			add_action( 'all_admin_notices', 'gb_platform_required_notice' );
+			add_action( 'all_admin_notices', 'gb_gefbb_platform_required_notice' );
 		} elseif ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
-			add_action( 'all_admin_notices', 'gb_group_component_required_notice' );
+			add_action( 'all_admin_notices', 'gb_gefbb_group_component_required_notice' );
 			return Group_Events_For_BuddyBoss::get_instance();
 		}
 	}
@@ -179,14 +179,14 @@ if ( ! function_exists( 'gb_group_events_for_buddyboss' ) ) {
 	 *
 	 * @since 1.0.0
 	 */
-	add_action( 'plugins_loaded', 'gb_group_events_for_buddyboss' );
+	add_action( 'plugins_loaded', 'gb_gefbb' );
 }
 
 /**
  * Group event dir path.
  * @since 1.0.0
  */
-function gb_dir_path( $path = '' ) {
+function gb_gefbb_dir_path( $path = '' ) {
 	return GB_GEFBB_PLUGIN_DIR_PATH . $path;
 }
 
@@ -194,7 +194,7 @@ function gb_dir_path( $path = '' ) {
  * Group event dir url.
  * @since 1.0.0
  */
-function gb_dir_url( $path = '' ) {
+function gb_gefbb_dir_url( $path = '' ) {
 	return GB_GEFBB_PLUGIN_URL_PATH . $path;
 }
 
@@ -202,7 +202,7 @@ function gb_dir_url( $path = '' ) {
  * Group event required notice.
  * @since 1.0.0
  */
-function gb_platform_required_notice() {
+function gb_gefbb_platform_required_notice() {
 	echo '<div class="error fade"><p>';
 	echo sprintf(
 		'<strong>%s</strong> %s <a href="https://buddyboss.com/platform/" target="_blank">%s</a> %s',
@@ -218,7 +218,7 @@ function gb_platform_required_notice() {
  * Group event required notice.
  * @since 1.0.0
  */
-function gb_group_component_required_notice() {
+function gb_gefbb_group_component_required_notice() {
 	if ( function_exists( 'bp_is_active' ) && bp_is_active( 'groups' ) ) {
 		return;
 	}

@@ -53,7 +53,7 @@ if ( ! class_exists( 'Group_Events_For_BuddyBoss_Extension' ) && class_exists( '
 		 * @since 1.0.0
 		 */
 		public function display( $group_id = null ) {
-			include gb_group_events_get_template( 'group-events-for-buddyboss.php' );
+			include gb_gefbb_group_events_get_template( 'group-events-for-buddyboss.php' );
 		}
 	}
 }

@@ -60,14 +60,14 @@ class Group_Events_For_BuddyBoss_DB {
 	 * @since 1.0.0
 	 */
 	public function setup_hooks() {
-		if ( ! gb_disable_group_event() ) {
+		if ( ! gb_gefbb_disable_group_event() ) {
 			return;
 		}
 		add_action( 'bp_init', array( $this, 'load_extension' ) );
 		add_action( 'init', array( $this, 'main_init' ) );
 		add_filter( 'bp_core_get_groups_admin_tabs', array( $this, 'add_group_events_tab' ) );
-		add_action( 'all_admin_notices', array( $this, 'gb_groups_event_admin_group_type_listing_add_groups_tab' ) );
-		add_filter( 'parent_file', array( $this, 'gb_group_event_set_platform_tab_submenu_active' ) );
+		add_action( 'all_admin_notices', array( $this, 'gb_gefbb_groups_event_admin_group_type_listing_add_groups_tab' ) );
+		add_filter( 'parent_file', array( $this, 'gb_gefbb_group_event_set_platform_tab_submenu_active' ) );
 		add_action( 'admin_head', array( $this, 'modify_editor_for_group_event' ) );
 	}
 
@@ -89,7 +89,7 @@ class Group_Events_For_BuddyBoss_DB {
 	public function load_extension() {
 		// Register the group extension only if groups are active
 		if ( bp_is_active( 'groups' ) ) {
-			require gb_dir_path( 'includes/common/class-group-events-for-buddyboss-extension.php' );
+			require gb_gefbb_dir_path( 'includes/common/class-group-events-for-buddyboss-extension.php' );
 			bp_register_group_extension( 'Group_Events_For_BuddyBoss_Extension' );
 		}
 	}
@@ -145,7 +145,7 @@ class Group_Events_For_BuddyBoss_DB {
 	 * @since 1.0.0
 	 */
 	public function add_group_events_tab( $tabs ) {
-		$cpt_type = gb_groups_event_get_post_type();
+		$cpt_type = gb_gefbb_groups_event_get_post_type();
 		if ( is_network_admin() && bp_is_network_activated() ) {
 			$group_url = get_admin_url( bp_get_root_blog_id(), 'edit.php?post_type=' . $cpt_type );
 		} else {
@@ -166,7 +166,7 @@ class Group_Events_For_BuddyBoss_DB {
 	 *
 	 * @since 1.0.0
 	 */
-	public function gb_groups_event_admin_group_type_listing_add_groups_tab() {
+	public function gb_gefbb_groups_event_admin_group_type_listing_add_groups_tab() {
 		global $pagenow, $post;
 
 		if (
@@ -191,7 +191,7 @@ class Group_Events_For_BuddyBoss_DB {
 	 * @since 1.0.0
 	 * @return string $parent_file The filename of the parent menu.
 	 */
-	public function gb_group_event_set_platform_tab_submenu_active( $parent_file ) {
+	public function gb_gefbb_group_event_set_platform_tab_submenu_active( $parent_file ) {
 		global $pagenow, $current_screen, $post;
 
 		if ( true === bp_disable_group_type_creation() ) {

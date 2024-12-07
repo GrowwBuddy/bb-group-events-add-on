@@ -50,10 +50,10 @@ class Group_Events_For_BuddyBoss_Admin {
 	 */
 	public function init() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-		add_filter( 'bp_admin_setting_groups_register_fields', array( $this, 'gb_admin_setting_groups_register_fields' ) );
+		add_filter( 'bp_admin_setting_groups_register_fields', array( $this, 'gb_gefbb_admin_setting_groups_register_fields' ) );
 		add_filter( 'bb_admin_icons', array( $this, 'admin_setting_icons' ), 10, 2 );
-		add_filter( 'manage_' . gb_groups_event_get_post_type() . '_posts_columns', array( $this, 'gb_group_events_columns_head' ) );
-		add_action( 'manage_' . gb_groups_event_get_post_type() . '_posts_custom_column', array( $this, 'gb_group_events_columns_content' ), 10, 2 );
+		add_filter( 'manage_' . gb_gefbb_groups_event_get_post_type() . '_posts_columns', array( $this, 'gb_gefbb_group_events_columns_head' ) );
+		add_action( 'manage_' . gb_gefbb_groups_event_get_post_type() . '_posts_custom_column', array( $this, 'gb_gefbb_group_events_columns_content' ), 10, 2 );
 	}
 
 	/**
@@ -63,17 +63,15 @@ class Group_Events_For_BuddyBoss_Admin {
 	public function enqueue_scripts() {
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		wp_enqueue_script( 'select2-js', gb_dir_url( 'assets/lib/select2-4.0.13/js/select2' . $suffix . '.js', array( 'jquery' ), GB_GEFBB_VERSION, array( 'in_footer' => true ) ) );
-		wp_enqueue_style( 'select2-css', gb_dir_url( 'assets/lib/select2-4.0.13/css/select2' . $suffix . '.css' ), array(), GB_GEFBB_VERSION );
+		wp_register_script( 'select2-js', gb_gefbb_dir_url( 'assets/lib/select2-4.0.13/js/select2' . $suffix . '.js' ), array( 'jquery' ), GB_GEFBB_VERSION, array( 'in_footer' => true ) );
+		wp_register_style( 'select2-css', gb_gefbb_dir_url( 'assets/lib/select2-4.0.13/css/select2' . $suffix . '.css' ), array(), GB_GEFBB_VERSION );
+		wp_register_script( 'group-events-for-buddyboss-admin', gb_gefbb_dir_url( 'assets/js/admin.js' ), array( 'jquery', 'select2-js' ), GB_GEFBB_VERSION, array( 'in_footer' => true ) );
+		wp_register_style( 'group-events-for-buddyboss-admin', gb_gefbb_dir_url( 'assets/css/admin.css' ), array(), GB_GEFBB_VERSION );
 
-		wp_enqueue_style( 'group-events-for-buddyboss-admin', gb_dir_url( 'assets/css/admin.css' ), array(), GB_GEFBB_VERSION );
-		wp_enqueue_script(
-			'group-events-for-buddyboss-admin',
-			gb_dir_url( 'assets/js/admin.js' ),
-			array( 'jquery', 'select2-js' ),
-			GB_GEFBB_VERSION,
-			true
-		);
+		wp_enqueue_script( 'select2-js' );
+		wp_enqueue_style( 'select2-css' );
+		wp_enqueue_script( 'group-events-for-buddyboss-admin' );
+		wp_enqueue_style( 'group-events-for-buddyboss-admin' );
 
 		// Pass AJAX URL and nonce to JavaScript
 		wp_localize_script(
@@ -81,7 +79,7 @@ class Group_Events_For_BuddyBoss_Admin {
 			'BBGroupEvents',
 			array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
-				'nonce'    => wp_create_nonce( 'gb_admin_nonce' ),
+				'nonce'    => wp_create_nonce( 'gb_gefbb_admin_nonce' ),
 			)
 		);
 	}
@@ -90,33 +88,32 @@ class Group_Events_For_BuddyBoss_Admin {
 	 * Register the settings fields.
 	 * @since 1.0.0
 	 */
-	public function gb_admin_setting_groups_register_fields( $admin_setting_groups ) {
+	public function gb_gefbb_admin_setting_groups_register_fields( $admin_setting_groups ) {
 		$admin_setting_groups->add_section( 'gb_gefbb_settings', __( 'Group Events', 'group-events-for-buddyboss' ) );
 
 		// enable or disable group events.
-		$admin_setting_groups->add_field( 'gb-disable', __( 'Enable Group Events', 'group-events-for-buddyboss' ), array( $this, 'gb_enable_group_events' ), 'intval' );
+		$admin_setting_groups->add_field( 'gb-gefbb-disable', __( 'Enable Group Events', 'group-events-for-buddyboss' ), array( $this, 'gb_gefbb_enable_group_events' ), 'intval' );
 	}
 
 	/**
 	 * Enable or disable group events.
 	 * @since 1.0.0
 	 */
-	public function gb_enable_group_events() {
+	public function gb_gefbb_enable_group_events() {
 		?>
-		<input id="gb-disable" name="gb-disable" type="checkbox" value="1" <?php checked( gb_disable_group_event() ); ?> />
+		<input id="gb-gefbb-disable" name="gb-gefbb-disable" type="checkbox" value="1" <?php checked( gb_gefbb_disable_group_event() ); ?> />
 		<?php
-		if ( true === gb_disable_group_event() ) {
-
+		if ( true === gb_gefbb_disable_group_event() ) {
 			printf(
-				'<label for="gb-disable">%s</label>',
+				'<label for="gb-gefbb-disable">%s</label>',
 				sprintf(
-						/* translators: 1. Enable group events link 2. Group events 3. Group events description */
+				/* translators: 1. Enable group events link 2. Group events 3. Group events description */
 					'%s<a href="%s">%s</a> %s',
 					esc_html__( 'Enable ', 'group-events-for-buddyboss' ),
 					esc_url(
 						add_query_arg(
 							array(
-								'post_type' => gb_groups_event_get_post_type(),
+								'post_type' => gb_gefbb_groups_event_get_post_type(),
 							),
 							admin_url( 'edit.php' )
 						)
@@ -127,7 +124,7 @@ class Group_Events_For_BuddyBoss_Admin {
 			);
 		} else {
 			?>
-			<label for="gb-disable"><?php esc_html_e( 'Enable group event to better organize groups events', 'group-events-for-buddyboss' ); ?></label>
+			<label for="gb-gefbb-disable"><?php esc_html_e( 'Enable group event to better organize groups events', 'group-events-for-buddyboss' ); ?></label>
 			<?php
 		}
 	}
@@ -159,7 +156,7 @@ class Group_Events_For_BuddyBoss_Admin {
 	 *
 	 * @return array
 	 */
-	public function gb_group_events_columns_head( $columns ) {
+	public function gb_gefbb_group_events_columns_head( $columns ) {
 		$columns['group']      = __( 'Group', 'group-events-for-buddyboss' );
 		$columns['event_date'] = __( 'Event Date', 'group-events-for-buddyboss' );
 		$columns['total_rsvp'] = __( 'Total RSVP', 'group-events-for-buddyboss' );
@@ -175,7 +172,7 @@ class Group_Events_For_BuddyBoss_Admin {
 	 *
 	 * @since 1.0.0
 	 */
-	public function gb_group_events_columns_content( $column, $post_id ) {
+	public function gb_gefbb_group_events_columns_content( $column, $post_id ) {
 		switch ( $column ) {
 			case 'group':
 				$event = Group_Events_For_BuddyBoss_Manager::get_instance()->get_event( $post_id );

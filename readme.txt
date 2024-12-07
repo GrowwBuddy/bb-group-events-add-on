@@ -16,15 +16,12 @@ Create events for BuddyBoss groups and allow members to RSVP to upcoming events.
 
 **Group Events for BuddyBoss** is a plugin that allows you to create events for BuddyBoss groups. It adds a new tab to the group page where members can view and RSVP to upcoming events. The plugin includes features to create, edit, and delete events, as well as send notifications to group members.
 
-
-
-
 **Features:**
+- Enable group events for BuddyBoss groups settings
 - Create events for BuddyBoss groups
 - RSVP to events as a group member
 - View upcoming events on the group page
 - Edit and delete events as an admin
-- Send notifications to group members for new events
 
 == Installation ==
 

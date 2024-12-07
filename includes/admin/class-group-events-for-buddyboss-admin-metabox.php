@@ -55,7 +55,7 @@ class Group_Events_For_BuddyBoss_Admin_MetaBox {
 		// Save metabox data
 		add_action( 'save_post', array( $this, 'save_metabox_data' ) );
 
-		add_action( 'wp_ajax_gb_get_groups', array( $this, 'gb_get_groups' ) );
+		add_action( 'wp_ajax_gb_gefbb_get_groups', array( $this, 'get_groups' ) );
 	}
 
 	/**
@@ -64,28 +64,28 @@ class Group_Events_For_BuddyBoss_Admin_MetaBox {
 	 */
 	public function register_metaboxes() {
 		add_meta_box(
-			'gb_event_details_metabox',
+			'gb_gefbb_event_details_metabox',
 			__( 'Event Details', 'group-events-for-buddyboss' ),
 			array( $this, 'render_event_details_metabox' ),
-			gb_groups_event_get_post_type(),
+			gb_gefbb_groups_event_get_post_type(),
 			'normal',
 			'high'
 		);
 
 		add_meta_box(
-			'gb_selected_group_metabox',
+			'gb_gefbb_selected_group_metabox',
 			__( 'Selected Group', 'group-events-for-buddyboss' ),
 			array( $this, 'render_selected_group_metabox' ),
-			gb_groups_event_get_post_type(),
+			gb_gefbb_groups_event_get_post_type(),
 			'side',
 			'high'
 		);
 
 		add_meta_box(
-			'gb_group_members_metabox',
+			'gb_gefbb_group_members_metabox',
 			__( 'Manage Event Members', 'group-events-for-buddyboss' ),
 			array( $this, 'render_group_members_metabox' ),
-			gb_groups_event_get_post_type(),
+			gb_gefbb_groups_event_get_post_type(),
 			'normal',
 			'high'
 		);
@@ -96,14 +96,14 @@ class Group_Events_For_BuddyBoss_Admin_MetaBox {
 	 * @since 1.0.0
 	 */
 	public function render_event_details_metabox( $post ) {
-		wp_nonce_field( 'gb_details_nonce', 'gb_nonce' );
+		wp_nonce_field( 'gb_gefbb_details_nonce', 'gb_gefbb_nonce' );
 
 		$event_id   = $post->ID;
 		$start_date = get_post_meta( $event_id, '_event_start_date', true );
 		$end_date   = get_post_meta( $event_id, '_event_end_date', true );
 		$location   = get_post_meta( $event_id, '_event_location', true );
 		$event_type = get_post_meta( $event_id, '_event_type', true );
-		$attendees  = gb_get_event_attendees( $event_id );
+		$attendees  = gb_gefbb_get_event_attendees( $event_id );
 
 		?>
 		<table class="form-table">
@@ -220,9 +220,6 @@ class Group_Events_For_BuddyBoss_Admin_MetaBox {
 			$pagination[ $type ] = bp_groups_admin_create_pagination_links( $member_type_query, $type );
 		}
 
-		// Echo out the JavaScript variable.
-		echo '<script>var group_id = "' . esc_js( $item->id ) . '";</script>';
-
 		// Loop through each profile type.
 		foreach ( $members as $member_type => $type_users ) :
 			?>
@@ -326,7 +323,7 @@ class Group_Events_For_BuddyBoss_Admin_MetaBox {
 	 * @since 1.0.0
 	 */
 	public function save_metabox_data( $post_id ) {
-		if ( ! isset( $_POST['gb_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['gb_nonce'] ), 'gb_details_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( ! isset( $_POST['gb_gefbb_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['gb_gefbb_nonce'] ), 'gb_gefbb_details_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			return;
 		}
 
@@ -370,8 +367,8 @@ class Group_Events_For_BuddyBoss_Admin_MetaBox {
 	 * AJAX callback to get BuddyBoss groups for Select2.
 	 * @since 1.0.0
 	 */
-	public function gb_get_groups() {
-		check_ajax_referer( 'gb_admin_nonce', 'nonce' );
+	public function get_groups() {
+		check_ajax_referer( 'gb_gefbb_admin_nonce', 'nonce' );
 
 		$search = isset( $_GET['q'] ) ? sanitize_text_field( wp_unslash( $_GET['q'] ) ) : '';
 		$groups = groups_get_groups(

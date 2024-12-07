@@ -96,8 +96,8 @@ class BuddyBossGroupEvents {
 
     openEditEventModal( e ) {
         e.preventDefault();
-        const eventId = jQuery( e.currentTarget ).data( 'event-id' );
-        this.loadEventTemplate( eventId );
+        const eventID = jQuery( e.currentTarget ).data( 'event-id' );
+        this.loadEventTemplate( eventID );
     }
 
     closeModal(e) {
@@ -108,22 +108,22 @@ class BuddyBossGroupEvents {
         wp.editor.remove('event_description');
     }
 
-    loadEventTemplate( eventId = null, data = {} ) {
+    loadEventTemplate( eventID = null, data = {} ) {
         // Clear previous error messages
         jQuery( '.error' ).removeClass( 'error' );
         // Load the template
         const template = wp.template( 'event-form-template' );
         // Prepare data for the template
 
-        if ( eventId ) {
-            // AJAX request to get event data by `eventId`
+        if ( eventID ) {
+            // AJAX request to get event data by `eventID`
             jQuery.ajax( {
                 type: 'GET',
-                url: gb_object.ajax_url,
+                url: gb_gefbb_object.ajax_url,
                 data: {
                     action: 'fetch_group_event',
-                    event_id: eventId,
-                    _wpnonce: gb_object.nonce,
+                    event_id: eventID,
+                    _wpnonce: gb_gefbb_object.nonce,
                 },
                 success: ( response ) => {
                     if ( response.success ) {
@@ -132,7 +132,7 @@ class BuddyBossGroupEvents {
                         const data = {
                             mode: 'edit',
                             group_id: eventData.event_group_id,
-                            event_id: eventId,
+                            event_id: eventID,
                             title: eventData.title,
                             description: eventData.description,
                             start_date_time: eventData.start_date,
@@ -178,7 +178,7 @@ class BuddyBossGroupEvents {
         event.preventDefault();
 
         const target = jQuery( event.currentTarget );
-        const eventId = jQuery( '#event_id' ).val();
+        const eventID = jQuery( '#event_id' ).val();
         const title = jQuery( '#event_title' );
         const description = typeof tinyMCE !== 'undefined' && tinyMCE.get( 'event_description' ) ? tinyMCE.get( 'event_description' ).getContent() : jQuery( '#event_description' ).val();
         const startDate = jQuery( '#event_start_date_time' );
@@ -212,8 +212,8 @@ class BuddyBossGroupEvents {
         // Data to send via AJAX
         const data = {
             action: 'group_event_save',
-            _wpnonce: gb_object.nonce,
-            event_id: eventId,
+            _wpnonce: gb_gefbb_object.nonce,
+            event_id: eventID,
             title: title.val(),
             description: description,
             start_date_time: startDate.val(),
@@ -227,7 +227,7 @@ class BuddyBossGroupEvents {
         jQuery.ajax(
             {
                 type: 'POST',
-                url: gb_object.ajax_url,
+                url: gb_gefbb_object.ajax_url,
                 data: data,
                 success: ( response ) => {
                     setTimeout(
@@ -239,7 +239,7 @@ class BuddyBossGroupEvents {
                     );
 
                     if ( response.success ) {
-                        const eventElement = jQuery( `[data-event-id='${ eventId }']` );
+                        const eventElement = jQuery( `[data-event-id='${ eventID }']` );
                         const newStartDate = new Date( data.start_date_time );
                         const today = new Date();
                         let newContainer;
@@ -282,14 +282,14 @@ class BuddyBossGroupEvents {
     loadEditRSVPTemplate( e ) {
         // Load the template
         const template = wp.template( 'edit-rsvp-template' );
-        const eventId = jQuery( e.currentTarget ).data( 'event-id' );
+        const eventID = jQuery( e.currentTarget ).data( 'event-id' );
         jQuery.ajax({
             type: 'GET',
-            url: gb_object.ajax_url,
+            url: gb_gefbb_object.ajax_url,
             data: {
                 action: 'fetch_user_rsvp',
-                event_id: eventId,
-                _wpnonce: gb_object.nonce,
+                event_id: eventID,
+                _wpnonce: gb_gefbb_object.nonce,
             },
             success: (response) => {
                 if (response.success) {
@@ -310,8 +310,8 @@ class BuddyBossGroupEvents {
     saveUserRSVP(e) {
         e.preventDefault();
         const button = jQuery(e.currentTarget);
-        const eventId = button.data('event-id');
-        const groupId = button.data('group-id') || null;
+        const eventID = button.data('event-id');
+        const groupID = button.data('group-id') || null;
         const rsvpStatus = jQuery('#event_rsvp').val() || 'yes';  // Default RSVP status
         const comment = jQuery('#event_comment').val() || '';
         const mode = button.data('mode');
@@ -321,16 +321,16 @@ class BuddyBossGroupEvents {
         // AJAX data payload
         const data = {
             action: 'save_user_rsvp',
-            _wpnonce: gb_object.nonce,
-            event_id: eventId,
-            group_id: groupId,
+            _wpnonce: gb_gefbb_object.nonce,
+            event_id: eventID,
+            group_id: groupID,
             rsvp_status: rsvpStatus,
             comment: comment,
         };
 
         jQuery.ajax({
             type: 'POST',
-            url: gb_object.ajax_url,
+            url: gb_gefbb_object.ajax_url,
             data: data,
             success: (response) => {
                 if (response.success) {
@@ -339,7 +339,7 @@ class BuddyBossGroupEvents {
                         jQuery('#group-events-for-buddyboss-modal').empty(); // Empty the modal content.
                     }
                     if( jQuery('.gb-events-list').length > 0 ) {
-                        jQuery('.gb-events-list').find(`[data-event-id='${eventId}']`).find('.gb-attend-btn').html(response.data.rsvp_button);
+                        jQuery('.gb-events-list').find(`[data-event-id='${eventID}']`).find('.gb-attend-btn').html(response.data.rsvp_button);
                     } else {
                         jQuery('.group-events-for-buddyboss-footer').find('.attend-button').html(response.data.rsvp_button);
                     }
@@ -363,14 +363,14 @@ class BuddyBossGroupEvents {
         const groupID = jQuery('.gb-event-type-btn.active').data('group-id'); // Get the active event type
 
         jQuery.ajax({
-            url: gb_object.ajax_url,
+            url: gb_gefbb_object.ajax_url,
             type: 'POST',
             data: {
                 action: 'load_events',
                 status: eventType,
                 group_id: groupID,
                 paged: page,
-                _wpnonce: gb_object.nonce,
+                _wpnonce: gb_gefbb_object.nonce,
             },
             success: (response) => {
                 if (response.success) {

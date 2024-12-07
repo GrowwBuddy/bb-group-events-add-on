@@ -69,21 +69,18 @@ class Group_Events_For_BuddyBoss_FrontEnd {
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_editor();
-		wp_enqueue_style( 'gb-frontend', gb_dir_url( 'assets/css/frontend.css' ), array(), GB_GEFBB_VERSION );
-		wp_enqueue_script(
-			'gb-frontend',
-			gb_dir_url( 'assets/js/frontend.js' ),
-			array( 'jquery' ),
-			GB_GEFBB_VERSION,
-			true
-		);
+		wp_register_style( 'group-events-for-buddyboss-frontend', gb_gefbb_dir_url( 'assets/css/frontend.css' ), array(), GB_GEFBB_VERSION );
+		wp_register_script( 'group-events-for-buddyboss-frontend', gb_gefbb_dir_url( 'assets/js/frontend.js' ), array( 'jquery' ), GB_GEFBB_VERSION, true );
+
+		wp_enqueue_script( 'group-events-for-buddyboss-frontend' );
+		wp_enqueue_style( 'group-events-for-buddyboss-frontend' );
 
 		wp_localize_script(
-			'gb-frontend',
-			'gb_object',
+			'group-events-for-buddyboss-frontend',
+			'gb_gefbb_object',
 			array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
-				'nonce'    => wp_create_nonce( 'gb_nonce' ),
+				'nonce'    => wp_create_nonce( 'gb_gefbb_nonce' ),
 			)
 		);
 	}
@@ -93,10 +90,10 @@ class Group_Events_For_BuddyBoss_FrontEnd {
 	 * @since 1.0.0
 	 */
 	public function enqueue_event_form_template() {
-		if ( gb_can_manage_group() ) {
-			include gb_group_events_get_template( 'events/manage/create-event.php' );
+		if ( gb_gefbb_can_manage_group() ) {
+			include gb_gefbb_group_events_get_template( 'events/manage/create-event.php' );
 		}
-		include gb_group_events_get_template( 'events/manage/edit-rsvp.php' );
+		include gb_gefbb_group_events_get_template( 'events/manage/edit-rsvp.php' );
 	}
 
 	/**
@@ -104,8 +101,8 @@ class Group_Events_For_BuddyBoss_FrontEnd {
 	 * @since 1.0.0
 	 */
 	public function load_event_template( $template ) {
-		if ( is_singular( gb_groups_event_get_post_type() ) ) {
-			$template = gb_group_events_get_template( 'single-group-events-for-buddyboss.php' );
+		if ( is_singular( gb_gefbb_groups_event_get_post_type() ) ) {
+			$template = gb_gefbb_group_events_get_template( 'single-group-events-for-buddyboss.php' );
 		}
 
 		return $template;
@@ -118,7 +115,7 @@ class Group_Events_For_BuddyBoss_FrontEnd {
 	 */
 	public function fetch_group_event() {
 		// Check nonce for security.
-		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_GET['_wpnonce'] ), 'gb_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'gb_gefbb_nonce' ) ) {
 			wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
 
 			return;
@@ -136,7 +133,7 @@ class Group_Events_For_BuddyBoss_FrontEnd {
 		// Retrieve event data.
 		$event_post = get_post( $event_id );
 
-		if ( ! $event_post || gb_groups_event_get_post_type() !== $event_post->post_type ) {
+		if ( ! $event_post || gb_gefbb_groups_event_get_post_type() !== $event_post->post_type ) {
 			wp_send_json_error( array( 'message' => 'Event not found' ) );
 
 			return;
@@ -162,7 +159,7 @@ class Group_Events_For_BuddyBoss_FrontEnd {
 	 * @since 1.0.0
 	 */
 	public function save_group_event() {
-		check_ajax_referer( 'gb_nonce', '_wpnonce' );
+		check_ajax_referer( 'gb_gefbb_nonce', '_wpnonce' );
 
 		// Capture and sanitize inputs
 		$event_id       = ! empty( $_POST['event_id'] ) ? absint( $_POST['event_id'] ) : 0;
@@ -179,7 +176,7 @@ class Group_Events_For_BuddyBoss_FrontEnd {
 			'post_title'   => $title,
 			'post_content' => $description,
 			'post_status'  => 'publish',
-			'post_type'    => gb_groups_event_get_post_type(), // Ensure this post type is registered
+			'post_type'    => gb_gefbb_groups_event_get_post_type(), // Ensure this post type is registered
 		);
 
 		if ( $event_id ) {
@@ -205,7 +202,7 @@ class Group_Events_For_BuddyBoss_FrontEnd {
 		// Prepare HTML for response
 		$event = Group_Events_For_BuddyBoss_Manager::get_instance()->get_event( $event_id );
 		ob_start();
-		gb_group_events_include_template( 'events/list-item.php', array( 'event' => $event ) );
+		gb_gefbb_group_events_include_template( 'events/list-item.php', array( 'event' => $event ) );
 		$event_html = ob_get_clean();
 
 		// Send the HTML as a response
@@ -220,7 +217,7 @@ class Group_Events_For_BuddyBoss_FrontEnd {
 	 */
 	public function fetch_user_rsvp() {
 		// Check nonce for security.
-		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_GET['_wpnonce'] ), 'gb_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'gb_gefbb_nonce' ) ) {
 			wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
 
 			return;
@@ -248,7 +245,7 @@ class Group_Events_For_BuddyBoss_FrontEnd {
 	 */
 	public function handle_user_rsvp() {
 		// Check nonce for security.
-		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['_wpnonce'] ), 'gb_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'gb_gefbb_nonce' ) ) {
 			wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
 
 			return;
@@ -307,7 +304,7 @@ class Group_Events_For_BuddyBoss_FrontEnd {
 	 */
 	public function load_events() {
 		// Check nonce for security.
-		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['_wpnonce'] ), 'gb_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'gb_gefbb_nonce' ) ) {
 			wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
 
 			return;
@@ -329,7 +326,7 @@ class Group_Events_For_BuddyBoss_FrontEnd {
 		if ( ! empty( $events_data['events'] ) ) {
 			foreach ( $events_data['events'] as $event ) {
 				ob_start();
-				gb_group_events_include_template( 'events/list-item.php', array( 'event' => $event ) );
+				gb_gefbb_group_events_include_template( 'events/list-item.php', array( 'event' => $event ) );
 				$events_html .= ob_get_clean();
 			}
 		} else {

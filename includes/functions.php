@@ -5,15 +5,15 @@
  *
  * @since 1.0
  */
-function gb_disable_group_event( $disable = false ) {
-	return (bool) apply_filters( 'gb_disable', (bool) get_option( 'gb-disable', $disable ) );
+function gb_gefbb_disable_group_event( $disable = false ) {
+	return (bool) apply_filters( 'gb_gefbb_disable', (bool) get_option( 'gb-gefbb-disable', $disable ) );
 }
 
 /**
  * Get the post type for group events.
  * @since 1.0
  */
-function gb_groups_event_get_post_type() {
+function gb_gefbb_groups_event_get_post_type() {
 	return Group_Events_For_BuddyBoss_DB::get_instance()->group_event_post_type;
 }
 
@@ -21,7 +21,7 @@ function gb_groups_event_get_post_type() {
  * Get the taxonomy for group events.
  * @since 1.0
  */
-function gb_can_manage_group( $user_id = '', $group_id = '' ) {
+function gb_gefbb_can_manage_group( $user_id = '', $group_id = '' ) {
 	if ( empty( $user_id ) ) {
 		$user_id = get_current_user_id();
 	}
@@ -38,7 +38,7 @@ function gb_can_manage_group( $user_id = '', $group_id = '' ) {
  *
  * @since 1.0
  */
-function gb_get_group_event_rsvp( $event_id, $user_id = '' ) {
+function gb_gefbb_get_group_event_rsvp( $event_id, $user_id = '' ) {
 	if ( empty( $user_id ) ) {
 		$user_id = get_current_user_id();
 	}
@@ -54,7 +54,7 @@ function gb_get_group_event_rsvp( $event_id, $user_id = '' ) {
  *
  * @since 1.0
  */
-function gb_group_events_include_template( $template_name, $args = array() ) {
+function gb_gefbb_group_events_include_template( $template_name, $args = array() ) {
 	// Look for the template file in the active theme's folder first.
 	$theme_template = locate_template( 'gb-gefbb/' . $template_name );
 
@@ -81,7 +81,7 @@ function gb_group_events_include_template( $template_name, $args = array() ) {
  * @param string $template_name The name of the template file.
  * @return string
  */
-function gb_group_events_get_template( $template_name ) {
+function gb_gefbb_group_events_get_template( $template_name ) {
 	// Look for the template file in the active theme's folder first.
 	$theme_template = locate_template( 'gb-gefbb/' . $template_name );
 
@@ -102,7 +102,7 @@ function gb_group_events_get_template( $template_name ) {
  *
  * @return array
  */
-function gb_get_event_attendees( $event_id ) {
+function gb_gefbb_get_event_attendees( $event_id ) {
 	$rsvps = Group_Events_For_BuddyBoss_Manager::get_instance()->get_rsvps_by_event( $event_id );
 
 	$attendees = array();
@@ -127,7 +127,7 @@ function gb_get_event_attendees( $event_id ) {
  * @param int $group_id The group ID.
  * @return string
  */
-function gb_get_user_role_in_group( $user_id, $group_id ) {
+function gb_gefbb_get_user_role_in_group( $user_id, $group_id ) {
 	if ( groups_is_user_admin( $user_id, $group_id ) ) {
 		$button_text = apply_filters( 'bp_group_organizer_label_text', get_group_role_label( $group_id, 'organizer_singular_label_name' ), $group_id, get_group_role_label( $group_id, 'organizer_singular_label_name' ) );
 	} elseif ( groups_is_user_mod( $user_id, $group_id ) ) {

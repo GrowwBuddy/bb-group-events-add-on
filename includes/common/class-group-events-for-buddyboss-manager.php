@@ -232,7 +232,7 @@ class Group_Events_For_BuddyBoss_Manager {
 	 */
 	public function get_events( $args = array() ) {
 		$default_args = array(
-			'post_type'      => gb_groups_event_get_post_type(),
+			'post_type'      => gb_gefbb_groups_event_get_post_type(),
 			'posts_per_page' => 2,
 			'paged'          => 1,
 			'order'          => 'DESC',
@@ -320,8 +320,8 @@ class Group_Events_For_BuddyBoss_Manager {
 			'location'    => get_post_meta( $event->ID, '_event_location', true ),
 			'type'        => get_post_meta( $event->ID, '_event_type', true ),
 			'group_id'    => $group_id,
-			'attendees'   => gb_get_event_attendees( $event->ID ),
-			'is_rsvp'     => is_user_logged_in() ? gb_get_group_event_rsvp( $event->ID, get_current_user_id() ) : false,
+			'attendees'   => gb_gefbb_get_event_attendees( $event->ID ),
+			'is_rsvp'     => is_user_logged_in() ? gb_gefbb_get_group_event_rsvp( $event->ID, get_current_user_id() ) : false,
 		);
 
 		return $event_item;

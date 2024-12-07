@@ -21,10 +21,10 @@ $post_author_id   = get_post_field( 'post_author', $event_id );
 $post_author_name = get_the_author_meta( 'display_name', $post_author_id );
 $event_banner     = wp_get_attachment_url( get_post_thumbnail_id( $event_id ) );
 $group_avatar_url = bp_get_group_avatar_url( $group );
-$group_attendees  = gb_get_event_attendees( $event_id );
+$group_attendees  = gb_gefbb_get_event_attendees( $event_id );
 
 if ( empty( $group_avatar_url ) ) {
-	$group_avatar_url = gb_dir_url( 'assets/img/group-default.png' );
+	$group_avatar_url = gb_gefbb_dir_url( 'assets/img/group-default.png' );
 }
 ?>
 
@@ -187,7 +187,7 @@ if ( empty( $group_avatar_url ) ) {
 										?>
 									</a>
 								</div>
-								<p><strong><?php echo esc_html( $group_attendee['name'] ); ?></strong><br><?php echo esc_html( gb_get_user_role_in_group( $group_attendee['id'], $group_id ) ); ?></p>
+								<p><strong><?php echo esc_html( $group_attendee['name'] ); ?></strong><br><?php echo esc_html( gb_gefbb_get_user_role_in_group( $group_attendee['id'], $group_id ) ); ?></p>
 							</div>
 							<?php
 						}
@@ -202,7 +202,7 @@ if ( empty( $group_avatar_url ) ) {
 			</section>
 			<!-- Attend Button -->
 			<?php
-			$event_rsvp = gb_get_group_event_rsvp( $event_id, get_current_user_id() );
+			$event_rsvp = gb_gefbb_get_group_event_rsvp( $event_id, get_current_user_id() );
 			if ( is_user_logged_in() && $end_date > gmdate( 'Y-m-d H:i:s' ) ) {
 				if ( $event_rsvp ) {
 					if ( 'yes' === $event_rsvp->status ) {
