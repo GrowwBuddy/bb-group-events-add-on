@@ -2,7 +2,7 @@
 /**
  * The database class of the plugin.
  *
- * @package    Group_Events_For_BuddyBoss
+ * @package    GB_GEFBB
  * @subpackage Main
  */
 
@@ -11,15 +11,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class Main
+ * Class DB
  */
-class Group_Events_For_BuddyBoss_DB {
+class GB_GEFBB_DB {
 
 	/**
 	 * The instance of the class.
 	 *
 	 * @since 1.0.0
-	 * @var Group_Events_For_BuddyBoss_DB
+	 * @var GB_GEFBB_DB
 	 */
 	private static $instance;
 
@@ -29,7 +29,7 @@ class Group_Events_For_BuddyBoss_DB {
 	 * Return the plugin instance
 	 *
 	 * @since 1.0.0
-	 * @return Group_Events_For_BuddyBoss_DB
+	 * @return GB_GEFBB_DB
 	 */
 	public static function get_instance() {
 		if ( is_null( self::$instance ) ) {
@@ -90,7 +90,7 @@ class Group_Events_For_BuddyBoss_DB {
 		// Register the group extension only if groups are active
 		if ( bp_is_active( 'groups' ) ) {
 			require gb_gefbb_dir_path( 'includes/common/class-group-events-for-buddyboss-extension.php' );
-			bp_register_group_extension( 'Group_Events_For_BuddyBoss_Extension' );
+			bp_register_group_extension( 'GB_GEFBB_Extension' );
 		}
 	}
 

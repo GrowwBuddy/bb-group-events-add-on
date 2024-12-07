@@ -2,7 +2,7 @@ jQuery( document ).ready( function () {
     var menuOpen = jQuery( '#wpwrap #adminmenumain #adminmenuwrap #adminmenu #toplevel_page_buddyboss-platform ul.wp-submenu li' );
 
     // Set Groups selected on Group Type post types.
-    if ( jQuery( 'body.buddypress.post-type-group-events-for-buddyboss' ).length ) {
+    if ( jQuery( 'body.buddypress.post-type-group-events' ).length ) {
         var selectorGroups = jQuery( '#wpwrap #adminmenumain #adminmenuwrap #adminmenu .toplevel_page_buddyboss-platform ul.wp-submenu-wrap li a[href*="bp-groups"]' );
         jQuery( menuOpen ).removeClass( 'current' );
         jQuery( selectorGroups ).addClass( 'current' );
@@ -15,14 +15,14 @@ jQuery( document ).ready( function () {
     });
     jQuery('#connected_group_select').select2({
         ajax: {
-            url: BBGroupEvents.ajax_url,
+            url: gb_gefbb_admin_object.ajax_url,
             dataType: 'json',
             delay: 250,
             data: function(params) {
                 return {
                     q: params.term,
                     action: 'gb_gefbb_get_groups',
-                    nonce: BBGroupEvents.nonce,
+                    nonce: gb_gefbb_admin_object.nonce,
                 };
             },
             processResults: function(data) {

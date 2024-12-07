@@ -3,9 +3,12 @@
  * The template for displaying group events.
  * This template can be overridden by copying it to yourtheme/gb-gefbb/group-events-for-buddyboss.php.
  *
- * @package    Group_Events_For_BuddyBoss
+ * @package    GB_GEFBB
  * @subpackage Templates
  */
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+} // Exit if accessed directly
 
 $user_id  = get_current_user_id();
 $group_id = bp_get_current_group_id();
@@ -37,4 +40,4 @@ $group_id = bp_get_current_group_id();
 		?>
 	</div>
 </div>
-<div id="group-events-for-buddyboss-modal" class="group-events-for-buddyboss-modal"></div>
+<div id="gb-gefbb-modal" class="gb-gefbb-modal"></div>

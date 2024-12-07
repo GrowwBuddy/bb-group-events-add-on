@@ -2,20 +2,20 @@
 /**
  * The template for displaying create event form.
  * This template can be overridden by copying it to yourtheme/gb-gefbb/events/manage/create-event.php.
- * @package    Group_Events_For_BuddyBoss
+ * @package    GB_GEFBB
  * @subpackage Templates
  */
 ?>
 <script type="text/html" id="tmpl-event-form-template">
 	<div class="modal-mask bb-white bbm-model-wrap">
 		<div class="modal-wrapper">
-			<div id="group-events-for-buddyboss-open-popup" class="modal-container group-events-for-buddyboss-open-popup">
+			<div id="gb-gefbb-open-popup" class="modal-container gb-gefbb-open-popup">
 				<input type="hidden" name="event_group_id" id="event_group_id" value="{{{ data.group_id }}}">
 				<input type="hidden" name="event_id" id="event_id" value="{{{ data.event_id || '' }}}">
 
 				<header class="bb-model-header">
 					<h4>{{{ data.mode === 'edit' ? '<?php esc_html_e( 'Edit Event', 'group-events-for-buddyboss' ); ?>' : '<?php esc_html_e( 'Create Event', 'group-events-for-buddyboss' ); ?>' }}}</h4>
-					<a class="bb-model-close-button" id="group-events-for-buddyboss-modal-close" href="#"><span class="bb-icon-l bb-icon-times"></span></a>
+					<a class="bb-model-close-button" id="gb-gefbb-modal-close" href="#"><span class="bb-icon-l bb-icon-times"></span></a>
 				</header>
 
 				<div class="bb-model-content">
@@ -60,7 +60,7 @@
 				</div>
 
 				<footer class="bb-model-footer">
-					<a class="button" id="group-events-for-buddyboss-save-submit">{{{ data.mode === 'edit' ? '<?php esc_html_e( 'Update Event', 'group-events-for-buddyboss' ); ?>' : '<?php esc_html_e( 'Create Event', 'group-events-for-buddyboss' ); ?>' }}}</a>
+					<a class="button" id="gb-gefbb-save-submit">{{{ data.mode === 'edit' ? '<?php esc_html_e( 'Update Event', 'group-events-for-buddyboss' ); ?>' : '<?php esc_html_e( 'Create Event', 'group-events-for-buddyboss' ); ?>' }}}</a>
 				</footer>
 			</div>
 		</div>

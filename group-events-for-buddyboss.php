@@ -18,9 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once plugin_dir_path( __FILE__ ) . 'constants.php';
 
 // Register activation hook
-register_activation_hook( __FILE__, array( 'Group_Events_For_BuddyBoss', 'activation_hook' ) );
+register_activation_hook( __FILE__, array( 'GB_GEFBB', 'activation_hook' ) );
 // Register deactivation hook
-register_deactivation_hook( __FILE__, array( 'Group_Events_For_BuddyBoss', 'deactivation_hook' ) );
+register_deactivation_hook( __FILE__, array( 'GB_GEFBB', 'deactivation_hook' ) );
 
 if ( ! defined( 'GB_GEFBB_VERSION' ) ) {
 	return;
@@ -31,17 +31,17 @@ if ( ! defined( 'GB_GEFBB_VERSION' ) ) {
  *
  * @since 1.0.0
  */
-if ( ! class_exists( 'Group_Events_For_BuddyBoss' ) ) {
+if ( ! class_exists( 'GB_GEFBB' ) ) {
 	/**
-	 * Class Group_Events_For_BuddyBoss
+	 * Class Root
 	 * @since 1.0.0
 	 */
-	class Group_Events_For_BuddyBoss {
+	class GB_GEFBB {
 
 		/**
 		 * The instance of the class.
 		 *
-		 * @var Group_Events_For_BuddyBoss
+		 * @var GB_GEFBB
 		 */
 		private static $instance;
 
@@ -49,7 +49,7 @@ if ( ! class_exists( 'Group_Events_For_BuddyBoss' ) ) {
 		 * Return the plugin instance
 		 *
 		 * @since 1.0.0
-		 * @return Group_Events_For_BuddyBoss
+		 * @return GB_GEFBB
 		 */
 		public static function get_instance() {
 			if ( is_null( self::$instance ) ) {
@@ -83,7 +83,7 @@ if ( ! class_exists( 'Group_Events_For_BuddyBoss' ) ) {
 		 */
 		public function init() {
 			// Initialize plugin core
-			Group_Events_For_BuddyBoss_Main::get_instance();
+			GB_GEFBB_Main::get_instance();
 
 			/**
 			 * Triggered when plugin is loaded
@@ -106,7 +106,7 @@ if ( ! class_exists( 'Group_Events_For_BuddyBoss' ) ) {
 		 * @since 1.0.0
 		 */
 		public static function activation_hook() {
-			Group_Events_For_BuddyBoss::get_instance()->on_database_update();
+			GB_GEFBB::get_instance()->on_database_update();
 		}
 
 		/**
@@ -160,17 +160,17 @@ if ( ! class_exists( 'Group_Events_For_BuddyBoss' ) ) {
 
 if ( ! function_exists( 'gb_gefbb' ) ) {
 	/**
-	 * Get the instance of the Group_Events_For_BuddyBoss class
+	 * Get the instance of the GB_GEFBB class
 	 *
 	 * @since 1.0.0
-	 * @return Group_Events_For_BuddyBoss
+	 * @return GB_GEFBB
 	 */
 	function gb_gefbb() {
 		if ( ! defined( 'BP_PLATFORM_VERSION' ) ) {
 			add_action( 'all_admin_notices', 'gb_gefbb_platform_required_notice' );
 		} elseif ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
 			add_action( 'all_admin_notices', 'gb_gefbb_group_component_required_notice' );
-			return Group_Events_For_BuddyBoss::get_instance();
+			return GB_GEFBB::get_instance();
 		}
 	}
 

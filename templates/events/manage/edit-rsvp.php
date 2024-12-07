@@ -2,7 +2,7 @@
 /**
  * The template for displaying edit rsvp.
  * This template can be overridden by copying it to yourtheme/gb-gefbb/edit-rsvp.php.
- * @package    Group_Events_For_BuddyBoss
+ * @package    GB_GEFBB
  * @subpackage Templates
  *
  */
@@ -10,11 +10,11 @@
 <script type="text/html" id="tmpl-edit-rsvp-template">
 	<div class="modal-mask bb-white bbm-model-wrap">
 		<div class="modal-wrapper">
-			<div id="group-events-for-buddyboss-open-popup" class="modal-container group-events-for-buddyboss-open-popup">
+			<div id="gb-gefbb-open-popup" class="modal-container gb-gefbb-open-popup">
 
 				<header class="bb-model-header">
 					<h4><?php esc_html_e( 'Update your RSVP', 'group-events-for-buddyboss' ); ?></h4>
-					<a class="bb-model-close-button" id="group-events-for-buddyboss-modal-close" href="#"><span class="bb-icon-l bb-icon-times"></span></a>
+					<a class="bb-model-close-button" id="gb-gefbb-modal-close" href="#"><span class="bb-icon-l bb-icon-times"></span></a>
 				</header>
 
 				<div class="bb-model-content">

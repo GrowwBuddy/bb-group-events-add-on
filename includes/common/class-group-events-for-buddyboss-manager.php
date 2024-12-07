@@ -2,7 +2,7 @@
 /**
  * The database class of the plugin.
  *
- * @package    Group_Events_For_BuddyBoss
+ * @package    GB_GEFBB
  * @subpackage Main
  */
 
@@ -11,15 +11,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class Group_Events_For_BuddyBoss_Manager
+ * Class Manager
  * @since 1.0.0
  */
-class Group_Events_For_BuddyBoss_Manager {
+class GB_GEFBB_Manager {
 
 	/**
 	 * The instance of the class.
 	 * @since 1.0.0
-	 * @var Group_Events_For_BuddyBoss_Manager
+	 * @var GB_GEFBB_Manager
 	 */
 	private static $instance;
 
@@ -35,7 +35,7 @@ class Group_Events_For_BuddyBoss_Manager {
 	 * Return the plugin instance.
 	 *
 	 * @since 1.0.0
-	 * @return Group_Events_For_BuddyBoss_Manager
+	 * @return GB_GEFBB_Manager
 	 */
 	public static function get_instance() {
 		if ( is_null( self::$instance ) ) {

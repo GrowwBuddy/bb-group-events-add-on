@@ -2,9 +2,13 @@
 /**
  * The template for displaying events list.
  * This template can be overridden by copying it to yourtheme/gb-gefbb/events/list.php.
- * @package    Group_Events_For_BuddyBoss
+ * @package    GB_GEFBB
  * @subpackage Templates
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+} // Exit if accessed directly
 ?>
 <div class="gb-event-list">
 	<!-- Event Type Switch -->
@@ -19,7 +23,7 @@
 	<div class="gb-event-right">
 		<div class="gb-events-list gb-upcoming-events">
 			<?php
-			$events_data = Group_Events_For_BuddyBoss_Manager::get_instance()->get_events(
+			$events_data = GB_GEFBB_Manager::get_instance()->get_events(
 				array(
 					'status'   => 'upcoming',
 					'paged'    => 1,
@@ -67,7 +71,7 @@
 		<!-- Past Events Section -->
 		<div class="gb-events-list gb-past-events" style="display: none;">
 			<?php
-			$events_data = Group_Events_For_BuddyBoss_Manager::get_instance()->get_events(
+			$events_data = GB_GEFBB_Manager::get_instance()->get_events(
 				array(
 					'status'   => 'past',
 					'paged'    => 1,

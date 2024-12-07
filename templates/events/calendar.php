@@ -3,9 +3,13 @@
  * The template for displaying calendar view.
  * This template can be overridden by copying it to yourtheme/gb-gefbb/calendar.php.
  *
- * @package    Group_Events_For_BuddyBoss
+ * @package    GB_GEFBB
  * @subpackage Templates
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+} // Exit if accessed directly
 ?>
 <!-- Calendar View Section -->
 <div class="gb-calendar-view" style="display: none;">

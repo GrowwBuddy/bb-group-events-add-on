@@ -2,9 +2,13 @@
 /**
  * The plugin constants.
  *
- * @package    Group_Events_For_BuddyBoss
+ * @package    GB_GEFBB
  * @subpackage Constants
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+} // Exit if accessed directly
 
 /**
  * Internal constants, not to be overridden
@@ -20,4 +24,3 @@ if ( ! defined( 'GB_GEFBB_PLUGIN_DIR_PATH' ) ) {
 if ( ! defined( 'GB_GEFBB_PLUGIN_URL_PATH' ) ) {
 	define( 'GB_GEFBB_PLUGIN_URL_PATH', plugin_dir_url( __FILE__ ) );
 }
-

@@ -7,24 +7,24 @@
  * Component. It's a great example of how to perform both simple and advanced
  * techniques to manipulate Forums' default output.
  *
- * @package Group_Events_For_BuddyBoss
+ * @package GB_GEFBB
  * @todo    maybe move to BuddyBoss Forums once bbPress 1.1 can be removed
  */
 
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'Group_Events_For_BuddyBoss_Extension' ) && class_exists( 'BP_Group_Extension' ) ) {
+if ( ! class_exists( 'GB_GEFBB_Extension' ) && class_exists( 'BP_Group_Extension' ) ) {
 	/**
 	 * Loads Group Extension for Group Events
 	 *
 	 * @since 1.0.0
 	 *
 	 */
-	class Group_Events_For_BuddyBoss_Extension extends BP_Group_Extension {
+	class GB_GEFBB_Extension extends BP_Group_Extension {
 
 		/**
-		 * Group_Events_For_BuddyBoss_Extension constructor.
+		 * GB_GEFBB_Extension constructor.
 		 *
 		 * @since 1.0.0
 		 */

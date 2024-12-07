@@ -2,7 +2,7 @@
 /**
  * The main class of the plugin.
  *
- * @package    Group_Events_For_BuddyBoss
+ * @package    GB_GEFBB
  * @subpackage Main
  */
 
@@ -13,12 +13,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class Main
  */
-class Group_Events_For_BuddyBoss_Main {
+class GB_GEFBB_Main {
 
 	/**
 	 * The instance of the class.
 	 *
-	 * @var Group_Events_For_BuddyBoss_Main
+	 * @var GB_GEFBB_Main
 	 */
 	private static $instance;
 
@@ -26,7 +26,7 @@ class Group_Events_For_BuddyBoss_Main {
 	 * Return the plugin instance
 	 *
 	 * @since 1.0.0
-	 * @return Group_Events_For_BuddyBoss_Main
+	 * @return GB_GEFBB_Main
 	 */
 	public static function get_instance() {
 		if ( is_null( self::$instance ) ) {
@@ -46,15 +46,15 @@ class Group_Events_For_BuddyBoss_Main {
 
 		if ( is_admin() ) {
 			// Initialize admin core.
-			Group_Events_For_BuddyBoss_Admin::get_instance();
-			Group_Events_For_BuddyBoss_Admin_MetaBox::get_instance();
+			GB_GEFBB_Admin::get_instance();
+			GB_GEFBB_Admin_MetaBox::get_instance();
 		}
 
-		Group_Events_For_BuddyBoss_Manager::get_instance();
-		Group_Events_For_BuddyBoss_DB::get_instance();
+		GB_GEFBB_Manager::get_instance();
+		GB_GEFBB_DB::get_instance();
 
 		// Initialize frontend core.
-		Group_Events_For_BuddyBoss_FrontEnd::get_instance();
+		GB_GEFBB_FrontEnd::get_instance();
 	}
 
 	/**

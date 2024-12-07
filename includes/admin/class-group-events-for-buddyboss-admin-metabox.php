@@ -2,7 +2,7 @@
 /**
  * The admin class of Group Events for BuddyBoss.
  *
- * @package    Group_Events_For_BuddyBoss
+ * @package    GB_GEFBB
  * @subpackage Admin
  */
 
@@ -11,14 +11,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class Group_Events_For_BuddyBoss_Admin_MetaBox
+ * Class Admin MetaBox
  */
-class Group_Events_For_BuddyBoss_Admin_MetaBox {
+class GB_GEFBB_Admin_MetaBox {
 
 	/**
 	 * The instance of the class.
 	 *
-	 * @var Group_Events_For_BuddyBoss_Admin_MetaBox
+	 * @var GB_GEFBB_Admin_MetaBox
 	 */
 	private static $instance;
 
@@ -26,7 +26,7 @@ class Group_Events_For_BuddyBoss_Admin_MetaBox {
 	 * Return the plugin instance
 	 *
 	 * @since 1.0.0
-	 * @return Group_Events_For_BuddyBoss_Admin_MetaBox
+	 * @return GB_GEFBB_Admin_MetaBox
 	 */
 	public static function get_instance() {
 		if ( is_null( self::$instance ) ) {
@@ -284,7 +284,7 @@ class Group_Events_For_BuddyBoss_Admin_MetaBox {
 
 								<td class="urole-column">
 									<?php
-									$rsvp        = Group_Events_For_BuddyBoss_Manager::get_instance()->get_rsvp( $item->ID, $type_user->ID );
+									$rsvp        = GB_GEFBB_Manager::get_instance()->get_rsvp( $item->ID, $type_user->ID );
 									$rsvp_status = $rsvp ? $rsvp->status : 'no';
 
 									?>
@@ -348,16 +348,16 @@ class Group_Events_For_BuddyBoss_Admin_MetaBox {
 			$rsvps    = array_map( 'sanitize_text_field', wp_unslash( $_POST['gb_member_rsvp'] ) );
 
 			foreach ( $rsvps as $user_id => $status ) {
-				$event_rsvp = Group_Events_For_BuddyBoss_Manager::get_instance()->get_rsvp( $event_id, $user_id );
+				$event_rsvp = GB_GEFBB_Manager::get_instance()->get_rsvp( $event_id, $user_id );
 				$group_id   = get_post_meta( $event_id, '_event_group_id', true );
 
 				if ( $event_rsvp ) {
-					Group_Events_For_BuddyBoss_Manager::get_instance()->update_rsvp( $event_rsvp->ID, $status );
+					GB_GEFBB_Manager::get_instance()->update_rsvp( $event_rsvp->ID, $status );
 				} else {
 					if ( 'no' === $status ) {
 						continue;
 					}
-					Group_Events_For_BuddyBoss_Manager::get_instance()->add_rsvp( $group_id, $event_id, $user_id, $status );
+					GB_GEFBB_Manager::get_instance()->add_rsvp( $group_id, $event_id, $user_id, $status );
 				}
 			}
 		}

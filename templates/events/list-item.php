@@ -3,9 +3,13 @@
  * The template for displaying single event.
  * This template can be overridden by copying it to yourtheme/gb-gefbb/single-event.php.
  *
- * @package    Group_Events_For_BuddyBoss
+ * @package    GB_GEFBB
  * @subpackage Templates
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+} // Exit if accessed directly
 
 $event_id    = $event['id'];
 $start_date  = gmdate( 'D, M d, Y, h:i A T', strtotime( $event['start_date'] ) );

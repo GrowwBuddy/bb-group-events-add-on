@@ -2,7 +2,7 @@
 /**
  * The admin class of Group Events for BuddyBoss.
  *
- * @package    Group_Events_For_BuddyBoss
+ * @package    GB_GEFBB
  * @subpackage Admin
  */
 
@@ -13,12 +13,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class Admin
  */
-class Group_Events_For_BuddyBoss_Admin {
+class GB_GEFBB_Admin {
 
 	/**
 	 * The instance of the class.
 	 *
-	 * @var Group_Events_For_BuddyBoss_Admin
+	 * @var GB_GEFBB_Admin
 	 */
 	private static $instance;
 
@@ -26,7 +26,7 @@ class Group_Events_For_BuddyBoss_Admin {
 	 * Return the plugin instance
 	 *
 	 * @since 1.0.0
-	 * @return Group_Events_For_BuddyBoss_Admin
+	 * @return GB_GEFBB_Admin
 	 */
 	public static function get_instance() {
 		if ( is_null( self::$instance ) ) {
@@ -76,7 +76,7 @@ class Group_Events_For_BuddyBoss_Admin {
 		// Pass AJAX URL and nonce to JavaScript
 		wp_localize_script(
 			'group-events-for-buddyboss-admin',
-			'BBGroupEvents',
+			'gb_gefbb_admin_object',
 			array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'nonce'    => wp_create_nonce( 'gb_gefbb_admin_nonce' ),
@@ -175,7 +175,7 @@ class Group_Events_For_BuddyBoss_Admin {
 	public function gb_gefbb_group_events_columns_content( $column, $post_id ) {
 		switch ( $column ) {
 			case 'group':
-				$event = Group_Events_For_BuddyBoss_Manager::get_instance()->get_event( $post_id );
+				$event = GB_GEFBB_Manager::get_instance()->get_event( $post_id );
 				if ( ! empty( $event['group_id'] ) ) {
 					$group = groups_get_group( $event['group_id'] );
 					echo sprintf(
@@ -202,9 +202,9 @@ class Group_Events_For_BuddyBoss_Admin {
 
 				break;
 			case 'total_rsvp':
-				$rsvps_yes   = Group_Events_For_BuddyBoss_Manager::get_instance()->get_rsvps_by_event( $post_id, 'yes' );
-				$rsvps_no    = Group_Events_For_BuddyBoss_Manager::get_instance()->get_rsvps_by_event( $post_id, 'no' );
-				$rsvps_maybe = Group_Events_For_BuddyBoss_Manager::get_instance()->get_rsvps_by_event( $post_id, 'maybe' );
+				$rsvps_yes   = GB_GEFBB_Manager::get_instance()->get_rsvps_by_event( $post_id, 'yes' );
+				$rsvps_no    = GB_GEFBB_Manager::get_instance()->get_rsvps_by_event( $post_id, 'no' );
+				$rsvps_maybe = GB_GEFBB_Manager::get_instance()->get_rsvps_by_event( $post_id, 'maybe' );
 				if ( ! empty( count( $rsvps_yes ) ) ) {
 					echo sprintf( '<span style="color:green">%s: %d</span><br>', esc_html__( 'Yes', 'group-events-for-buddyboss' ), count( $rsvps_yes ) );
 				}

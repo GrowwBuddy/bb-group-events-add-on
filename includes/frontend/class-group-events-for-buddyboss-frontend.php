@@ -3,7 +3,7 @@
 /**
  * The frontend class of Group Events for BuddyBoss.
  *
- * @package    Group_Events_For_BuddyBoss
+ * @package    GB_GEFBB
  * @subpackage Frontend
  */
 
@@ -15,12 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class FrontEnd
  * @since 1.0.0
  */
-class Group_Events_For_BuddyBoss_FrontEnd {
+class GB_GEFBB_FrontEnd {
 
 	/**
 	 * The instance of the class.
 	 * @since 1.0.0
-	 * @var Group_Events_For_BuddyBoss_FrontEnd
+	 * @var GB_GEFBB_FrontEnd
 	 */
 	private static $instance;
 
@@ -28,7 +28,7 @@ class Group_Events_For_BuddyBoss_FrontEnd {
 	 * Return the plugin instance
 	 *
 	 * @since 1.0.0
-	 * @return Group_Events_For_BuddyBoss_FrontEnd
+	 * @return GB_GEFBB_FrontEnd
 	 */
 	public static function get_instance() {
 		if ( is_null( self::$instance ) ) {
@@ -77,7 +77,7 @@ class Group_Events_For_BuddyBoss_FrontEnd {
 
 		wp_localize_script(
 			'group-events-for-buddyboss-frontend',
-			'gb_gefbb_object',
+			'gb_gefbb_frontend_object',
 			array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'nonce'    => wp_create_nonce( 'gb_gefbb_nonce' ),
@@ -200,7 +200,7 @@ class Group_Events_For_BuddyBoss_FrontEnd {
 		update_post_meta( $event_id, '_event_group_id', $event_group_id );
 
 		// Prepare HTML for response
-		$event = Group_Events_For_BuddyBoss_Manager::get_instance()->get_event( $event_id );
+		$event = GB_GEFBB_Manager::get_instance()->get_event( $event_id );
 		ob_start();
 		gb_gefbb_group_events_include_template( 'events/list-item.php', array( 'event' => $event ) );
 		$event_html = ob_get_clean();
@@ -233,7 +233,7 @@ class Group_Events_For_BuddyBoss_FrontEnd {
 			return;
 		}
 
-		$rsvp = Group_Events_For_BuddyBoss_Manager::get_instance()->get_rsvp( $event_id, $user_id );
+		$rsvp = GB_GEFBB_Manager::get_instance()->get_rsvp( $event_id, $user_id );
 
 		// Send the response.
 		wp_send_json_success( array( 'rsvp_data' => $rsvp ) );
@@ -264,12 +264,12 @@ class Group_Events_For_BuddyBoss_FrontEnd {
 		}
 
 		// Check if RSVP exists and update or insert accordingly.
-		$rsvp = Group_Events_For_BuddyBoss_Manager::get_instance()->get_rsvp( $event_id, $user_id );
+		$rsvp = GB_GEFBB_Manager::get_instance()->get_rsvp( $event_id, $user_id );
 
 		if ( $rsvp ) {
-			Group_Events_For_BuddyBoss_Manager::get_instance()->update_rsvp( $rsvp->ID, $rsvp_status, $comment );
+			GB_GEFBB_Manager::get_instance()->update_rsvp( $rsvp->ID, $rsvp_status, $comment );
 		} else {
-			Group_Events_For_BuddyBoss_Manager::get_instance()->add_rsvp( $group_id, $event_id, $user_id, $rsvp_status, $comment );
+			GB_GEFBB_Manager::get_instance()->add_rsvp( $group_id, $event_id, $user_id, $rsvp_status, $comment );
 		}
 
 		if ( 'yes' === $rsvp_status ) {
@@ -314,7 +314,7 @@ class Group_Events_For_BuddyBoss_FrontEnd {
 		$group_id = isset( $_POST['group_id'] ) ? absint( $_POST['group_id'] ) : 0;
 		$paged    = isset( $_POST['paged'] ) ? absint( $_POST['paged'] ) : 1;
 
-		$events_data = Group_Events_For_BuddyBoss_Manager::get_instance()->get_events(
+		$events_data = GB_GEFBB_Manager::get_instance()->get_events(
 			array(
 				'status'   => $status,
 				'paged'    => $paged,

@@ -8,6 +8,9 @@
  *
  * @package Group Events for BuddyBoss
  */
+if ( ! defined( 'ABSPATH' ) ) {
+	die();
+} // Exit if accessed directly
 
 get_header();
 $event_id         = get_the_ID();
@@ -30,15 +33,15 @@ if ( empty( $group_avatar_url ) ) {
 
 <div id="primary" class="content-area">
 	<main id="main" class="site-main">
-		<div class="group-events-for-buddyboss-header">
+		<div class="gb-gefbb-header">
 			<div class="bb-event-meta">
 				<h1 class="bb-event-title">
 					<?php echo wp_kses_post( get_the_title() ); ?>
 				</h1>
 			</div>
 		</div>
-		<div class="group-events-for-buddyboss-body">
-			<div class="group-events-for-buddyboss-left">
+		<div class="gb-gefbb-body">
+			<div class="gb-gefbb-left">
 				<!-- Banner Section -->
 				<div class="banner-section">
 					<?php if ( ! empty( $event_banner ) ) : ?>
@@ -86,7 +89,7 @@ if ( empty( $group_avatar_url ) ) {
 					</div>
 				</div>
 			</div>
-			<aside class="group-events-for-buddyboss-right group-info">
+			<aside class="gb-gefbb-right group-info">
 
 				<div class="group-details">
 					<h2><?php esc_html_e( 'Group Details', 'group-events-for-buddyboss' ); ?></h2>
@@ -162,7 +165,7 @@ if ( empty( $group_avatar_url ) ) {
 				</div>
 			</aside>
 		</div>
-		<div class="group-events-for-buddyboss-footer">
+		<div class="gb-gefbb-footer">
 			<!-- Attendees Section -->
 			<section class="attendees">
 				<?php if ( is_user_logged_in() ) { ?>
@@ -234,4 +237,4 @@ if ( empty( $group_avatar_url ) ) {
 
 <?php get_footer(); ?>
 
-<div id="group-events-for-buddyboss-modal" class="group-events-for-buddyboss-modal"></div>
+<div id="gb-gefbb-modal" class="gb-gefbb-modal"></div>
